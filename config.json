@@ -1,0 +1,270 @@
+{
+  "site_name": "OCTET LAB",
+  "tagline": "IA locale, matériel et logiciels : des guides clairs, en français.",
+  "base_url": "https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT",
+  "owner_name": "BinaryForge",
+  "contact_email": "contact@VOTRE-DOMAINE.fr",
+  "disclosure": "Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.",
+  "copyright_holder": "BinaryForge",
+  "news_total": 12,
+  "per_feed": 4,
+  "feeds": [
+    {
+      "name": "Numerama",
+      "url": "https://www.numerama.com/feed/"
+    },
+    {
+      "name": "Korben",
+      "url": "https://korben.info/feed"
+    },
+    {
+      "name": "Frandroid",
+      "url": "https://www.frandroid.com/feed"
+    },
+    {
+      "name": "Clubic",
+      "url": "https://www.clubic.com/feed/news.rss"
+    },
+    {
+      "name": "Journal du Geek",
+      "url": "https://www.journaldugeek.com/feed/"
+    },
+    {
+      "name": "Hugging Face",
+      "url": "https://huggingface.co/blog/feed.xml"
+    }
+  ],
+  "partners": [
+    {
+      "name": "Amazon Partenaires",
+      "desc": "GPU, RAM, SSD, boitiers et tout le materiel pour votre setup IA ou gaming. Commission 3-10 %.",
+      "url": "https://www.amazon.fr/?tag=VOTRETAG-21",
+      "category": "Materiel"
+    },
+    {
+      "name": "LDLC",
+      "desc": "Composants PC, cartes graphiques et peripheriques chez le leader francais. Programme via Awin.",
+      "url": "https://www.awin1.com/cread.php?awinmid=4109&awinaffid=VOTRE_AWIN_ID&ued=https%3A%2F%2Fwww.ldlc.com",
+      "category": "Materiel"
+    },
+    {
+      "name": "Hostinger",
+      "desc": "Hebergement web et VPS a partir de 2,99 euros/mois. Commission jusqu a 60 % sur chaque vente.",
+      "url": "https://www.hostinger.fr/offre-hebergement?REFERRALCODE=VOTRECODE",
+      "category": "Hebergement"
+    },
+    {
+      "name": "OVHcloud",
+      "desc": "VPS et serveurs dedies pour heberger son IA locale ou ses applications. Programme partenaire OVH.",
+      "url": "https://www.ovhcloud.com/fr/vps/",
+      "category": "Hebergement"
+    },
+    {
+      "name": "Mullvad VPN",
+      "desc": "VPN respectueux de la vie privee, sans log, paiement anonyme possible. 5 euros/mois fixe.",
+      "url": "https://mullvad.net/fr",
+      "category": "Securite"
+    },
+    {
+      "name": "Backblaze B2",
+      "desc": "Stockage cloud S3-compatible a 0,006 dollar/Go. Ideal pour sauvegardes NAS et offsite.",
+      "url": "https://www.backblaze.com/b2/cloud-storage.html",
+      "category": "Stockage"
+    }
+  ],
+  "analytics": {
+    "ga4_measurement_id": "G-XXXXXXXXXX",
+    "plausible_domain": "",
+    "umami_script_url": "",
+    "umami_website_id": ""
+  },
+  "adsense": {
+    "enabled": false,
+    "client_id": "ca-pub-XXXXXXXXXXXXXXXX",
+    "slot_home_top": "1234567890"
+  },
+  "ai_tools": [
+    {
+      "name": "Hugging Face",
+      "theme": "Modèles & Open Source",
+      "purpose": "Catalogue de modèles, démos et outils IA open source.",
+      "pricing": "Gratuit",
+      "url": "https://huggingface.co"
+    },
+    {
+      "name": "Google AI Studio",
+      "theme": "Développement",
+      "purpose": "Tester rapidement des modèles Gemini et prototyper des assistants.",
+      "pricing": "Gratuit",
+      "url": "https://aistudio.google.com"
+    },
+    {
+      "name": "Microsoft Designer",
+      "theme": "Design",
+      "purpose": "Créer des visuels marketing et réseaux sociaux assistés par IA.",
+      "pricing": "Gratuit",
+      "url": "https://designer.microsoft.com"
+    },
+    {
+      "name": "Bing Image Creator",
+      "theme": "Image",
+      "purpose": "Générer des images à partir de prompts texte via DALL·E.",
+      "pricing": "Gratuit",
+      "url": "https://www.bing.com/images/create"
+    },
+    {
+      "name": "DeepL Write",
+      "theme": "Rédaction & Productivité",
+      "purpose": "Améliorer la qualité rédactionnelle et reformuler des textes.",
+      "pricing": "Gratuit",
+      "url": "https://www.deepl.com/write"
+    },
+    {
+      "name": "LanguageTool",
+      "theme": "Rédaction & Productivité",
+      "purpose": "Correction grammaticale et stylistique multilingue.",
+      "pricing": "Gratuit",
+      "url": "https://languagetool.org/fr"
+    },
+    {
+      "name": "Khanmigo",
+      "theme": "Éducation",
+      "purpose": "Assistant pédagogique IA pour apprentissage et accompagnement.",
+      "pricing": "Gratuit",
+      "url": "https://www.khanacademy.org/khan-labs"
+    },
+    {
+      "name": "Poe",
+      "theme": "Assistants polyvalents",
+      "purpose": "Accéder à plusieurs modèles conversationnels en une interface.",
+      "pricing": "Freemium",
+      "url": "https://poe.com"
+    },
+    {
+      "name": "ChatGPT",
+      "theme": "Rédaction & Productivité",
+      "purpose": "Rédiger, résumer, brainstormer et assister la création de contenu.",
+      "pricing": "Freemium",
+      "url": "https://chatgpt.com"
+    },
+    {
+      "name": "Claude",
+      "theme": "Rédaction & Productivité",
+      "purpose": "Analyse de documents longs, rédaction et assistance métier.",
+      "pricing": "Freemium",
+      "url": "https://claude.ai"
+    },
+    {
+      "name": "Perplexity",
+      "theme": "Recherche",
+      "purpose": "Recherche web assistée avec sources citées.",
+      "pricing": "Freemium",
+      "url": "https://www.perplexity.ai"
+    },
+    {
+      "name": "Canva Magic Studio",
+      "theme": "Design",
+      "purpose": "Création graphique assistée (visuels, présentations, réseaux sociaux).",
+      "pricing": "Freemium",
+      "url": "https://www.canva.com/magic-studio/"
+    },
+    {
+      "name": "ElevenLabs",
+      "theme": "Audio & Voix",
+      "purpose": "Génération vocale et clonage de voix pour narration et vidéo.",
+      "pricing": "Freemium",
+      "url": "https://elevenlabs.io"
+    },
+    {
+      "name": "Runway",
+      "theme": "Vidéo",
+      "purpose": "Montage et génération vidéo assistés par IA.",
+      "pricing": "Freemium",
+      "url": "https://runwayml.com"
+    },
+    {
+      "name": "CapCut AI",
+      "theme": "Vidéo",
+      "purpose": "Montage vidéo simplifié avec sous-titres et effets IA.",
+      "pricing": "Freemium",
+      "url": "https://www.capcut.com"
+    },
+    {
+      "name": "Notion AI",
+      "theme": "Organisation",
+      "purpose": "Aide à l’organisation, synthèse et rédaction dans les espaces Notion.",
+      "pricing": "Freemium",
+      "url": "https://www.notion.so/product/ai"
+    },
+    {
+      "name": "Otter.ai",
+      "theme": "Audio & Voix",
+      "purpose": "Transcription automatique de réunions et notes vocales.",
+      "pricing": "Freemium",
+      "url": "https://otter.ai"
+    },
+    {
+      "name": "Mistral Le Chat",
+      "theme": "Assistants polyvalents",
+      "purpose": "Assistant conversationnel européen pour usage quotidien et pro.",
+      "pricing": "Freemium",
+      "url": "https://chat.mistral.ai"
+    },
+    {
+      "name": "GitHub Copilot",
+      "theme": "Développement",
+      "purpose": "Complétion de code, génération d’exemples et accélération dev.",
+      "pricing": "Payant",
+      "url": "https://github.com/features/copilot"
+    },
+    {
+      "name": "Midjourney",
+      "theme": "Image",
+      "purpose": "Génération d’images créatives à partir de prompts texte.",
+      "pricing": "Payant",
+      "url": "https://www.midjourney.com"
+    }
+  ],
+  "model_spotlight": [
+    {
+      "name": "Llama 3.1 8B Instruct",
+      "mode": "Local et cloud",
+      "pricing": "Gratuit (poids open) / coût infra si hébergé",
+      "supports": "Ollama, LM Studio, vLLM, Transformers",
+      "variants": "8B, 70B",
+      "pros": "Bon équilibre qualité/performance, large écosystème",
+      "cons": "70B exige une machine puissante",
+      "url": "https://huggingface.co/meta-llama"
+    },
+    {
+      "name": "Mistral Nemo Instruct",
+      "mode": "Local et cloud",
+      "pricing": "Gratuit (open weights)",
+      "supports": "Ollama, vLLM, llama.cpp",
+      "variants": "12B",
+      "pros": "Très bon ratio qualité/vitesse en local",
+      "cons": "Moins performant que les plus gros modèles sur tâches complexes",
+      "url": "https://huggingface.co/mistralai"
+    },
+    {
+      "name": "Qwen2.5 Instruct",
+      "mode": "Local et cloud",
+      "pricing": "Gratuit (open weights)",
+      "supports": "Ollama, Transformers, vLLM",
+      "variants": "7B, 14B, 32B, 72B",
+      "pros": "Très polyvalent, bon multilingue",
+      "cons": "Les grandes variantes consomment beaucoup de VRAM",
+      "url": "https://huggingface.co/Qwen"
+    },
+    {
+      "name": "Gemma 2",
+      "mode": "Local et cloud",
+      "pricing": "Gratuit (licence ouverte)",
+      "supports": "Ollama, Kaggle, Vertex AI",
+      "variants": "9B, 27B",
+      "pros": "Bonne qualité générale et intégration Google",
+      "cons": "Nécessite optimisation pour certains usages locaux",
+      "url": "https://ai.google.dev/gemma"
+    }
+  ]
+}

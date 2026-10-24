@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/sitemap.xml

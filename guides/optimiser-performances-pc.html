@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Optimiser les performances de son PC sans dépenser un euro | OCTET LAB</title>
+<meta name="description" content="Nettoyage, configuration Windows, stockage et RAM : des réglages concrets qui changent vraiment la donne.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<header class="bar">
+  <div class="bar-left">
+    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <a class="logo" href="../index.html">OCTET LAB</a>
+  </div>
+  <nav>
+    <a href="../index.html#guides">Guides</a>
+    <a href="../index.html#actus">Actualités</a>
+    <a href="../index.html#materiel">Matériel</a>
+    <a href="../ia-thematiques.html">IA thématiques</a>
+  </nav>
+</header>
+<article class="prose"><h1>Optimiser les performances de son PC sans dépenser un euro</h1><p>Avant d&#x27;envisager une mise à niveau matérielle, plusieurs réglages logiciels permettent de récupérer des performances significatives sur un PC existant. Ce guide s&#x27;applique à Windows 10 et 11.</p>
+<h2>1. Nettoyer les programmes au démarrage</h2>
+<p>Les applications qui se lancent au démarrage ralentissent le boot et consomment RAM et CPU en permanence.</p>
+<ul><li><code>Ctrl + Maj + Échap</code> → onglet <strong>Démarrage</strong> → désactivez tout ce qui n&#x27;est pas indispensable (Spotify, Discord, OneDrive si inutilisé, Teams, launchers de jeux…).</li><li>Règle : si vous ne l&#x27;ouvrez pas dans les 10 premières minutes après le démarrage, désactivez-le.</li></ul>
+<h2>2. Vérifier l&#x27;utilisation du disque</h2>
+<p>Un disque dur (HDD) saturé à plus de 80 % de capacité ralentit considérablement. Vérifiez avec <code>WinDirStat</code> (gratuit) quels fichiers occupent l&#x27;espace.</p>
+<ul><li>Videz la Corbeille et le dossier <code>Téléchargements</code>.</li><li>Nettoyage Windows : <code>Win + R</code> → <code>cleanmgr</code> → cochez tout, incluant <strong>Fichiers Windows Update</strong>.</li><li>Désinstallez les jeux et logiciels inutilisés.</li></ul>
+<h2>3. Passer en SSD si ce n&#x27;est pas fait</h2>
+<p>Un SSD NVMe transforme l&#x27;expérience utilisateur plus qu&#x27;aucune autre mise à niveau. Le démarrage passe de 60–90 secondes à 10–15 secondes.</p>
+<ul><li>Clonez votre disque avec <strong>Macrium Reflect Free</strong> avant de remplacer.</li><li>Les SSD NVMe d&#x27;entrée de gamme (Crucial P3, Kingston NV3) coûtent moins de 60 € pour 1 To.</li></ul>
+<h2>4. Ajuster les paramètres d&#x27;alimentation</h2>
+<ul><li><code>Panneau de configuration &gt; Options d&#x27;alimentation</code> → choisissez <strong>Haute performance</strong> ou <strong>Performances optimales</strong> (débloquable via PowerShell : <code>powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61</code>).</li><li>Sur PC portable, restez sur <strong>Équilibré</strong> sur batterie pour préserver son autonomie.</li></ul>
+<h2>5. Libérer la RAM</h2>
+<ul><li>Désactivez SysMain (SuperFetch) si votre RAM est &lt; 8 Go et votre disque un SSD : <code>services.msc</code> → SysMain → Type de démarrage : Désactivé.</li><li>Fermez les onglets de navigateur inutilisés — chaque onglet Chrome/Edge consomme 100–300 Mo.</li></ul>
+<h2>6. Mettre à jour les pilotes GPU</h2>
+<p>Les fabricants optimisent régulièrement leurs pilotes pour les nouveaux jeux et logiciels.</p>
+<ul><li><strong>NVIDIA</strong> : <a href="https://www.nvidia.com/geforce/geforce-experience/" rel="noopener noreferrer">GeForce Experience</a> ou téléchargement direct sur nvidia.com.</li><li><strong>AMD</strong> : <a href="https://www.amd.com/fr/support" rel="noopener noreferrer">AMD Software: Adrenalin</a>.</li><li>Évitez les pilotes bêta sauf si vous cherchez un correctif précis.</li></ul>
+<h2>7. Activer le mode jeu et désactiver les effets visuels</h2>
+<ul><li><code>Win + I &gt; Jeux &gt; Mode Jeu</code> → Activé.</li><li><code>Propriétés système &gt; Avancé &gt; Paramètres (Performances)</code> → « Ajuster afin d&#x27;obtenir les meilleures performances » pour le bureau, ou personnalisez en ne gardant que les effets utiles.</li></ul>
+<h2>8. Vérifier la température</h2>
+<p>Un PC qui ralentit subitement (throttling) surchauffe peut-être. Installez <strong>HWiNFO64</strong> pour surveiller les températures CPU et GPU.</p>
+<ul><li>CPU en charge : &lt; 90 °C acceptable, &lt; 80 °C idéal.</li><li>GPU en charge : &lt; 85 °C acceptable.</li><li>Remède : nettoyage des filtres à poussière, remplacement de la pâte thermique (CPU) si le PC a plus de 4–5 ans.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
+     <a href="../politique-cookies.html">En savoir plus</a>.</p>
+  <div>
+    <button id="cookie-accept" type="button">Accepter</button>
+    <button id="cookie-reject" type="button">Refuser</button>
+  </div>
+</div>
+<footer>
+  <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p>© 2026 BinaryForge. Tous droits réservés.</p>
+</footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

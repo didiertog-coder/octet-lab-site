@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OCTET LAB : IA locale, matériel et logiciels : des guides clairs, en français.</title>
+<meta name="description" content="IA locale, matériel et logiciels : des guides clairs, en français.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<header class="bar">
+  <div class="bar-left">
+    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <a class="logo" href="index.html">OCTET LAB</a>
+  </div>
+  <nav>
+    <a href="index.html#guides">Guides</a>
+    <a href="index.html#actus">Actualités</a>
+    <a href="index.html#materiel">Matériel</a>
+    <a href="ia-thematiques.html">IA thématiques</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <h1>IA locale, matériel et logiciels : des guides clairs, en français.</h1>
+    <p class="lead">Comprendre, choisir, installer. Les guides sont complétés régulièrement
+       et l'actualité du secteur se met à jour chaque jour.</p>
+    <div class="word-box">
+      <h2>Un petit mot pour vous ...</h2>
+      <p>Merci de visiter OCTET LAB. Ce site est pensé pour vous aider à comprendre l’IA
+         simplement, choisir les bons outils et avancer à votre rythme.</p>
+      <p>Astuce : commencez par les guides essentiels puis explorez la page IA thématique
+         selon vos besoins.</p>
+    </div>
+    <p class="help-inline">Aide rapide : commencez par un guide de niveau débutant,
+       puis utilisez l’estimateur pour valider la VRAM avant achat.</p>
+  </div>
+  <div class="hero-side">
+    <form id="vram" class="est" aria-label="Estimateur de VRAM">
+      <h2>Estimer la VRAM d'un modèle</h2>
+      <p class="help-inline help-inline--accent">Besoin d’aide ? Modifiez un paramètre
+         à la fois pour comparer facilement les besoins mémoire.</p>
+      <label>Taille du modèle (milliards de paramètres)
+        <input name="params" type="number" value="8" min="1" max="400">
+      </label>
+      <label>Quantification
+        <select name="quant">
+          <option value="0.6">Q4 (équilibré)</option>
+          <option value="0.72">Q5</option>
+          <option value="1.1">Q8</option>
+          <option value="2.1">FP16 (sans compression)</option>
+        </select>
+      </label>
+      <label>Contexte
+        <select name="ctx">
+          <option value="0.5">4k tokens</option>
+          <option value="1" selected>8k tokens</option>
+          <option value="2">16k tokens</option>
+          <option value="4">32k tokens</option>
+        </select>
+      </label>
+      <p id="vram-out" class="out" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+<div class="wrap">
+  <main id="guides">
+    <h2>Guides</h2>
+    <p class="help-inline">Astuce : ouvrez les guides dans l’ordre de complexité pour progresser sans bloquer.</p>
+    <div class="grid"><a class="card" href="guides/bien-ecrire-ses-prompts.html"><span class="tag">Usages de l&#x27;IA</span><h3>Bien écrire ses prompts : une méthode en 4 étapes</h3><p>Obtenez des réponses plus utiles d&#x27;une IA en structurant votre demande.</p></a><a class="card" href="guides/creer-site-gratuit-github-pages.html"><span class="tag">Mise en ligne</span><h3>Mettre un site en ligne gratuitement avec GitHub Pages</h3><p>De vos fichiers à un site public, sans serveur à gérer.</p></a><a class="card" href="guides/docker-pour-developpeurs.html"><span class="tag">Développement</span><h3>Docker pour les développeurs solo : conteneuriser ses projets en 30 minutes</h3><p>Isolez vos environnements de développement, évitez les conflits de versions et déployez en un seul fichier.</p></a><a class="card" href="guides/fine-tuner-un-llm.html"><span class="tag">IA avancée</span><h3>Fine-tuner un LLM open source sur ses propres données</h3><p>Adaptez Llama, Mistral ou Qwen à votre domaine en quelques heures avec LoRA et Unsloth.</p></a><a class="card" href="guides/installer-ollama.html"><span class="tag">IA locale</span><h3>Installer Ollama et lancer son premier modèle</h3><p>De l&#x27;installation au premier échange avec une IA locale, en quelques minutes.</p></a><a class="card" href="guides/monetiser-site-tech.html"><span class="tag">Mise en ligne</span><h3>Monétiser un site tech : guide complet pour générer des revenus</h3><p>Affiliation, publicité display, contenu sponsorisé et produits numériques : toutes les sources de revenus pour un site informatique.</p></a><a class="card" href="guides/monter-un-pc-pour-ia-locale.html"><span class="tag">Matériel</span><h3>Monter un PC pour l&#x27;IA locale : les composants qui comptent</h3><p>Où mettre son budget quand on veut faire tourner des modèles chez soi.</p></a><a class="card" href="guides/nas-maison-truenas.html"><span class="tag">Matériel</span><h3>Construire un NAS maison avec TrueNAS Scale</h3><p>Stockage centralisé, RAID logiciel, partages réseau et sauvegardes : montez votre propre serveur de fichiers.</p></a><a class="card" href="guides/nom-de-domaine-et-hebergement.html"><span class="tag">Mise en ligne</span><h3>Choisir un nom de domaine et un hébergement</h3><p>Les critères qui comptent vraiment pour lancer un site sans se tromper.</p></a><a class="card" href="guides/ollama-ou-lm-studio.html"><span class="tag">IA locale</span><h3>Ollama ou LM Studio : lequel choisir ?</h3><p>Deux outils gratuits pour faire tourner une IA chez soi, avec des usages différents.</p></a><a class="card" href="guides/optimiser-performances-pc.html"><span class="tag">Matériel</span><h3>Optimiser les performances de son PC sans dépenser un euro</h3><p>Nettoyage, configuration Windows, stockage et RAM : des réglages concrets qui changent vraiment la donne.</p></a><a class="card" href="guides/quelle-carte-graphique-ia-locale.html"><span class="tag">IA locale</span><h3>Quelle carte graphique pour une IA locale ?</h3><p>La règle simple pour estimer la VRAM nécessaire selon la taille du modèle.</p></a><a class="card" href="guides/reperer-un-mail-frauduleux.html"><span class="tag">Cybersécurité</span><h3>Repérer un mail frauduleux et réagir</h3><p>Les signes d&#x27;un phishing, la vérification en trois minutes et les bons signalements.</p></a><a class="card" href="guides/rgpd-petit-site.html"><span class="tag">Mise en ligne</span><h3>RGPD pour un petit site : les bases à respecter</h3><p>Mentions légales, cookies, affiliation et publicité : ce qu&#x27;il faut prévoir avant de publier.</p></a><a class="card" href="guides/sauvegarde-3-2-1.html"><span class="tag">Informatique</span><h3>La règle de sauvegarde 3-2-1</h3><p>Protéger ses fichiers contre la panne, le vol, le rançongiciel et l&#x27;erreur humaine.</p></a><a class="card" href="guides/segmenter-reseau-vlan.html"><span class="tag">Réseau &amp; Sécurité</span><h3>Réseau local sécurisé : segmenter son réseau avec un VLAN</h3><p>Isolez vos appareils IoT, votre NAS et vos PC avec des VLANs sur un routeur ou switch manageable.</p></a><a class="card" href="guides/stable-diffusion-local.html"><span class="tag">IA avancée</span><h3>Stable Diffusion en local : installer et optimiser WebUI</h3><p>Générez des images par IA sur votre propre machine, sans abonnement ni censure imposée.</p></a></div>
+    <section class="side-block models-left">
+      <h2>Nouveaux modèles IA</h2>
+      <p class="help-inline help-inline--accent">Veille rapide : avantages, limites, tarifs et supports techniques.</p>
+      <div class="model-grid"><article class="model-card"><h3>Llama 3.1 8B Instruct</h3><p><strong>Usage :</strong> Local et cloud</p><p><strong>Tarif :</strong> Gratuit (poids open) / coût infra si hébergé</p><p><strong>Supports :</strong> Ollama, LM Studio, vLLM, Transformers</p><p><strong>Variantes :</strong> 8B, 70B</p><p class="pro"><strong>Avantages :</strong> Bon équilibre qualité/performance, large écosystème</p><p class="con"><strong>Inconvénients :</strong> 70B exige une machine puissante</p><p><a href="https://huggingface.co/meta-llama" target="_blank" rel="noopener noreferrer nofollow">Voir le modèle</a></p></article><article class="model-card"><h3>Mistral Nemo Instruct</h3><p><strong>Usage :</strong> Local et cloud</p><p><strong>Tarif :</strong> Gratuit (open weights)</p><p><strong>Supports :</strong> Ollama, vLLM, llama.cpp</p><p><strong>Variantes :</strong> 12B</p><p class="pro"><strong>Avantages :</strong> Très bon ratio qualité/vitesse en local</p><p class="con"><strong>Inconvénients :</strong> Moins performant que les plus gros modèles sur tâches complexes</p><p><a href="https://huggingface.co/mistralai" target="_blank" rel="noopener noreferrer nofollow">Voir le modèle</a></p></article><article class="model-card"><h3>Qwen2.5 Instruct</h3><p><strong>Usage :</strong> Local et cloud</p><p><strong>Tarif :</strong> Gratuit (open weights)</p><p><strong>Supports :</strong> Ollama, Transformers, vLLM</p><p><strong>Variantes :</strong> 7B, 14B, 32B, 72B</p><p class="pro"><strong>Avantages :</strong> Très polyvalent, bon multilingue</p><p class="con"><strong>Inconvénients :</strong> Les grandes variantes consomment beaucoup de VRAM</p><p><a href="https://huggingface.co/Qwen" target="_blank" rel="noopener noreferrer nofollow">Voir le modèle</a></p></article><article class="model-card"><h3>Gemma 2</h3><p><strong>Usage :</strong> Local et cloud</p><p><strong>Tarif :</strong> Gratuit (licence ouverte)</p><p><strong>Supports :</strong> Ollama, Kaggle, Vertex AI</p><p><strong>Variantes :</strong> 9B, 27B</p><p class="pro"><strong>Avantages :</strong> Bonne qualité générale et intégration Google</p><p class="con"><strong>Inconvénients :</strong> Nécessite optimisation pour certains usages locaux</p><p><a href="https://ai.google.dev/gemma" target="_blank" rel="noopener noreferrer nofollow">Voir le modèle</a></p></article></div>
+      <h3>Tendance RSS modèles</h3>
+      <ul class="news model-news"><li>Les flux n’ont pas encore remonté de nouveauté modèle.</li></ul>
+    </section>
+  </main>
+  <aside id="actus">
+    <section class="side-block">
+      <h2>Actualités du jour</h2>
+      <p class="help-inline">Les liens externes s’ouvrent dans un nouvel onglet pour garder votre progression.</p>
+      <ul class="news"><li><a href="https://www.clubic.com/actualite-635827-une-ia-d-anthropic-cache-un-message-dans-les-etoiles-et-c-est-celle-d-openai-qui-le-dechiffre.html" target="_blank" rel="noopener noreferrer nofollow">Une IA d’Anthropic cache un message dans les étoiles et c&#x27;est... celle d’OpenAI qui le déchiffre</a><small>Clubic</small><small>24/10</small></li><li><a href="https://www.journaldugeek.com/2026/10/24/smartphones-les-prix-montent-aussi-vite-que-les-livraisons-degringolent/" target="_blank" rel="noopener noreferrer nofollow">Smartphones : les prix montent aussi vite que les livraisons dégringolent</a><small>Journal du Geek</small><small>24/10</small></li><li><a href="https://www.numerama.com/pop-culture/2359205-un-mysterieux-personnage-se-tient-a-cote-de-sauron-et-voila-que-ressurgit-une-vieille-theorie-dans-les-anneaux-de-pouvoir.html" target="_blank" rel="noopener noreferrer nofollow">Un mystérieux personnage se tient à côté de Sauron et voilà que ressurgit une vieille théorie dans Les Anneaux de pouvoir</a><small>Numerama</small><small>24/10</small></li><li><a href="https://www.clubic.com/actualite-635812-starlink-fonctionne-a-nouveau-correctement-en-ukraine.html" target="_blank" rel="noopener noreferrer nofollow">Starlink fonctionne à nouveau correctement en Ukraine</a><small>Clubic</small><small>24/10</small></li><li><a href="https://www.clubic.com/dossier-635533-j-ai-confie-mes-petites-corvees-a-l-ia-pour-gagner-du-temps-jusqu-ou-lui-faire-confiance.html" target="_blank" rel="noopener noreferrer nofollow">J’ai confié mes petites corvées à l’IA pour gagner du temps : jusqu’où lui faire confiance ?</a><small>Clubic</small><small>24/10</small></li><li><a href="https://www.journaldugeek.com/2026/10/24/les-lunettes-ray-ban-meta-un-peu-trop-a-lecoute/" target="_blank" rel="noopener noreferrer nofollow">Les lunettes Ray-Ban Meta un peu trop à l’écoute</a><small>Journal du Geek</small><small>24/10</small></li><li><a href="https://www.clubic.com/actualite-635824-desinformation-en-sante-l-etat-lance-un-observatoire-pour-mieux-proteger-les-francais.html" target="_blank" rel="noopener noreferrer nofollow">Désinformation en santé : l’État lance un observatoire pour mieux protéger les Français</a><small>Clubic</small><small>24/10</small></li><li><a href="https://www.frandroid.com/marques/3297135_je-ne-crois-plus-a-la-publicite-comment-oppo-veut-vendre-un-smartphone-a-1800-euros" target="_blank" rel="noopener noreferrer nofollow">« Je ne crois plus à la publicité » : comment Oppo veut vendre un smartphone à 1800 euros</a><small>Frandroid</small><small>24/10</small></li><li><a href="https://www.numerama.com/pop-culture/2356107-tomb-raider-a-30-ans-on-a-classe-les-jeux-de-la-licence-pour-feter-ca.html" target="_blank" rel="noopener noreferrer nofollow">Tomb Raider a 30 ans : on a classé les jeux de la saga pour fêter ça</a><small>Numerama</small><small>24/10</small></li><li><a href="https://www.frandroid.com/bons-plans/3295803_en-promo-a-moins-de-350-e-mieux-vaut-choisir-le-nothing-phone-4b-ou-le-samsung-galaxy-a27" target="_blank" rel="noopener noreferrer nofollow">En promo à moins de 350 €, mieux vaut choisir le Nothing Phone (4b) ou le Samsung Galaxy A27 ?</a><small>Frandroid</small><small>24/10</small></li><li><a href="https://www.journaldugeek.com/2026/10/24/orange-et-ses-voisins-europeens-sorganisent-face-a-starlink/" target="_blank" rel="noopener noreferrer nofollow">Orange et ses voisins européens s’organisent face à Starlink</a><small>Journal du Geek</small><small>24/10</small></li><li><a href="https://www.numerama.com/tech/2359965-ces-deux-mini-bornes-darcade-sont-en-precommande-avec-out-run-et-shinobi-au-programme.html" target="_blank" rel="noopener noreferrer nofollow">Ces deux mini-bornes d’arcade sont en précommande, avec Out Run et Shinobi au programme</a><small>Numerama</small><small>24/10</small></li></ul>
+    </section>
+  </aside>
+</div>
+<section class="full" id="materiel">
+  <h2>Matériel et logiciels</h2>
+  <p class="help-inline">Transparence : les blocs ci-dessous sont des liens partenaires monétisables.</p>
+  <div class="partners"><a class="card" href="https://www.amazon.fr/?tag=VOTRETAG-21" target="_blank" rel="sponsored noopener noreferrer"><h3>Amazon Partenaires</h3><p>GPU, RAM, SSD, boitiers et tout le materiel pour votre setup IA ou gaming. Commission 3-10 %.</p><span class="tag">Lien partenaire</span></a><a class="card" href="https://www.awin1.com/cread.php?awinmid=4109&amp;awinaffid=VOTRE_AWIN_ID&amp;ued=https%3A%2F%2Fwww.ldlc.com" target="_blank" rel="sponsored noopener noreferrer"><h3>LDLC</h3><p>Composants PC, cartes graphiques et peripheriques chez le leader francais. Programme via Awin.</p><span class="tag">Lien partenaire</span></a><a class="card" href="https://www.hostinger.fr/offre-hebergement?REFERRALCODE=VOTRECODE" target="_blank" rel="sponsored noopener noreferrer"><h3>Hostinger</h3><p>Hebergement web et VPS a partir de 2,99 euros/mois. Commission jusqu a 60 % sur chaque vente.</p><span class="tag">Lien partenaire</span></a><a class="card" href="https://www.ovhcloud.com/fr/vps/" target="_blank" rel="sponsored noopener noreferrer"><h3>OVHcloud</h3><p>VPS et serveurs dedies pour heberger son IA locale ou ses applications. Programme partenaire OVH.</p><span class="tag">Lien partenaire</span></a><a class="card" href="https://mullvad.net/fr" target="_blank" rel="sponsored noopener noreferrer"><h3>Mullvad VPN</h3><p>VPN respectueux de la vie privee, sans log, paiement anonyme possible. 5 euros/mois fixe.</p><span class="tag">Lien partenaire</span></a><a class="card" href="https://www.backblaze.com/b2/cloud-storage.html" target="_blank" rel="sponsored noopener noreferrer"><h3>Backblaze B2</h3><p>Stockage cloud S3-compatible a 0,006 dollar/Go. Ideal pour sauvegardes NAS et offsite.</p><span class="tag">Lien partenaire</span></a></div>
+</section>
+
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
+     <a href="politique-cookies.html">En savoir plus</a>.</p>
+  <div>
+    <button id="cookie-accept" type="button">Accepter</button>
+    <button id="cookie-reject" type="button">Refuser</button>
+  </div>
+</div>
+<footer>
+  <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
+  <p><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-confidentialite.html">Confidentialité</a> · <a href="politique-cookies.html">Cookies</a> · <a href="cgu.html">CGU</a></p>
+  <p>© 2026 BinaryForge. Tous droits réservés.</p>
+</footer>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

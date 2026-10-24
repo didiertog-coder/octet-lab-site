@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Réseau local sécurisé : segmenter son réseau avec un VLAN | OCTET LAB</title>
+<meta name="description" content="Isolez vos appareils IoT, votre NAS et vos PC avec des VLANs sur un routeur ou switch manageable.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<header class="bar">
+  <div class="bar-left">
+    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <a class="logo" href="../index.html">OCTET LAB</a>
+  </div>
+  <nav>
+    <a href="../index.html#guides">Guides</a>
+    <a href="../index.html#actus">Actualités</a>
+    <a href="../index.html#materiel">Matériel</a>
+    <a href="../ia-thematiques.html">IA thématiques</a>
+  </nav>
+</header>
+<article class="prose"><h1>Réseau local sécurisé : segmenter son réseau avec un VLAN</h1><p>Mélanger caméras connectées, télévisions intelligentes, PC de travail et serveur personnel sur le même réseau local est un risque réel. Un appareil IoT compromis peut observer ou attaquer le reste. Les VLANs créent des cloisonnements logiques sans câblage supplémentaire.</p>
+<h2>Ce qu&#x27;est un VLAN</h2>
+<p>Un VLAN (Virtual LAN) attribue un identifiant numérique (1 à 4094) à des ports ou des connexions Wi-Fi. Les appareils du VLAN 10 ne voient pas ceux du VLAN 20, même s&#x27;ils partagent le même switch physique. Le routeur décide quels flux transitent d&#x27;un VLAN à l&#x27;autre.</p>
+<h2>Matériel nécessaire</h2>
+<ul><li><strong>Switch manageable</strong> : TP-Link TL-SG108E (~35 €), Netgear GS308E (~45 €) ou équivalent.</li><li><strong>Routeur avec support VLAN</strong> : pfSense (logiciel libre sur PC), OPNsense, OpenWRT ou routeur Ubiquiti.</li><li><strong>Point d&#x27;accès Wi-Fi multi-SSID</strong> (facultatif) : Unifi, TP-Link EAP, ou OpenWRT.</li></ul>
+<h2>Architecture recommandée</h2>
+<table><tr><td>VLAN</td><td>Nom</td><td>Contenu</td><td>Accès Internet</td></tr>
+<tr><td>1</td><td>Admin</td><td>Routeur, switch</td><td>Non</td></tr>
+<tr><td>10</td><td>Maison</td><td>PC, téléphones</td><td>Oui</td></tr>
+<tr><td>20</td><td>IoT</td><td>Caméras, ampoules</td><td>Oui (restreint)</td></tr>
+<tr><td>30</td><td>Serveurs</td><td>NAS, VM, IA locale</td><td>Non (ou filtré)</td></tr></table>
+<h2>Configurer sur pfSense / OPNsense</h2>
+<p>1. <strong>Créer les interfaces VLAN</strong> : <code>Interfaces &gt; Assignments &gt; VLANs</code>, ajoutez chaque VLAN avec son tag sur l&#x27;interface LAN. 2. <strong>Attribuer et activer</strong> : assignez chaque VLAN à une interface virtuelle, activez-la, définissez une plage IP (ex. <code>192.168.20.1/24</code> pour IoT). 3. <strong>Serveur DHCP</strong> : activez un serveur DHCP par VLAN. 4. <strong>Règles de pare-feu</strong> : bloquez le trafic inter-VLAN par défaut. Autorisez uniquement ce qui est nécessaire (ex. : le VLAN Maison peut accéder au NAS sur le port 443 seulement).</p>
+<h2>Configurer le switch manageable</h2>
+<p>Sur le switch, taggez chaque port selon le VLAN auquel l&#x27;appareil branché appartient. Le port relié au routeur doit être configuré en <strong>trunk</strong> (tagged pour tous les VLANs).</p>
+<h2>Vérifier l&#x27;isolation</h2>
+<p>Depuis un appareil IoT, essayez de pinguer un PC du VLAN Maison : la requête doit échouer. Utilisez <code>nmap -sn 192.168.10.0/24</code> depuis le VLAN IoT pour confirmer qu&#x27;aucun hôte du réseau principal n&#x27;est visible.</p>
+<h2>Bonnes pratiques</h2>
+<ul><li>Changez les credentials par défaut de tous les équipements réseau.</li><li>Activez les mises à jour automatiques du firmware du routeur si disponibles.</li><li>Journalisez les connexions inter-VLAN pour détecter les anomalies.</li><li>Désactivez UPnP, surtout sur le segment IoT.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
+     <a href="../politique-cookies.html">En savoir plus</a>.</p>
+  <div>
+    <button id="cookie-accept" type="button">Accepter</button>
+    <button id="cookie-reject" type="button">Refuser</button>
+  </div>
+</div>
+<footer>
+  <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p>© 2026 BinaryForge. Tous droits réservés.</p>
+</footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

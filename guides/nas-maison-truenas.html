@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Construire un NAS maison avec TrueNAS Scale | OCTET LAB</title>
+<meta name="description" content="Stockage centralisé, RAID logiciel, partages réseau et sauvegardes : montez votre propre serveur de fichiers.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<header class="bar">
+  <div class="bar-left">
+    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <a class="logo" href="../index.html">OCTET LAB</a>
+  </div>
+  <nav>
+    <a href="../index.html#guides">Guides</a>
+    <a href="../index.html#actus">Actualités</a>
+    <a href="../index.html#materiel">Matériel</a>
+    <a href="../ia-thematiques.html">IA thématiques</a>
+  </nav>
+</header>
+<article class="prose"><h1>Construire un NAS maison avec TrueNAS Scale</h1><p>Un NAS (Network Attached Storage) maison offre bien plus qu&#x27;un NAS commercial au même prix : accès root complet, apps Docker, pas d&#x27;abonnement, et une durée de vie indépendante des décisions d&#x27;un éditeur. TrueNAS Scale, basé sur Debian, est l&#x27;option la plus aboutie pour les débutants avancés.</p>
+<h2>Pourquoi TrueNAS Scale ?</h2>
+<ul><li>Système de fichiers <strong>ZFS</strong> : protection contre la corruption silencieuse, snapshots, déduplication.</li><li>Interface web complète, sans ligne de commande pour les tâches courantes.</li><li>Applications Docker intégrées (Nextcloud, Jellyfin, Immich…).</li><li>Gratuit, open source, mises à jour régulières.</li></ul>
+<h2>Choisir le matériel</h2>
+<table><tr><td>Composant</td><td>Minimum</td><td>Recommandé</td></tr>
+<tr><td>CPU</td><td>Intel Celeron N5105</td><td>Ryzen 5 ou Intel Core i3+</td></tr>
+<tr><td>RAM</td><td>8 Go ECC (préférable)</td><td>16–32 Go</td></tr>
+<tr><td>Disques OS</td><td>SSD 120 Go (USB ou M.2)</td><td>2× SSD en miroir</td></tr>
+<tr><td>Disques données</td><td>2× HDD</td><td>4× HDD en RAIDZ2</td></tr>
+<tr><td>Réseau</td><td>1 Gbit</td><td>2.5 Gbit</td></tr></table>
+<p><strong>Règle ECC</strong> : ZFS détecte les erreurs mémoire avec l&#x27;ECC. Ce n&#x27;est pas obligatoire, mais fortement conseillé pour un NAS avec données importantes.</p>
+<h2>Installer TrueNAS Scale</h2>
+<p>1. Téléchargez l&#x27;ISO sur <a href="https://www.truenas.com/download-truenas-scale/" rel="noopener noreferrer">truenas.com</a>. 2. Flashez sur une clé USB avec Balena Etcher. 3. Bootez, sélectionnez le SSD dédié comme disque système (jamais les disques de données). 4. Accédez à l&#x27;interface web via l&#x27;IP affichée après installation (<code>http://192.168.x.x</code>).</p>
+<h2>Créer un pool ZFS</h2>
+<p>Dans <code>Storage &gt; Create Pool</code> :</p>
+<ul><li><strong>Mirror</strong> : 2 disques, tolérance 1 panne.</li><li><strong>RAIDZ1</strong> : 3 disques minimum, tolérance 1 panne, meilleure capacité.</li><li><strong>RAIDZ2</strong> : 4 disques minimum, tolérance 2 pannes simultanées — recommandé pour données critiques.</li></ul>
+<h2>Configurer les partages</h2>
+<ul><li><strong>SMB (Windows)</strong> : <code>Shares &gt; Windows (SMB)</code>, pointez vers un dataset ZFS. Configurez les permissions ACL par utilisateur.</li><li><strong>NFS (Linux/Mac)</strong> : <code>Shares &gt; Unix (NFS)</code>, restreignez par IP.</li><li><strong>iSCSI</strong> : pour monter un volume bloc sur un serveur ou une VM.</li></ul>
+<h2>Sauvegardes avec ZFS Replication</h2>
+<p>Programmez des snapshots automatiques (ex. : toutes les heures, rétention 7 jours) et répliquez vers un second NAS ou un VPS via <code>Data Protection &gt; Replication Tasks</code>. Le transfert différentiel n&#x27;envoie que les blocs modifiés.</p>
+<h2>Sécuriser l&#x27;accès</h2>
+<ul><li>Ne pas exposer l&#x27;interface web directement sur Internet : utilisez un VPN (WireGuard intégré dans TrueNAS Scale).</li><li>Activez l&#x27;authentification à deux facteurs pour le compte admin.</li><li>Chiffrez les datasets sensibles (<code>Encryption</code> lors de la création du dataset).</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
+     <a href="../politique-cookies.html">En savoir plus</a>.</p>
+  <div>
+    <button id="cookie-accept" type="button">Accepter</button>
+    <button id="cookie-reject" type="button">Refuser</button>
+  </div>
+</div>
+<footer>
+  <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p>© 2026 BinaryForge. Tous droits réservés.</p>
+</footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stable Diffusion en local : installer et optimiser WebUI | OCTET LAB</title>
+<meta name="description" content="Générez des images par IA sur votre propre machine, sans abonnement ni censure imposée.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<header class="bar">
+  <div class="bar-left">
+    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <a class="logo" href="../index.html">OCTET LAB</a>
+  </div>
+  <nav>
+    <a href="../index.html#guides">Guides</a>
+    <a href="../index.html#actus">Actualités</a>
+    <a href="../index.html#materiel">Matériel</a>
+    <a href="../ia-thematiques.html">IA thématiques</a>
+  </nav>
+</header>
+<article class="prose"><h1>Stable Diffusion en local : installer et optimiser WebUI</h1><p>Stable Diffusion est un modèle de génération d&#x27;images open source qui tourne sur votre GPU. Automatic1111 WebUI est l&#x27;interface la plus complète pour l&#x27;explorer, personnaliser et automatiser.</p>
+<h2>Prérequis matériels</h2>
+<ul><li><strong>GPU NVIDIA</strong> avec au moins 4 Go de VRAM (8 Go recommandés pour de bons résultats en 512×512 et plus).</li><li><strong>RAM système</strong> : 16 Go minimum.</li><li><strong>Stockage</strong> : 20 Go pour le modèle de base, plus selon les extensions.</li><li>Sur AMD : expérimental via ROCm ou DirectML (Windows), moins stable.</li></ul>
+<h2>Installation (Windows)</h2>
+<p>1. Installez <a href="https://www.python.org/downloads/release/python-3106/" rel="noopener noreferrer">Python 3.10</a> (cochez « Add to PATH »). 2. Installez <a href="https://git-scm.com/" rel="noopener noreferrer">Git</a>. 3. Clonez le dépôt :</p>
+<pre><code>git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+cd stable-diffusion-webui</code></pre>
+<p>4. Téléchargez un modèle <code>.safetensors</code> depuis <a href="https://civitai.com" rel="noopener noreferrer">CivitAI</a> ou <a href="https://huggingface.co" rel="noopener noreferrer">Hugging Face</a> et placez-le dans <code>models/Stable-diffusion/</code>. 5. Lancez <code>webui-user.bat</code> — la première exécution installe automatiquement toutes les dépendances.</p>
+<h2>Comprendre les paramètres clés</h2>
+<table><tr><td>Paramètre</td><td>Rôle</td><td>Valeur de départ</td></tr>
+<tr><td>Steps</td><td>Nombre d&#x27;itérations de débruitage</td><td>20–30</td></tr>
+<tr><td>CFG Scale</td><td>Respect du prompt (trop haut = sur-saturé)</td><td>7</td></tr>
+<tr><td>Sampler</td><td>Algorithme de débruitage</td><td>DPM++ 2M Karras</td></tr>
+<tr><td>Seed</td><td>Reproductibilité (-1 = aléatoire)</td><td>-1</td></tr>
+<tr><td>Résolution</td><td>Entraînement de base : 512×512</td><td>512×512 ou 768×768</td></tr></table>
+<h2>Écrire un prompt efficace</h2>
+<pre><code>photo portrait d&#x27;une femme, lumière dorée, bokeh, Nikon D850, f/1.8,
+hyperréaliste, très détaillé
+
+Négatif : flou, texte, filigrane, membres supplémentaires, visage déformé</code></pre>
+<ul><li>Commencez par le sujet principal, puis le style, puis les détails techniques.</li><li>Le <strong>prompt négatif</strong> est aussi important que le positif.</li><li>Utilisez les parenthèses pour pondérer : <code>(yeux verts:1.3)</code> accentue ce terme de 30 %.</li></ul>
+<h2>Accélérer la génération</h2>
+<ul><li><strong>xFormers</strong> : ajoutez <code>--xformers</code> dans <code>COMMANDLINE_ARGS</code> du fichier <code>webui-user.bat</code> pour +20–40 % de vitesse.</li><li><strong>LCM Lora</strong> : permet de descendre à 4–8 steps sans perte de qualité notable.</li><li><strong>Tiled VAE</strong> : activez-le dans les extensions pour générer de grandes images sans Out of Memory.</li></ul>
+<h2>Extensions utiles</h2>
+<ul><li><strong>ControlNet</strong> : contrôle la pose, la profondeur, les contours à partir d&#x27;une image de référence.</li><li><strong>ADetailer</strong> : corrige automatiquement les visages et les mains après la génération initiale.</li><li><strong>Ultimate SD Upscale</strong> : agrandissement haute qualité sans artefacts.</li></ul>
+<h2>Gérer l&#x27;espace disque</h2>
+<p>Les modèles, embeddings et LoRAs s&#x27;accumulent vite. Créez un dossier de modèles en dehors du répertoire WebUI et pointez-y via <code>--ckpt-dir</code> pour éviter de tout déplacer à chaque mise à jour.</p><p><a href="../index.html">← Retour aux guides</a></p></article>
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
+     <a href="../politique-cookies.html">En savoir plus</a>.</p>
+  <div>
+    <button id="cookie-accept" type="button">Accepter</button>
+    <button id="cookie-reject" type="button">Refuser</button>
+  </div>
+</div>
+<footer>
+  <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p>© 2026 BinaryForge. Tous droits réservés.</p>
+</footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

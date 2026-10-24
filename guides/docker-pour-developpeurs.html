@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Docker pour les développeurs solo : conteneuriser ses projets en 30 minutes | OCTET LAB</title>
+<meta name="description" content="Isolez vos environnements de développement, évitez les conflits de versions et déployez en un seul fichier.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<header class="bar">
+  <div class="bar-left">
+    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <a class="logo" href="../index.html">OCTET LAB</a>
+  </div>
+  <nav>
+    <a href="../index.html#guides">Guides</a>
+    <a href="../index.html#actus">Actualités</a>
+    <a href="../index.html#materiel">Matériel</a>
+    <a href="../ia-thematiques.html">IA thématiques</a>
+  </nav>
+</header>
+<article class="prose"><h1>Docker pour les développeurs solo : conteneuriser ses projets en 30 minutes</h1><p>Docker résout un problème universel : « ça marche sur ma machine ». En encapsulant une application et toutes ses dépendances dans une image portable, vous garantissez un comportement identique du développement à la production.</p>
+<h2>Les concepts en deux minutes</h2>
+<ul><li><strong>Image</strong> : un snapshot en lecture seule de votre application + ses dépendances.</li><li><strong>Conteneur</strong> : une instance en cours d&#x27;exécution d&#x27;une image, isolée du reste du système.</li><li><strong>Dockerfile</strong> : le script qui décrit comment construire une image.</li><li><strong>docker-compose.yml</strong> : orchestre plusieurs conteneurs ensemble (app + base de données, par exemple).</li></ul>
+<h2>Installer Docker</h2>
+<p>Sur Linux (Debian/Ubuntu) :</p>
+<pre><code>curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER   # évite sudo à chaque commande</code></pre>
+<p>Sur Windows/Mac : téléchargez <strong>Docker Desktop</strong> sur <a href="https://www.docker.com/products/docker-desktop" rel="noopener noreferrer">docker.com</a>.</p>
+<h2>Un Dockerfile minimal pour une app Python</h2>
+<pre><code>FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 8000
+CMD [&quot;python&quot;, &quot;-m&quot;, &quot;uvicorn&quot;, &quot;main:app&quot;, &quot;--host&quot;, &quot;0.0.0.0&quot;, &quot;--port&quot;, &quot;8000&quot;]</code></pre>
+<pre><code>docker build -t mon-api .
+docker run -p 8000:8000 mon-api</code></pre>
+<h2>Composer une stack complète</h2>
+<pre><code># docker-compose.yml
+services:
+  app:
+	build: .
+	ports: [&quot;8000:8000&quot;]
+	environment:
+	  DATABASE_URL: postgresql://user:pass@db/mabase
+	depends_on: [db]
+  db:
+	image: postgres:16-alpine
+	volumes: [pgdata:/var/lib/postgresql/data]
+	environment:
+	  POSTGRES_USER: user
+	  POSTGRES_PASSWORD: pass
+	  POSTGRES_DB: mabase
+volumes:
+  pgdata:</code></pre>
+<pre><code>docker compose up -d      # démarre tout en arrière-plan
+docker compose logs -f    # suit les logs
+docker compose down       # arrête et supprime les conteneurs</code></pre>
+<h2>Bonnes pratiques</h2>
+<ul><li><strong>Images légères</strong> : préférez les variantes <code>-slim</code> ou <code>-alpine</code>. Une image Python slim fait ~70 Mo contre ~900 Mo pour l&#x27;image complète.</li><li><strong>Ne pas stocker de secrets dans l&#x27;image</strong> : utilisez des variables d&#x27;environnement ou des fichiers <code>.env</code> hors dépôt git.</li><li><strong>Un processus par conteneur</strong> : ne mélangez pas app et base de données dans la même image.</li><li><strong>Volumes pour la persistance</strong> : toute donnée écrite dans un conteneur sans volume est perdue à l&#x27;arrêt.</li><li><strong><code>.dockerignore</code></strong> : excluez <code>node_modules</code>, <code>.git</code>, <code>__pycache__</code> pour accélérer le build et alléger l&#x27;image.</li></ul>
+<h2>Surveiller ses conteneurs</h2>
+<pre><code>docker ps                    # conteneurs en cours
+docker stats                 # CPU/RAM en temps réel
+docker exec -it mon-api sh   # shell dans le conteneur
+docker system prune -f       # nettoyage des images et conteneurs inutiles</code></pre><p><a href="../index.html">← Retour aux guides</a></p></article>
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
+     <a href="../politique-cookies.html">En savoir plus</a>.</p>
+  <div>
+    <button id="cookie-accept" type="button">Accepter</button>
+    <button id="cookie-reject" type="button">Refuser</button>
+  </div>
+</div>
+<footer>
+  <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p>© 2026 BinaryForge. Tous droits réservés.</p>
+</footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quelle carte graphique pour une IA locale ? | OCTET LAB</title>
+<meta name="description" content="La règle simple pour estimer la VRAM nécessaire selon la taille du modèle.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<header class="bar">
+  <div class="bar-left">
+    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <a class="logo" href="../index.html">OCTET LAB</a>
+  </div>
+  <nav>
+    <a href="../index.html#guides">Guides</a>
+    <a href="../index.html#actus">Actualités</a>
+    <a href="../index.html#materiel">Matériel</a>
+    <a href="../ia-thematiques.html">IA thématiques</a>
+  </nav>
+</header>
+<article class="prose"><h1>Quelle carte graphique pour une IA locale ?</h1><p>Pour faire tourner un modèle de langage chez soi, la mémoire vidéo (VRAM) compte plus que la puissance brute : si le modèle ne tient pas dans la VRAM, il ralentit fortement.</p>
+<h2>La règle d&#x27;estimation</h2>
+<p>La VRAM nécessaire dépend de trois choses : la taille du modèle, sa quantification et la longueur du contexte.</p>
+<ul><li><strong>Taille</strong> : le nombre de milliards de paramètres (8B, 14B, 32B...).</li><li><strong>Quantification</strong> : en Q4, comptez environ 0,6 Go par milliard de paramètres. En Q8, environ 1,1 Go.</li><li><strong>Contexte</strong> : ajoutez 1 à 4 Go selon la longueur de conversation voulue.</li></ul>
+<h2>Repères pratiques en Q4</h2>
+<ul><li>Modèle 7-8B : environ 6 Go, soit une carte de 8 Go.</li><li>Modèle 14B : environ 10 Go, soit une carte de 12 Go.</li><li>Modèle 32B : environ 21 Go, soit une carte de 24 Go.</li></ul>
+<p>Ce sont des ordres de grandeur : utilisez l&#x27;estimateur en haut de la page d&#x27;accueil pour affiner.</p>
+<h2>À retenir</h2>
+<ul><li>À budget égal, privilégiez la carte avec le plus de VRAM.</li><li>La quantification Q4 est le meilleur compromis qualité/mémoire pour débuter.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
+     <a href="../politique-cookies.html">En savoir plus</a>.</p>
+  <div>
+    <button id="cookie-accept" type="button">Accepter</button>
+    <button id="cookie-reject" type="button">Refuser</button>
+  </div>
+</div>
+<footer>
+  <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p>© 2026 BinaryForge. Tous droits réservés.</p>
+</footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>
