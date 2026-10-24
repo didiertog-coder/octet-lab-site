@@ -1,1 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/index.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/ia-thematiques.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/bien-ecrire-ses-prompts.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/creer-site-gratuit-github-pages.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/docker-pour-developpeurs.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/fine-tuner-un-llm.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/installer-ollama.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/monetiser-site-tech.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/monter-un-pc-pour-ia-locale.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/nas-maison-truenas.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/nom-de-domaine-et-hebergement.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/ollama-ou-lm-studio.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/optimiser-performances-pc.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/quelle-carte-graphique-ia-locale.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/reperer-un-mail-frauduleux.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/rgpd-petit-site.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/sauvegarde-3-2-1.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/segmenter-reseau-vlan.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/guides/stable-diffusion-local.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/cgu.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/mentions-legales.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/politique-confidentialite.html</loc></url><url><loc>https://VOTRE_PSEUDO.github.io/VOTRE_DEPOT/politique-cookies.html</loc></url></urlset>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Page d'accueil -->
+  <url>
+    <loc>https://didiertog-coder.github.io/octet-lab-site/index.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Pages principales -->
+  <url>
+    <loc>https://didiertog-coder.github.io/octet-lab-site/ia-thematiques.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Guides -->
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/bien-ecrire-ses-prompts.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/creer-site-gratuit-github-pages.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/docker-pour-developpeurs.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/fine-tuner-un-llm.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/installer-ollama.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/monetiser-site-tech.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/monter-un-pc-pour-ia-locale.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/nas-maison-truenas.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/nom-de-domaine-et-hebergement.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/ollama-ou-lm-studio.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/optimiser-performances-pc.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/quelle-carte-graphique-ia-locale.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/reperer-un-mail-frauduleux.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/rgpd-petit-site.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/sauvegarde-3-2-1.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/segmenter-reseau-vlan.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/guides/stable-diffusion-local.html</loc></url>
+
+  <!-- Pages légales -->
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/cgu.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/mentions-legales.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/politique-confidentialite.html</loc></url>
+  <url><loc>https://didiertog-coder.github.io/octet-lab-site/politique-cookies.html</loc></url>
+
+</urlset>
