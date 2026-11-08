@@ -1,4 +1,81 @@
-const f = document.getElementById('vram');
+// ── Date dynamique dans le header ──────────────────────────────────────────
+(function () {
+  const el = document.getElementById('live-date');
+  if (!el) return;
+  const JOURS = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+  const MOIS  = ['', 'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+                 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+  const now = new Date();
+  el.textContent = `📅 ${JOURS[now.getDay()]} ${now.getDate()} ${MOIS[now.getMonth() + 1]} ${now.getFullYear()}`;
+})();
+
+// ── Actualités dynamiques via rss2json ─────────────────────────────────────
+(function () {
+  const newsList = document.getElementById('news-list');
+  const modelNewsList = document.getElementById('model-news-list');
+  if (!newsList && !modelNewsList) return;
+
+  const API = 'https://api.rss2json.com/v1/api.json?rss_url=';
+  const feeds = [
+    { name: 'Numerama',        url: 'https://www.numerama.com/feed/' },
+    { name: 'Korben',          url: 'https://korben.info/feed' },
+    { name: 'Frandroid',       url: 'https://www.frandroid.com/feed' },
+    { name: 'Clubic',          url: 'https://www.clubic.com/feed/news.rss' },
+    { name: 'Journal du Geek', url: 'https://www.journaldugeek.com/feed/' },
+    { name: 'Hugging Face',    url: 'https://huggingface.co/blog/feed.xml' },
+  ];
+  const MODEL_KEYWORDS = ['llama', 'mistral', 'qwen', 'gemma', 'phi', 'model', 'modèle', 'open source'];
+  const PER_FEED = 4;
+  const NEWS_TOTAL = 12;
+
+  const fmt = (iso) => {
+    const d = new Date(iso);
+    return isNaN(d) ? '' : `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
+  };
+
+  Promise.allSettled(
+    feeds.map(f =>
+      fetch(API + encodeURIComponent(f.url))
+        .then(r => r.json())
+        .then(data => (data.items || []).slice(0, PER_FEED).map(it => ({
+          t: it.title,
+          u: it.link,
+          s: f.name,
+          d: it.pubDate || '',
+        })))
+        .catch(() => [])
+    )
+  ).then(results => {
+    const all = results.flatMap(r => r.status === 'fulfilled' ? r.value : []);
+    all.sort((a, b) => new Date(b.d) - new Date(a.d));
+    const news = all.slice(0, NEWS_TOTAL);
+
+    if (newsList) {
+      if (news.length === 0) {
+        newsList.innerHTML = '<li>Les actualités apparaissent après la première mise à jour automatique.</li>';
+      } else {
+        newsList.innerHTML = news.map(n =>
+          `<li><a href="${n.u}" target="_blank" rel="noopener noreferrer nofollow">${n.t}</a>` +
+          `<small>${n.s} · ${fmt(n.d)}</small></li>`
+        ).join('');
+      }
+    }
+
+    if (modelNewsList) {
+      const modelNews = news.filter(n => MODEL_KEYWORDS.some(k => n.t.toLowerCase().includes(k))).slice(0, 5);
+      if (modelNews.length === 0) {
+        modelNewsList.innerHTML = '<li>Les flux n\u2019ont pas encore remonté de nouveauté modèle.</li>';
+      } else {
+        modelNewsList.innerHTML = modelNews.map(n =>
+          `<li><a href="${n.u}" target="_blank" rel="noopener noreferrer nofollow">${n.t}</a>` +
+          `<small>${n.s} · ${fmt(n.d)}</small></li>`
+        ).join('');
+      }
+    }
+  });
+})();
+
+
 if (f) {
   const out = document.getElementById('vram-out'), e = f.elements;
   const calc = () => {

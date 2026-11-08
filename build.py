@@ -442,14 +442,14 @@ def index_body(guides, news):
       <p class="help-inline help-inline--accent">Veille rapide : avantages, limites, tarifs et supports techniques.</p>
       <div class="model-grid">{spotlight_html}</div>
       <h3>Tendance RSS modèles</h3>
-      <ul class="news model-news">{model_rss_html}</ul>
+      <ul class="news model-news" id="model-news-list">{model_rss_html}</ul>
     </section>
   </main>
   <aside id="actus">
     <section class="side-block">
       <h2>Actualités du jour</h2>
       <p class="help-inline">Les liens externes s\u2019ouvrent dans un nouvel onglet pour garder votre progression.</p>
-      <ul class="news">{lis}</ul>
+      <ul class="news" id="news-list">{lis}</ul>
     </section>
   </aside>
 </div>
@@ -602,6 +602,12 @@ def main():
 
     # Fichiers de sécurité
     write_security_files()
+
+    # Fichiers statiques racine à conserver dans public/
+    for fname in ("CNAME", "ads.txt", "googled0b4ae6e822c48bf.html"):
+        src = ROOT / fname
+        if src.exists():
+            shutil.copy2(src, OUT / fname)
 
     print(f"OK : {len(guides)} guides, {len(news)} actualités")
 

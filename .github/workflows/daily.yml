@@ -25,14 +25,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Si tu n'utilises plus build.py, supprime cette étape
-      # - name: Run build script
-      #   run: python build.py
+      - name: Run build script
+        run: python build.py
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./
+          path: ./public
 
       - name: Deploy to GitHub Pages
         id: deployment
