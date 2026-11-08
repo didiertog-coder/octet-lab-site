@@ -238,7 +238,18 @@ def fetch_news():
                 })
         items += got[:CFG["per_feed"]]
     items.sort(key=lambda x: x["d"], reverse=True)
-    return items[:CFG["news_total"]]
+
+    # Dé-duplication (URL) pour ne garder que les plus récentes
+    deduped, seen = [], set()
+    for it in items:
+        key = it["u"].strip().lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(it)
+
+    # Toujours afficher les plus récentes en premier
+    return deduped[:CFG["news_total"]]
 
 
 # ── Accès sécurisé à la config ────────────────────────────────────────────────
