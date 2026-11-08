@@ -212,31 +212,67 @@ def _fetch_url(url):
     raise last_exc
 
 
+def _entry_link(it):
+    """Extrait le lien d'un item RSS/Atom (texte, href Atom, guid)."""
+    link = txt(it, "link")
+    if link.startswith("http"):
+        return link
+
+    atom_links = list(it.findall(AT + "link"))
+    for le in atom_links:
+        href = (le.get("href") or "").strip()
+        rel = (le.get("rel") or "alternate").strip().lower()
+        if href.startswith("http") and rel in ("alternate", ""):
+            return href
+    for le in atom_links:
+        href = (le.get("href") or "").strip()
+        if href.startswith("http"):
+            return href
+
+    plain_link = it.find("link")
+    if plain_link is not None:
+        href = (plain_link.get("href") or "").strip()
+        if href.startswith("http"):
+            return href
+
+    guid = txt(it, "guid")
+    if guid.startswith("http"):
+        return guid
+
+    return ""
+
+
 def fetch_news():
     """Récupère et fusionne les actualités de tous les flux RSS configurés."""
     items = []
     for f in CFG["feeds"]:
         try:
             raw = _fetch_url(f["url"])
-            root = ET.fromstring(raw)
+            try:
+                root = ET.fromstring(raw)
+            except ET.ParseError:
+                # Certains flux (ex: agrégateurs) contiennent des '&' non échappés
+                repaired = re.sub(r"&(?!#?\w+;)", "&amp;", raw.decode("utf-8", "ignore"))
+                root = ET.fromstring(repaired.encode("utf-8"))
         except Exception as e:
             print("Flux ignoré :", f["name"], "-", type(e).__name__, str(e)[:120])
             continue
+
         got = []
         for it in list(root.iter("item")) + list(root.iter(AT + "entry")):
-            link = txt(it, "link")
-            le = it.find(AT + "link")
-            if le is not None and le.get("href"):
-                link = le.get("href")
             title = txt(it, "title", AT + "title")
+            link = _entry_link(it)
+            date_txt = txt(it, "pubDate", AT + "published", AT + "updated", "date")
             if title and link.startswith("http"):
                 got.append({
                     "t": title,
                     "u": link,
                     "s": f["name"],
-                    "d": pdate(txt(it, "pubDate", AT + "published", AT + "updated")),
+                    "d": pdate(date_txt),
                 })
+
         items += got[:CFG["per_feed"]]
+
     items.sort(key=lambda x: x["d"], reverse=True)
 
     # Dé-duplication (URL) pour ne garder que les plus récentes
