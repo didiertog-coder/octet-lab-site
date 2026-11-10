@@ -223,6 +223,13 @@
       "purpose": "Génération d’images créatives à partir de prompts texte.",
       "pricing": "Payant",
       "url": "https://www.midjourney.com"
+    },
+    {
+      "name": "agent-qa",
+      "theme": "Développement",
+      "purpose": "Tests web et mobiles de vostride avec mémoire persistante memidex, auto-amélioration validée, MCP et preuves d’exécution consultables.",
+      "pricing": "Frais de modèle selon l’usage",
+      "url": "https://vostride.com"
     }
   ],
   "model_spotlight": [
