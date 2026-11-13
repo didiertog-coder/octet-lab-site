@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>La règle de sauvegarde 3-2-1 | OCTET LAB</title>
-<meta name="description" content="Protéger ses fichiers contre la panne, le vol, le rançongiciel et l&#x27;erreur humaine.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="description" content="Guide expert pour appliquer la stratégie 3-2-1 (et 3-2-1-1) contre pannes, erreurs et ransomware.">
+<meta name="google-adsense-account" content="ca-pub-5118036301325782">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
@@ -15,10 +16,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -26,15 +27,51 @@
     <a href="../index.html#actus">Actualités</a>
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
+    <a href="../prompts-utiles.html">Prompts utiles</a>
   </nav>
 </header>
-<article class="prose"><h1>La règle de sauvegarde 3-2-1</h1><p>Un disque dur finit toujours par tomber en panne. La règle 3-2-1 est la référence pour ne rien perdre.</p>
-<h2>Le principe</h2>
-<ul><li><strong>3</strong> copies de vos données : l&#x27;original et deux sauvegardes.</li><li><strong>2</strong> supports différents : par exemple le disque interne et un disque externe.</li><li><strong>1</strong> copie hors site : un stockage en ligne ou un disque chez un proche.</li></ul>
-<h2>Mise en pratique</h2>
-<ul><li>Un disque externe branché de temps en temps pour la copie locale.</li><li>Un service de stockage en ligne pour la copie distante. Chiffrez les fichiers sensibles avant de les envoyer.</li><li>Automatisez : une sauvegarde manuelle finit par être oubliée.</li></ul>
-<h2>Pièges fréquents</h2>
-<ul><li>Un disque externe branché en permanence peut être chiffré par un rançongiciel en même temps que l&#x27;ordinateur. Gardez une copie déconnectée.</li><li>La synchronisation (type cloud) n&#x27;est pas une sauvegarde : une suppression ou un fichier corrompu se propage partout.</li><li>Une sauvegarde jamais testée n&#x27;est pas fiable : restaurez un fichier au moins une fois par an.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<article class="prose"><h1>La règle de sauvegarde 3-2-1</h1><p>Perdre ses données n’est pas une question de “si”, mais de “quand”. La stratégie 3-2-1 reste la base la plus robuste pour les particuliers, freelances et petites structures. Aujourd’hui, face aux ransomwares, il faut aller un cran plus loin avec la logique 3-2-1-1.</p>
+<h2>Objectif du guide</h2>
+<p>Vous saurez :</p>
+<ul><li>implémenter une sauvegarde réellement résiliente ;</li><li>différencier synchronisation et sauvegarde ;</li><li>tester la restauration pour éviter les fausses sécurités.</li></ul>
+<h2>Méthode experte en 5 étapes</h2>
+<h2>1) Appliquer la règle 3-2-1</h2>
+<p>Structure minimale :</p>
+<ul><li><strong>3 copies</strong> de vos données (production + 2 copies) ;</li><li><strong>2 supports différents</strong> (ex : SSD interne + disque externe/NAS) ;</li><li><strong>1 copie hors site</strong> (cloud ou support distant).</li></ul>
+<p>C’est la protection de base contre panne, vol, incendie et erreur humaine.</p>
+<h2>2) Renforcer avec le principe 3-2-1-1</h2>
+<p>Le risque moderne : un ransomware peut chiffrer aussi vos sauvegardes accessibles.</p>
+<p>Ajoutez donc :</p>
+<ul><li><strong>1 copie immuable ou déconnectée</strong> (air-gap, snapshots immutables, objet lock).</li></ul>
+<p>Sans cette couche, vos “sauvegardes” peuvent disparaître en même temps que la production.</p>
+<h2>3) Automatiser la sauvegarde</h2>
+<p>Une sauvegarde manuelle finit toujours par être oubliée.</p>
+<p>Bonnes pratiques :</p>
+<ul><li>planification quotidienne pour les données actives ;</li><li>rétention adaptée (historique sur plusieurs semaines/mois) ;</li><li>journal de succès/échec.</li></ul>
+<p>Automatiser, c’est transformer une intention en système fiable.</p>
+<h2>4) Chiffrer et segmenter les accès</h2>
+<p>Sécurité recommandée :</p>
+<ul><li>chiffrement des copies hors site ;</li><li>compte de sauvegarde séparé du compte utilisateur principal ;</li><li>MFA activée sur les comptes cloud.</li></ul>
+<p>L’objectif est d’éviter qu’un seul compte compromis détruise production + backup.</p>
+<h2>5) Tester la restauration régulièrement</h2>
+<p>La vraie question n’est pas “ai-je un backup ?”, mais “puis-je restaurer vite et proprement ?”.</p>
+<p>Test minimal à faire :</p>
+<ul><li>restaurer un fichier critique chaque mois ;</li><li>restaurer un dossier complet chaque trimestre ;</li><li>mesurer le temps de reprise.</li></ul>
+<h2>Checklist opérationnelle</h2>
+<ul><li>[ ] Règle 3-2-1 appliquée</li><li>[ ] Copie immuable ou déconnectée en place</li><li>[ ] Sauvegardes automatiques planifiées</li><li>[ ] Chiffrement activé pour l’offsite</li><li>[ ] Test de restauration documenté</li></ul>
+<h2>Erreurs fréquentes à éviter</h2>
+<ul><li><strong>Confondre cloud sync et backup</strong> : une suppression se propage partout.</li><li><strong>Laisser le disque de backup branché en permanence</strong>.</li><li><strong>Ne jamais tester la restauration</strong>.</li><li><strong>Tout protéger avec le même compte admin</strong>.</li><li><strong>Absence de politique de rétention</strong> (on écrase trop vite les versions saines).</li></ul>
+<h2>FAQ rapide</h2>
+<h3>La sauvegarde cloud suffit-elle seule ?</h3>
+<p>Non. Il faut aussi une copie locale pour restaurer vite et limiter la dépendance réseau.</p>
+<h3>Combien de versions garder ?</h3>
+<p>Dépend de votre activité, mais gardez au moins plusieurs points de restauration sur plusieurs semaines.</p>
+<h3>Un NAS remplace-t-il une copie hors site ?</h3>
+<p>Non, sauf s’il réplique vers un second site/cloud indépendant.</p>
+<h3>Quelle fréquence minimale ?</h3>
+<p>Pour des données actives : quotidien. Pour de l’archive froide : hebdomadaire ou mensuel selon criticité.</p>
+<h2>Conclusion</h2>
+<p>La meilleure sauvegarde est celle qui survit à l’incident et se restaure rapidement. Avec 3-2-1 + une copie immuable/déconnectée + tests réguliers, vous passez d’une protection théorique à une vraie résilience.</p><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>
@@ -45,7 +82,8 @@
 </div>
 <footer>
   <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
-  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a> · <a href="mailto:contact@binaryforge.fr">Contact</a></p>
+  <p><button id="cookie-manage" type="button" class="link-button">Gérer mes cookies</button></p>
   <p>© 2026 BinaryForge. Tous droits réservés.</p>
 </footer>
 <script src="../assets/app.js" defer></script>

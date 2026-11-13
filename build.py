@@ -31,7 +31,8 @@ _CSP = (
         "https://cdn.umami.is; "
     "connect-src 'self' https://www.google-analytics.com "
         "https://region1.google-analytics.com https://plausible.io "
-        "https://cdn.umami.is; "
+        "https://cdn.umami.is https://googleads.g.doubleclick.net "
+        "https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; "
     "frame-src https://googleads.g.doubleclick.net "
         "https://tpc.googlesyndication.com; "
     "frame-ancestors 'none'; "
@@ -313,7 +314,8 @@ def layout(title, desc, body, depth=0):
         f'<a href="{r}mentions-legales.html">Mentions légales</a> · '
         f'<a href="{r}politique-confidentialite.html">Confidentialité</a> · '
         f'<a href="{r}politique-cookies.html">Cookies</a> · '
-        f'<a href="{r}cgu.html">CGU</a>'
+        f'<a href="{r}cgu.html">CGU</a> · '
+        f'<a href="mailto:{esc(CFG["contact_email"])}">Contact</a>'
     )
 
     body_attrs = {
@@ -326,6 +328,10 @@ def layout(title, desc, body, depth=0):
         "data-adsense-slot-home": cfg(["adsense", "slot_home_top"]),
     }
     attrs = " ".join(f'{k}="{esc(str(v))}"' for k, v in body_attrs.items())
+    adsense_meta = ""
+    adsense_client = cfg(["adsense", "client_id"]).strip()
+    if cfg(["adsense", "enabled"], False) and adsense_client:
+        adsense_meta = f'\n<meta name="google-adsense-account" content="{esc(adsense_client)}">'
 
     return f"""<!doctype html>
 <html lang="fr">
@@ -333,7 +339,7 @@ def layout(title, desc, body, depth=0):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
-<meta name="description" content="{esc(desc)}">
+<meta name="description" content="{esc(desc)}">{adsense_meta}
 <meta http-equiv="Content-Security-Policy" content="{_CSP}">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -347,7 +353,7 @@ def layout(title, desc, body, depth=0):
 <body {attrs}>
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge">&#128197; {date_fr}</span>
+    <span class="date-badge" id="live-date">&#128197; {date_fr}</span>
     <a class="logo" href="{r}index.html">{esc(CFG['site_name'])}</a>
   </div>
   <nav>
@@ -355,6 +361,7 @@ def layout(title, desc, body, depth=0):
     <a href="{r}index.html#actus">Actualités</a>
     <a href="{r}index.html#materiel">Matériel</a>
     <a href="{r}ia-thematiques.html">IA thématiques</a>
+    <a href="{r}prompts-utiles.html">Prompts utiles</a>
   </nav>
 </header>
 {body}
@@ -369,6 +376,7 @@ def layout(title, desc, body, depth=0):
 <footer>
   <p>{esc(CFG['disclosure'])}</p>
   <p>{legal}</p>
+  <p><button id="cookie-manage" type="button" class="link-button">Gérer mes cookies</button></p>
   <p>\u00a9 {year} {esc(CFG.get('copyright_holder', 'BinaryForge'))}. Tous droits réservés.</p>
 </footer>
 <script src="{r}assets/app.js" defer></script>
@@ -429,6 +437,96 @@ def index_body(guides, news):
         for p in CFG["partners"]
     )
 
+    resources_cards = "".join(
+        f'<a class="card resource-card" href="{esc(r.get("url", "#"))}" target="_blank" rel="noopener noreferrer nofollow">'
+        f'<span class="tag">{esc(r.get("type", "Ressource"))}</span>'
+        f'<h3>{esc(r.get("name", "Ressource IA"))}</h3>'
+        f'<p>{esc(r.get("desc", ""))}</p>'
+        f'</a>'
+        for r in CFG.get("ai_resources", [])[:8]
+    )
+
+    resources_block = (
+        '<section class="full" id="ressources-ia">'
+        '<h2>Ressources IA incontournables</h2>'
+        '<p class="help-inline help-inline--accent">Sélection utile pour les passionnés : benchmarks, datasets, leaderboards, papier et veille technique.</p>'
+        f'<div class="partners resources-grid">{resources_cards}</div>'
+        '</section>'
+        if resources_cards else ""
+    )
+
+    lab_keywords = (
+        "open source", "benchmark", "llm", "agent", "model", "modèle", "dataset",
+        "release", "nouveau", "paper", "fine-tune", "embedding", "rag"
+    )
+    deals_keywords = (
+        "promo", "bon plan", "soldes", "black friday", "amazon", "gpu", "ssd", "pc", "nas", "ryzen"
+    )
+
+    lab_news = [n for n in news if any(k in n["t"].lower() for k in lab_keywords)][:6]
+    deals_news = [n for n in news if any(k in n["t"].lower() for k in deals_keywords)][:6]
+
+    lab_news_html = "".join(
+        f'<li><a href="{esc(n["u"])}" target="_blank" rel="noopener noreferrer nofollow">{esc(n["t"])}</a>'
+        f'<small>{esc(n["s"])} · {n["d"]:%d/%m}</small></li>'
+        for n in lab_news
+    ) or "<li>La veille IA du jour sera visible après la prochaine mise à jour RSS.</li>"
+
+    deals_news_html = "".join(
+        f'<li><a href="{esc(n["u"])}" target="_blank" rel="noopener noreferrer nofollow">{esc(n["t"])}</a>'
+        f'<small>{esc(n["s"])} · {n["d"]:%d/%m}</small></li>'
+        for n in deals_news
+    ) or "<li>Les bons plans matériel apparaîtront après la prochaine collecte RSS.</li>"
+
+    daily_rss_block = (
+        '<section class="full rss-rubrics" id="veille-quotidienne">'
+        '<h2>Rubriques quotidiennes IA</h2>'
+        '<p class="help-inline">Mise à jour automatique chaque jour via RSS : veille technique + opportunités matériel.</p>'
+        '<div class="daily-columns">'
+        '<article class="side-block"><h3>Veille IA & produits</h3><ul class="news">' + lab_news_html + '</ul></article>'
+        '<article class="side-block"><h3>Bons plans matériel (RSS)</h3><ul class="news">' + deals_news_html + '</ul></article>'
+        '</div>'
+        '</section>'
+    )
+
+    daily_products = CFG.get("amazon_daily_products", [])
+    amazon_tag = str(CFG.get("amazon_affiliate_tag", "")).strip()
+
+    def add_amazon_tag(url):
+        if not amazon_tag:
+            return url
+        low = url.lower()
+        if "amazon." not in low or "tag=" in low:
+            return url
+        sep = "&" if "?" in url else "?"
+        return f"{url}{sep}tag={amazon_tag}"
+
+    products_cards = ""
+    if daily_products:
+        day_seed = datetime.now(timezone.utc).timetuple().tm_yday
+        picks = []
+        count = min(3, len(daily_products))
+        for i in range(count):
+            picks.append(daily_products[(day_seed + i) % len(daily_products)])
+
+        products_cards = "".join(
+            f'<a class="card" href="{esc(add_amazon_tag(p.get("url", "#")))}" target="_blank" rel="sponsored noopener noreferrer">'
+            f'<span class="tag">Amazon · sélection du jour</span>'
+            f'<h3>{esc(p.get("name", "Produit Amazon"))}</h3>'
+            f'<p>{esc(p.get("desc", ""))}</p>'
+            f'</a>'
+            for p in picks
+        )
+
+    daily_amazon_block = (
+        '<section class="full" id="amazon-du-jour">'
+        '<h2>Produits Amazon du jour</h2>'
+        '<p class="help-inline help-inline--accent">Sélection renouvelée quotidiennement pour les passionnés d’IA locale (liens partenaires).</p>'
+        f'<div class="partners amazon-daily-grid">{products_cards}</div>'
+        '</section>'
+        if products_cards else ""
+    )
+
     ad_block = (
         '<section class="full" id="monetisation"><h2>Publicité</h2>'
         '<div id="ad-slot-home" class="partners"></div></section>'
@@ -441,6 +539,11 @@ def index_body(guides, news):
     <h1>{esc(CFG['tagline'])}</h1>
     <p class="lead">Comprendre, choisir, installer. Les guides sont complétés régulièrement
        et l'actualité du secteur se met à jour chaque jour.</p>
+    <div class="kpi-strip" aria-label="Repères clés">
+      <article><strong>17+</strong><span>guides experts</span></article>
+      <article><strong>MAJ / jour</strong><span>veille RSS automatisée</span></article>
+      <article><strong>100 % local-first</strong><span>focus IA pratique</span></article>
+    </div>
     <div class="word-box">
       <h2>Un petit mot pour vous ...</h2>
       <p>Merci de visiter OCTET LAB. Ce site est pensé pour vous aider à comprendre l\u2019IA
@@ -483,6 +586,12 @@ def index_body(guides, news):
   <main id="guides">
     <h2>Guides</h2>
     <p class="help-inline">Astuce : ouvrez les guides dans l\u2019ordre de complexité pour progresser sans bloquer.</p>
+    <p class="help-inline help-inline--accent">Nouveau : <a href="prompts-utiles.html">accédez à la bibliothèque de prompts utiles</a> classés par thèmes.</p>
+    <div class="expert-pillars" aria-label="Piliers éditoriaux">
+      <article><h3>IA locale utile</h3><p>Tutoriels actionnables orientés usage réel, pas théorie abstraite.</p></article>
+      <article><h3>Matériel dimensionné</h3><p>Choix composants selon modèles cibles, performance et budget.</p></article>
+      <article><h3>Sécurité & conformité</h3><p>Approche responsable : protection des données, RGPD, transparence.</p></article>
+    </div>
     <div class="grid">{cards}</div>
     <section class="side-block models-left">
       <h2>Nouveaux modèles IA</h2>
@@ -500,6 +609,9 @@ def index_body(guides, news):
     </section>
   </aside>
 </div>
+{resources_block}
+{daily_rss_block}
+{daily_amazon_block}
 <section class="full" id="materiel">
   <h2>Matériel et logiciels</h2>
   <p class="help-inline">Transparence : les blocs ci-dessous sont des liens partenaires monétisables.</p>
@@ -547,6 +659,96 @@ def ai_tools_body():
     <div id="ai-tools-grid" class="grid ai-grid">{cards}</div>
   </article>
 </section>"""
+
+
+def prompts_body():
+    """Génère le corps HTML de prompts-utiles.html."""
+    prompts = sorted(
+        CFG.get("prompt_library", []),
+        key=lambda x: (x.get("theme", "Autre"), x.get("title", "")),
+    )
+    themes = sorted({p.get("theme", "Autre") for p in prompts})
+    options = '<option value="all">Tous les thèmes</option>' + "".join(
+        f'<option value="{esc(t)}">{esc(t)}</option>' for t in themes
+    )
+
+    cards = "".join(
+        f'<article class="card prompt-card" '
+        f'data-id="prompt-{i}" '
+        f'data-theme="{esc(p.get("theme", "Autre"))}" '
+        f'data-search="{esc((p.get("title", "") + " " + p.get("theme", "") + " " + p.get("goal", "") + " " + p.get("inputs", "") + " " + p.get("prompt", "")).lower())}">'
+        f'<div class="prompt-card-head">'
+        f'<span class="tag">{esc(p.get("theme", "Autre"))}</span>'
+        f'<button type="button" class="fav-btn" data-fav-id="prompt-{i}" aria-pressed="false" aria-label="Ajouter aux favoris">★</button>'
+        f'</div>'
+        f'<h3>{esc(p.get("title", "Prompt IA"))}</h3>'
+        f'<p><strong>Résultat recherché :</strong> {esc(p.get("goal", ""))}</p>'
+        f'<p><strong>Quand l’utiliser :</strong> {esc(p.get("when_to_use", ""))}</p>'
+        f'<p><strong>Entrées à fournir :</strong> {esc(p.get("inputs", ""))}</p>'
+        f'<p><strong>Checklist qualité :</strong> {esc(p.get("quality_checklist", ""))}</p>'
+        f'<details><summary>Prompt prêt à l’emploi</summary>'
+        f'<pre id="prompt-{i}"><code>{esc(p.get("prompt", ""))}</code></pre>'
+        f'<div class="prompt-actions">'
+        f'<button type="button" class="copy-btn" data-copy-prompt="prompt-{i}">Copier le prompt</button>'
+        f'</div>'
+        f'</details>'
+        f'</article>'
+        for i, p in enumerate(prompts, start=1)
+    )
+
+    return f"""
+<section class="full">
+  <article class="prose prose-wide">
+    <div class="page-head">
+      <h1>Prompts utiles par thème</h1>
+      <a class="btn-back" href="index.html">\u2190 Retour à la page principale</a>
+    </div>
+    <p class="lead">Une bibliothèque de prompts IA pratiques, classés par usages concrets.</p>
+    <p class="help-inline help-inline--accent">Version V2 : recherche plein texte, favoris, export JSON/CSV et navigation rapide.</p>
+
+    <div class="prompt-toolbar">
+      <div class="tool-actions">
+        <label for="prompt-theme-filter">Thème</label>
+        <select id="prompt-theme-filter" aria-label="Filtrer les prompts par thème">{options}</select>
+
+        <label for="prompt-search">Recherche</label>
+        <input id="prompt-search" type="search" placeholder="Ex: marketing, bug, synthèse, B2B..." aria-label="Rechercher dans les prompts">
+
+        <label class="check-inline"><input id="prompt-favorites-only" type="checkbox"> Favoris uniquement</label>
+      </div>
+      <div class="prompt-toolbar-actions">
+        <button type="button" id="prompt-random" class="copy-btn">Prompt aléatoire</button>
+        <button type="button" id="prompt-reset" class="copy-btn">Réinitialiser</button>
+        <a class="copy-btn export-link" href="prompt-library.json" download>Télécharger JSON</a>
+        <a class="copy-btn export-link" href="prompt-library.csv" download>Télécharger CSV</a>
+      </div>
+      <p id="prompt-results-count" class="prompt-results">0 prompt</p>
+    </div>
+
+    <div id="prompt-library-grid" class="grid prompt-grid">{cards}</div>
+  </article>
+</section>"""
+
+
+def csv_escape(value):
+    s = str(value or "")
+    if any(c in s for c in [",", '"', "\n", "\r"]):
+        return '"' + s.replace('"', '""') + '"'
+    return s
+
+
+def write_prompt_exports():
+    prompts = CFG.get("prompt_library", [])
+    (OUT / "prompt-library.json").write_text(
+        json.dumps(prompts, ensure_ascii=False, indent=2),
+        "utf-8",
+    )
+
+    headers = ["theme", "title", "goal", "when_to_use", "inputs", "quality_checklist", "prompt"]
+    lines = [",".join(headers)]
+    for p in prompts:
+        lines.append(",".join(csv_escape(p.get(h, "")) for h in headers))
+    (OUT / "prompt-library.csv").write_text("\n".join(lines) + "\n", "utf-8")
 
 
 # ── Fichiers de sécurité serveur ──────────────────────────────────────────────
@@ -626,10 +828,15 @@ def main():
         layout("IA par thématiques | " + CFG["site_name"], "Catalogue d\u2019IA triable par thématique, finalité et prix.", ai_tools_body()),
         "utf-8",
     )
+    (OUT / "prompts-utiles.html").write_text(
+        layout("Prompts utiles | " + CFG["site_name"], "Bibliothèque de prompts IA utiles classés par thèmes et objectifs.", prompts_body()),
+        "utf-8",
+    )
+    write_prompt_exports()
 
     # Sitemap
     urls = (
-        ["index.html", "ia-thematiques.html"]
+        ["index.html", "ia-thematiques.html", "prompts-utiles.html"]
         + [f"guides/{g['slug']}.html" for g in guides]
         + [f"{p.stem}.html" for p in (ROOT / "pages").glob("*.md")]
     )

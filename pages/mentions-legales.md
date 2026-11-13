@@ -5,21 +5,21 @@ title: Mentions légales
 
 Le site **OCTET LAB** est édité par **BinaryForge**.
 
-- Responsable de publication : [À COMPLÉTER]
-- Statut : [Particulier / Micro-entreprise / Société]
-- Adresse : [À COMPLÉTER]
-- E-mail de contact : contact@votre-domaine.fr
-- SIREN/SIRET (si applicable) : [À COMPLÉTER]
-- N° TVA intracommunautaire (si applicable) : [À COMPLÉTER]
+- Responsable de publication : BinaryForge
+- Statut : Éditeur indépendant
+- Adresse de contact : communication sur demande motivée à l’adresse ci-dessous
+- E-mail de contact : contact@binaryforge.fr
+- SIREN/SIRET : non communiqué publiquement
+- N° TVA intracommunautaire : non applicable
 
 ## Hébergeur
 
 Le site est hébergé par :
 
-- Nom de l’hébergeur : [À COMPLÉTER]
-- Adresse : [À COMPLÉTER]
-- Site web : [À COMPLÉTER]
-- Contact : [À COMPLÉTER]
+- Nom de l’hébergeur : GitHub, Inc. (GitHub Pages)
+- Adresse : 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA
+- Site web : https://github.com
+- Contact : https://support.github.com
 
 ## Propriété intellectuelle
 
@@ -47,7 +47,7 @@ Le site peut contenir des liens vers des sites tiers. **BinaryForge** n’exerce
 
 Le traitement des données est détaillé dans la **Politique de confidentialité** et la **Politique cookies** accessibles depuis le pied de page.
 
-Conformément au RGPD et à la loi Informatique et Libertés, vous pouvez exercer vos droits (accès, rectification, effacement, limitation, opposition, portabilité) via : contact@votre-domaine.fr.
+Conformément au RGPD et à la loi Informatique et Libertés, vous pouvez exercer vos droits (accès, rectification, effacement, limitation, opposition, portabilité) via : contact@binaryforge.fr.
 
 ## Droit applicable
 
@@ -55,4 +55,4 @@ Le présent site est soumis au droit français. En cas de litige, et à défaut 
 
 ## Contact
 
-Pour toute question légale ou signalement : contact@votre-domaine.fr
+Pour toute question légale ou signalement : contact@binaryforge.fr

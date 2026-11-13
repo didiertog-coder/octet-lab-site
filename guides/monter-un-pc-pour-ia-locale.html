@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Monter un PC pour l&#x27;IA locale : les composants qui comptent | OCTET LAB</title>
-<meta name="description" content="Où mettre son budget quand on veut faire tourner des modèles chez soi.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="description" content="Guide expert pour dimensionner un PC IA local équilibré selon vos modèles, votre budget et vos objectifs.">
+<meta name="google-adsense-account" content="ca-pub-5118036301325782">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
@@ -15,10 +16,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -26,19 +27,51 @@
     <a href="../index.html#actus">Actualités</a>
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
+    <a href="../prompts-utiles.html">Prompts utiles</a>
   </nav>
 </header>
-<article class="prose"><h1>Monter un PC pour l&#x27;IA locale : les composants qui comptent</h1><p>Pour l&#x27;IA locale, l&#x27;ordre des priorités n&#x27;est pas celui d&#x27;un PC de jeu classique.</p>
-<h2>1. La carte graphique et sa VRAM</h2>
-<p>C&#x27;est le composant décisif. La VRAM détermine la taille de modèle utilisable. Visez 12 Go au minimum pour être à l&#x27;aise, 16 à 24 Go pour des modèles plus ambitieux. Vérifiez la compatibilité du logiciel avec la marque de la carte (NVIDIA, AMD) avant d&#x27;acheter.</p>
-<h2>2. La mémoire vive (RAM)</h2>
-<p>32 Go est un bon point de départ. Elle sert de réserve quand un modèle dépasse la VRAM, au prix d&#x27;une forte baisse de vitesse.</p>
-<h2>3. Le stockage</h2>
-<p>Les modèles pèsent de quelques Go à plusieurs dizaines de Go chacun. Prenez un SSD NVMe de 1 To ou plus.</p>
-<h2>4. Le reste</h2>
-<ul><li><strong>Alimentation</strong> : dimensionnez-la selon la consommation de la carte, avec une marge.</li><li><strong>Refroidissement</strong> : une IA qui tourne longtemps sollicite la carte en continu.</li><li><strong>Processeur</strong> : un modèle récent d&#x27;entrée ou de milieu de gamme suffit dans la plupart des cas.</li></ul>
-<h2>Avant d&#x27;acheter</h2>
-<ul><li>Comparez le prix par Go de VRAM plutôt que le prix de la carte seule.</li><li>Vérifiez que le boîtier accueille la longueur de la carte.</li><li>Testez d&#x27;abord vos besoins avec l&#x27;estimateur de VRAM de la page d&#x27;accueil.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<article class="prose"><h1>Monter un PC pour l&#x27;IA locale : les composants qui comptent</h1><p>Monter un PC pour l’IA locale ne suit pas la logique d’un PC gaming classique. L’objectif n’est pas de maximiser les FPS, mais d’obtenir un système stable, silencieux et capable d’exécuter vos modèles avec un bon débit.</p>
+<h2>Objectif du guide</h2>
+<p>Vous saurez :</p>
+<ul><li>répartir le budget intelligemment ;</li><li>éviter les goulets d’étranglement ;</li><li>construire une configuration évolutive sur 12 à 24 mois.</li></ul>
+<h2>Méthode experte de conception</h2>
+<h2>1) Dimensionner d’abord la VRAM (priorité absolue)</h2>
+<p>La VRAM détermine la taille des modèles utilisables.</p>
+<p>Repères :</p>
+<ul><li>8 Go : entrée de gamme IA locale ;</li><li>12 Go : base polyvalente ;</li><li>16–24 Go : usage avancé (modèles plus gros, contexte long, multitâche).</li></ul>
+<p>Règle de décision : comparez le <strong>prix par Go de VRAM</strong>, pas seulement le prix total.</p>
+<h2>2) Choisir la RAM et le stockage sans sous-dimensionner</h2>
+<ul><li><strong>RAM</strong> : 32 Go recommandés pour un usage confortable ;</li><li><strong>Stockage</strong> : SSD NVMe 1 To minimum (modèles + cache + projets).</li></ul>
+<p>Si vous manipulez plusieurs modèles et jeux de données, viser 2 To améliore nettement le confort.</p>
+<h2>3) Assurer la stabilité électrique et thermique</h2>
+<p>Une IA locale peut charger le GPU pendant longtemps.</p>
+<p>Indispensable :</p>
+<ul><li>alimentation de qualité, marge de puissance ;</li><li>boîtier bien ventilé ;</li><li>airflow propre (entrées/sorties d’air cohérentes).</li></ul>
+<p>Un PC instable annule tous les gains de performance.</p>
+<h2>4) Choisir CPU et plateforme selon votre usage</h2>
+<p>Pour beaucoup de workloads LLM locaux, le GPU reste dominant.</p>
+<p>En pratique :</p>
+<ul><li>un CPU moderne milieu de gamme suffit souvent ;</li><li>privilégiez une carte mère avec marge d’évolution (RAM, SSD, PCIe).</li></ul>
+<p>Vous achetez une plateforme, pas seulement un instantané de performance.</p>
+<h2>5) Prévoir l’évolutivité dès le départ</h2>
+<p>Avant achat, vérifiez :</p>
+<ul><li>longueur de carte compatible boîtier ;</li><li>connecteurs d’alimentation GPU ;</li><li>emplacements SSD libres ;</li><li>capacité de refroidissement future.</li></ul>
+<p>Une config évolutive coûte moins cher qu’un remplacement complet.</p>
+<h2>Checklist avant commande</h2>
+<ul><li>[ ] Modèles cibles définis (taille + contexte)</li><li>[ ] VRAM dimensionnée avec marge</li><li>[ ] RAM 32 Go minimum validée</li><li>[ ] SSD NVMe 1 To+ retenu</li><li>[ ] Alimentation/boîtier compatibles</li><li>[ ] Plan d’upgrade documenté</li></ul>
+<h2>Erreurs fréquentes</h2>
+<ul><li><strong>Surinvestir CPU</strong> et sous-investir VRAM.</li><li><strong>Prendre une alimentation bas de gamme</strong> sur une machine GPU sollicitée.</li><li><strong>Négliger la dissipation thermique</strong> (throttling, bruit, usure).</li><li><strong>Acheter sans plan d’évolution</strong>.</li></ul>
+<h2>FAQ rapide</h2>
+<h3>Faut-il absolument 24 Go de VRAM ?</h3>
+<p>Non. 12 Go suffisent déjà pour beaucoup d’usages utiles.</p>
+<h3>32 Go de RAM sont-ils obligatoires ?</h3>
+<p>Pas obligatoires, mais très recommandés pour un usage fluide.</p>
+<h3>Un SSD SATA suffit-il ?</h3>
+<p>Possible, mais NVMe est préférable pour chargements et confort global.</p>
+<h3>Mieux vaut une grosse carte seule ou deux petites ?</h3>
+<p>Pour la plupart des utilisateurs, une bonne carte unique est plus simple à exploiter.</p>
+<h2>Conclusion</h2>
+<p>Un bon PC IA locale est un système équilibré : VRAM priorisée, RAM suffisante, stockage rapide, thermique maîtrisée. Cette approche évite les achats impulsifs et donne une machine réellement productive au quotidien.</p><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>
@@ -49,7 +82,8 @@
 </div>
 <footer>
   <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
-  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a> · <a href="mailto:contact@binaryforge.fr">Contact</a></p>
+  <p><button id="cookie-manage" type="button" class="link-button">Gérer mes cookies</button></p>
   <p>© 2026 BinaryForge. Tous droits réservés.</p>
 </footer>
 <script src="../assets/app.js" defer></script>

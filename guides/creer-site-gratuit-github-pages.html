@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mettre un site en ligne gratuitement avec GitHub Pages | OCTET LAB</title>
-<meta name="description" content="De vos fichiers à un site public, sans serveur à gérer.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="description" content="Guide expert pour publier un site statique fiable, rapide et maintenable avec GitHub Pages.">
+<meta name="google-adsense-account" content="ca-pub-5118036301325782">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
@@ -15,10 +16,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -26,17 +27,51 @@
     <a href="../index.html#actus">Actualités</a>
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
+    <a href="../prompts-utiles.html">Prompts utiles</a>
   </nav>
 </header>
-<article class="prose"><h1>Mettre un site en ligne gratuitement avec GitHub Pages</h1><p>GitHub Pages héberge gratuitement les sites statiques (HTML, CSS, JavaScript). C&#x27;est une base solide pour un blog, un portfolio ou un site de guides.</p>
-<h2>Ce qu&#x27;il vous faut</h2>
-<ul><li>Un compte GitHub gratuit.</li><li>Un dossier contenant votre site, avec un fichier <code>index.html</code> à la racine.</li></ul>
-<h2>Étapes</h2>
-<ul><li>Créez un nouveau dépôt sur GitHub.</li><li>Envoyez-y vos fichiers, depuis l&#x27;interface web (Add file &gt; Upload files) ou avec Git.</li><li>Ouvrez Settings &gt; Pages, et choisissez la source de publication (branche, ou GitHub Actions si le site est généré par un script).</li><li>Patientez quelques minutes : l&#x27;adresse du site s&#x27;affiche dans cette même page.</li></ul>
-<h2>Brancher votre propre domaine</h2>
-<p>Dans Settings &gt; Pages, renseignez votre domaine dans « Custom domain », puis créez chez votre registrar les enregistrements DNS indiqués par la documentation GitHub. L&#x27;option « Enforce HTTPS » active le certificat gratuit.</p>
-<h2>Limites à connaître</h2>
-<ul><li>Site statique uniquement : pas de base de données ni de code serveur.</li><li>Pas d&#x27;usage commercial lourd : consultez les conditions d&#x27;utilisation de GitHub Pages.</li><li>Pour du contenu qui change chaque jour, utilisez une tâche planifiée (GitHub Actions) qui régénère le site.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<article class="prose"><h1>Mettre un site en ligne gratuitement avec GitHub Pages</h1><p>GitHub Pages est une excellente solution pour publier un site statique sans gérer de serveur. Bien utilisé, c’est rapide, sécurisé et parfaitement adapté à un site éditorial. Mal configuré, vous risquez des erreurs d’URL, un HTTPS incomplet ou un workflow fragile. Ce guide vous donne une méthode propre.</p>
+<h2>Objectif du guide</h2>
+<p>À la fin, vous pourrez :</p>
+<ul><li>publier un site statique en production ;</li><li>activer un domaine personnalisé proprement ;</li><li>sécuriser le déploiement avec un workflow reproductible ;</li><li>éviter les erreurs classiques qui bloquent indexation et monétisation.</li></ul>
+<h2>Méthode experte en 5 étapes</h2>
+<h2>1) Préparer un dépôt clair</h2>
+<p>Prérequis minimaux :</p>
+<ul><li>compte GitHub ;</li><li>structure de site avec <code>index.html</code> ;</li><li>fichiers statiques (CSS/JS/images) organisés.</li></ul>
+<p>Bonnes pratiques :</p>
+<ul><li>nommez le dépôt de façon explicite ;</li><li>versionnez les sources, pas les artefacts temporaires ;</li><li>gardez une arborescence simple pour faciliter maintenance et SEO.</li></ul>
+<h2>2) Publier avec un workflow maîtrisé</h2>
+<p>Deux options :</p>
+<ul><li><strong>Branche statique</strong> (simple) ;</li><li><strong>GitHub Actions</strong> (recommandé si génération automatique).</li></ul>
+<p>Pour un site qui se régénère quotidiennement (RSS, contenus dynamiques statiques), GitHub Actions est le plus robuste : build contrôlé, logs visibles, déploiement reproductible.</p>
+<h2>3) Vérifier le rendu en production</h2>
+<p>Après publication :</p>
+<ul><li>testez l’URL finale ;</li><li>vérifiez les pages clés (accueil, guides, mentions) ;</li><li>contrôlez les liens internes et les ressources (CSS/JS/images).</li></ul>
+<p>Un site “en ligne” n’est pas forcément “prêt” : validez toujours la version publiée, pas la version locale.</p>
+<h2>4) Brancher un domaine personnalisé</h2>
+<p>Dans <strong>Settings &gt; Pages</strong> :</p>
+<ul><li>renseignez le domaine ;</li><li>configurez les enregistrements DNS chez le registrar ;</li><li>activez <strong>Enforce HTTPS</strong>.</li></ul>
+<p>Ensuite, vérifiez que :</p>
+<ul><li><code>https://votredomaine</code> répond ;</li><li>une seule version canonique est utilisée ;</li><li><code>robots.txt</code> et <code>sitemap.xml</code> pointent sur le bon domaine.</li></ul>
+<h2>5) Mettre en place une routine d’exploitation</h2>
+<p>Routine minimale hebdo :</p>
+<ul><li>vérifier le dernier run GitHub Actions ;</li><li>contrôler que les flux RSS se mettent à jour ;</li><li>vérifier qu’aucune page clé ne renvoie une erreur.</li></ul>
+<p>Cette discipline simple évite les régressions silencieuses.</p>
+<h2>Checklist avant mise en production</h2>
+<ul><li>[ ] Déploiement reproductible validé</li><li>[ ] Domaine personnalisé configuré</li><li>[ ] HTTPS forcé activé</li><li>[ ] <code>robots.txt</code> et <code>sitemap.xml</code> cohérents</li><li>[ ] Liens internes testés</li><li>[ ] Pages légales et contact accessibles</li></ul>
+<h2>Erreurs fréquentes</h2>
+<ul><li><strong>Publier sans vérifier l’URL finale</strong>.</li><li><strong>Mélanger sources et fichiers générés</strong> dans le même flux sans règles claires.</li><li><strong>Oublier la cohérence domaine/robots/sitemap</strong>.</li><li><strong>Négliger les logs de build</strong> : un flux RSS cassé peut dégrader le site sans alerte visible.</li></ul>
+<h2>FAQ rapide</h2>
+<h3>GitHub Pages est-il suffisant pour un site de contenu ?</h3>
+<p>Oui, pour un site statique, c’est souvent suffisant et très performant.</p>
+<h3>Peut-on monétiser un site hébergé sur GitHub Pages ?</h3>
+<p>Oui, tant que vous respectez les conditions des régies et les règles de contenu.</p>
+<h3>Faut-il utiliser Actions ?</h3>
+<p>Oui si votre site est généré ou mis à jour automatiquement.</p>
+<h3>Quand changer d’hébergement ?</h3>
+<p>Quand vous avez besoin de logique serveur (API, authentification avancée, base de données dynamique).</p>
+<h2>Conclusion</h2>
+<p>GitHub Pages peut être une base de production très sérieuse si vous le pilotez comme un vrai workflow : build clair, domaine maîtrisé, contrôles réguliers. C’est cette rigueur qui fait la différence entre un site “gratuit” et un site “fiable”.</p><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>
@@ -47,7 +82,8 @@
 </div>
 <footer>
   <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
-  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a> · <a href="mailto:contact@binaryforge.fr">Contact</a></p>
+  <p><button id="cookie-manage" type="button" class="link-button">Gérer mes cookies</button></p>
   <p>© 2026 BinaryForge. Tous droits réservés.</p>
 </footer>
 <script src="../assets/app.js" defer></script>

@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Repérer un mail frauduleux et réagir | OCTET LAB</title>
-<meta name="description" content="Les signes d&#x27;un phishing, la vérification en trois minutes et les bons signalements.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="description" content="Guide expert anti-phishing : détecter un mail suspect, vérifier sans risque et réagir vite en cas d&#x27;incident.">
+<meta name="google-adsense-account" content="ca-pub-5118036301325782">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
@@ -15,10 +16,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -26,17 +27,49 @@
     <a href="../index.html#actus">Actualités</a>
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
+    <a href="../prompts-utiles.html">Prompts utiles</a>
   </nav>
 </header>
-<article class="prose"><h1>Repérer un mail frauduleux et réagir</h1><p>L&#x27;hameçonnage (phishing) consiste à vous faire cliquer ou saisir des identifiants sur un faux site. Il imite souvent une banque, un transporteur ou les impôts.</p>
-<h2>Les signes qui alertent</h2>
-<ul><li>Un ton d&#x27;urgence : « compte suspendu », « colis bloqué », « dernier rappel ».</li><li>Une adresse d&#x27;expéditeur qui ne correspond pas à l&#x27;organisme.</li><li>Un lien dont l&#x27;adresse réelle diffère du texte affiché : survolez-le sans cliquer.</li><li>Des fautes, une salutation générique, une pièce jointe inattendue.</li></ul>
-<h2>Vérifier en trois minutes</h2>
-<ul><li>N&#x27;utilisez jamais le lien du message : tapez vous-même l&#x27;adresse officielle ou ouvrez l&#x27;application.</li><li>Vérifiez l&#x27;adresse complète de l&#x27;expéditeur, pas seulement le nom affiché.</li><li>En cas de doute, contactez l&#x27;organisme par un canal que vous connaissez.</li></ul>
-<h2>Si vous avez cliqué ou saisi des identifiants</h2>
-<ul><li>Changez immédiatement le mot de passe concerné, et partout où il est réutilisé.</li><li>Activez la double authentification.</li><li>Si des coordonnées bancaires sont en jeu, contactez votre banque sans attendre.</li><li>Le site cybermalveillance.gouv.fr propose un diagnostic et une assistance.</li></ul>
-<h2>Signaler</h2>
-<ul><li>Mails : signal-spam.fr.</li><li>SMS et appels : envoyez le message au 33700.</li><li>Contenus illicites : internet-signalement.gouv.fr.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<article class="prose"><h1>Repérer un mail frauduleux et réagir</h1><p>Le phishing reste l’attaque la plus rentable pour les cybercriminels : simple à lancer, efficace, et souvent convaincante. La défense ne repose pas sur un “truc magique”, mais sur une méthode courte, répétable et appliquée systématiquement.</p>
+<h2>Objectif du guide</h2>
+<p>Vous apprendrez à :</p>
+<ul><li>identifier les signaux de phishing en moins de 60 secondes ;</li><li>vérifier un message sans vous exposer ;</li><li>appliquer un protocole de réaction si vous avez cliqué.</li></ul>
+<h2>Méthode experte “STOP-VERIFY-ACT”</h2>
+<h2>1) STOP : repérer les signaux de manipulation</h2>
+<p>Signaux fréquents :</p>
+<ul><li>urgence forte (« dernier rappel », « compte bloqué ») ;</li><li>menace implicite (amende, suspension, perte d’accès) ;</li><li>récompense trop belle (remboursement inattendu, cadeau) ;</li><li>ton inhabituel par rapport à l’organisme.</li></ul>
+<p>Le but de l’attaquant est de vous faire agir vite, sans vérifier.</p>
+<h2>2) VERIFY : contrôler sans cliquer</h2>
+<p>Vérifications essentielles :</p>
+<ul><li>inspecter l’adresse complète de l’expéditeur ;</li><li>survoler les liens sans cliquer ;</li><li>vérifier domaine et orthographe ;</li><li>ouvrir le service concerné via votre chemin habituel (appli, favori, URL tapée).</li></ul>
+<p>Règle d’or : ne jamais valider un message depuis le message lui-même.</p>
+<h2>3) ACT : réagir immédiatement en cas de clic</h2>
+<p>Si vous avez cliqué ou saisi des identifiants :</p>
+<ul><li>changez le mot de passe du compte concerné ;</li><li>changez aussi les mots de passe réutilisés ailleurs ;</li><li>activez la double authentification ;</li><li>révoquez les sessions actives si possible ;</li><li>surveillez l’activité du compte (emails, connexions, paiements).</li></ul>
+<p>Si données bancaires concernées : contactez la banque immédiatement.</p>
+<h2>4) SIGNALER : protéger les autres</h2>
+<p>Canaux utiles en France :</p>
+<ul><li><code>signal-spam.fr</code> (emails) ;</li><li><code>33700</code> (SMS spam/fraude) ;</li><li><code>internet-signalement.gouv.fr</code> (contenus illicites) ;</li><li><code>cybermalveillance.gouv.fr</code> (aide et diagnostic).</li></ul>
+<p>Signaler aide aussi à améliorer le filtrage global.</p>
+<h2>5) Prévenir les prochains incidents</h2>
+<p>Mesures simples et efficaces :</p>
+<ul><li>gestionnaire de mots de passe ;</li><li>mots de passe uniques par service ;</li><li>MFA partout où possible ;</li><li>mises à jour navigateur/OS régulières.</li></ul>
+<p>La prévention réduit drastiquement l’impact d’un clic accidentel.</p>
+<h2>Checklist anti-phishing personnelle</h2>
+<ul><li>[ ] Je ne clique jamais sous pression</li><li>[ ] Je vérifie toujours expéditeur + lien</li><li>[ ] J’ouvre les services via URL connue</li><li>[ ] MFA activée sur comptes critiques</li><li>[ ] Mot de passe unique par service</li><li>[ ] Procédure de réaction connue</li></ul>
+<h2>Erreurs fréquentes</h2>
+<ul><li><strong>Vérifier “vite fait”</strong> en cliquant quand même.</li><li><strong>Croire qu’un logo officiel suffit</strong>.</li><li><strong>Réutiliser le même mot de passe partout</strong>.</li><li><strong>Ignorer l’incident après un clic</strong>.</li></ul>
+<h2>FAQ rapide</h2>
+<h3>Un mail sans faute peut-il être frauduleux ?</h3>
+<p>Oui. Les campagnes modernes sont souvent très bien rédigées.</p>
+<h3>Les pièces jointes PDF sont-elles toujours sûres ?</h3>
+<p>Non. Même un PDF peut contenir des pièges (liens, scripts selon contexte).</p>
+<h3>Le mobile est-il moins exposé ?</h3>
+<p>Non. Le phishing fonctionne très bien sur mobile car les URLs sont moins visibles.</p>
+<h3>Que faire si je ne suis pas sûr ?</h3>
+<p>Ne cliquez pas. Vérifiez via un canal indépendant.</p>
+<h2>Conclusion</h2>
+<p>Face au phishing, la vitesse de réaction doit venir <strong>après</strong> la vérification. Avec une routine simple (Stop, Verify, Act), vous réduisez fortement le risque et limitez l’impact en cas d’erreur.</p><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>
@@ -47,7 +80,8 @@
 </div>
 <footer>
   <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
-  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a> · <a href="mailto:contact@binaryforge.fr">Contact</a></p>
+  <p><button id="cookie-manage" type="button" class="link-button">Gérer mes cookies</button></p>
   <p>© 2026 BinaryForge. Tous droits réservés.</p>
 </footer>
 <script src="../assets/app.js" defer></script>

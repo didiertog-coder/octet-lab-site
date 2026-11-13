@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bien écrire ses prompts : une méthode en 4 étapes | OCTET LAB</title>
-<meta name="description" content="Obtenez des réponses plus utiles d&#x27;une IA en structurant votre demande.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="description" content="Guide expert pour structurer vos prompts et obtenir des réponses fiables, exploitables et réutilisables.">
+<meta name="google-adsense-account" content="ca-pub-5118036301325782">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
@@ -15,10 +16,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -26,18 +27,65 @@
     <a href="../index.html#actus">Actualités</a>
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
+    <a href="../prompts-utiles.html">Prompts utiles</a>
   </nav>
 </header>
-<article class="prose"><h1>Bien écrire ses prompts : une méthode en 4 étapes</h1><p>Une demande floue donne une réponse floue. Quatre éléments suffisent à améliorer nettement les résultats, avec n&#x27;importe quel assistant.</p>
-<h2>La méthode</h2>
-<ul><li><strong>Contexte</strong> : qui vous êtes, pour qui, dans quel but. « Je prépare une présentation pour des collègues non techniques. »</li><li><strong>Tâche</strong> : une action précise. « Résume ce texte en cinq points. »</li><li><strong>Format</strong> : longueur, structure, ton. « Un tableau de trois colonnes, ton neutre. »</li><li><strong>Exemple</strong> : un modèle de ce que vous attendez, s&#x27;il existe.</li></ul>
-<h2>Exemple complet</h2>
-<pre><code>Je gère une petite boutique en ligne de matériel informatique.
-Rédige une fiche produit pour un SSD NVMe de 1 To.
-Format : 3 phrases d&#x27;accroche, puis 5 points techniques.
-Ton : clair, sans superlatifs.</code></pre>
-<h2>Bons réflexes</h2>
-<ul><li>Découpez les gros travaux en plusieurs étapes plutôt qu&#x27;une seule demande géante.</li><li>Demandez à l&#x27;IA de poser ses questions si une information manque.</li><li>Relisez toujours : une IA peut se tromper, surtout sur les chiffres, les noms et les références.</li><li>Ne collez jamais de données personnelles ou confidentielles dans un service en ligne.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<article class="prose"><h1>Bien écrire ses prompts : une méthode en 4 étapes</h1><p>Un prompt n’est pas juste une question : c’est une spécification de travail. Plus votre demande ressemble à un brief clair, plus la réponse sera utile. Ce guide propose une méthode homogène que vous pouvez réutiliser pour rédaction, analyse, code, support client ou planification.</p>
+<h2>Objectif du guide</h2>
+<p>Vous apprendrez à :</p>
+<ul><li>transformer une demande vague en instruction exploitable ;</li><li>réduire les réponses hors sujet ;</li><li>gagner du temps en limitant les allers-retours ;</li><li>standardiser vos prompts pour toute votre équipe.</li></ul>
+<h2>Méthode experte en 4 étapes</h2>
+<h2>1) Définir le contexte métier</h2>
+<p>L’IA doit savoir <strong>qui vous êtes</strong>, <strong>pour qui vous produisez</strong>, et <strong>dans quel cadre</strong>.</p>
+<p>Exemple :</p>
+<ul><li>rôle : responsable contenu d’un site tech ;</li><li>audience : débutants en IA locale ;</li><li>objectif : publier un guide actionnable sans jargon.</li></ul>
+<p>Sans ce contexte, l’IA comble les vides avec des hypothèses aléatoires.</p>
+<h2>2) Formuler une tâche unique et observable</h2>
+<p>Demandez une action claire, avec un résultat vérifiable.</p>
+<p>Mauvais :</p>
+<ul><li>« Parle-moi d’Ollama. »</li></ul>
+<p>Meilleur :</p>
+<ul><li>« Compare Ollama et LM Studio pour un utilisateur non technique, en 7 points concrets. »</li></ul>
+<p>Un prompt = une intention principale. Les tâches multi-objectifs donnent des réponses diluées.</p>
+<h2>3) Imposer un format de sortie</h2>
+<p>Le format réduit drastiquement les réponses inutiles.</p>
+<p>Précisez :</p>
+<ul><li>structure (liste, tableau, sections) ;</li><li>longueur (ex : 500 mots max) ;</li><li>ton (neutre, pédagogique, commercial) ;</li><li>contraintes (pas de jargon, pas de promesse non vérifiable).</li></ul>
+<p>Exemple :</p>
+<ul><li>« Réponse en 5 sections : résumé, étapes, erreurs, checklist, FAQ. »</li></ul>
+<h2>4) Ajouter des critères de qualité</h2>
+<p>Indiquez comment “bon” sera évalué :</p>
+<ul><li>exactitude technique ;</li><li>exemples pratiques ;</li><li>absence de fluff ;</li><li>actionnabilité immédiate.</li></ul>
+<p>Vous pouvez aussi demander :</p>
+<ul><li>« Si une information manque, pose 3 questions avant de répondre. »</li></ul>
+<h2>Prompt modèle prêt à réutiliser</h2>
+<pre><code>Contexte : {votre contexte}
+Tâche : {action précise à réaliser}
+Format : {structure attendue}
+Contraintes : {longueur, ton, interdits}
+Critères qualité : {conditions de réussite}
+Si des informations manquent : pose des questions avant de produire la version finale.</code></pre>
+<h2>Exemple complet (cas réel)</h2>
+<pre><code>Contexte : je gère un site francophone pour débutants en IA locale.
+Tâche : rédige un guide “Installer Ollama” réellement actionnable.
+Format : 1) objectif, 2) méthode en 5 étapes, 3) checklist, 4) erreurs fréquentes, 5) FAQ.
+Contraintes : 700 mots max, style clair, pas de jargon inutile.
+Critères qualité : chaque section doit donner au moins une action concrète.</code></pre>
+<h2>Checklist qualité avant envoi</h2>
+<ul><li>[ ] Le contexte métier est explicite</li><li>[ ] La tâche est unique et mesurable</li><li>[ ] Le format est contraint</li><li>[ ] Les critères de qualité sont listés</li><li>[ ] Les données sensibles ont été retirées</li></ul>
+<h2>Erreurs fréquentes</h2>
+<ul><li><strong>Prompt trop court</strong> : « Fais mieux » ne suffit jamais.</li><li><strong>Objectifs contradictoires</strong> : “ultra court” + “ultra détaillé”.</li><li><strong>Absence de format</strong> : réponse verbeuse et peu exploitable.</li><li><strong>Pas de validation</strong> : copier-coller sans relecture factuelle.</li></ul>
+<h2>FAQ rapide</h2>
+<h3>Faut-il écrire des prompts très longs ?</h3>
+<p>Non. Ils doivent être précis, pas nécessairement longs.</p>
+<h3>Pourquoi demander un format ?</h3>
+<p>Parce que le format transforme une réponse générale en livrable utilisable.</p>
+<h3>Peut-on réutiliser le même prompt ?</h3>
+<p>Oui, c’est recommandé. Créez une bibliothèque de prompts validés par usage.</p>
+<h3>Que faire si l’IA hallucine ?</h3>
+<p>Réduisez le périmètre, demandez les incertitudes et validez les faits critiques avec des sources.</p>
+<h2>Conclusion</h2>
+<p>Un bon prompt est un brief opérationnel : contexte, tâche, format, critères. Cette structure simple augmente la qualité des réponses, réduit les itérations et professionnalise immédiatement vos usages IA.</p><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>
@@ -48,7 +96,8 @@ Ton : clair, sans superlatifs.</code></pre>
 </div>
 <footer>
   <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
-  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a> · <a href="mailto:contact@binaryforge.fr">Contact</a></p>
+  <p><button id="cookie-manage" type="button" class="link-button">Gérer mes cookies</button></p>
   <p>© 2026 BinaryForge. Tous droits réservés.</p>
 </footer>
 <script src="../assets/app.js" defer></script>

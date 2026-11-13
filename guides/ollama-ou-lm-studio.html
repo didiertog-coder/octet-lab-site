@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ollama ou LM Studio : lequel choisir ? | OCTET LAB</title>
-<meta name="description" content="Deux outils gratuits pour faire tourner une IA chez soi, avec des usages différents.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="description" content="Guide expert pour choisir entre Ollama et LM Studio selon votre profil, vos usages et votre matériel.">
+<meta name="google-adsense-account" content="ca-pub-5118036301325782">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
@@ -15,10 +16,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -26,15 +27,51 @@
     <a href="../index.html#actus">Actualités</a>
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
+    <a href="../prompts-utiles.html">Prompts utiles</a>
   </nav>
 </header>
-<article class="prose"><h1>Ollama ou LM Studio : lequel choisir ?</h1><p>Ollama et LM Studio permettent tous deux d&#x27;exécuter des modèles d&#x27;IA sur votre ordinateur. Ils ne s&#x27;adressent pas tout à fait au même profil.</p>
-<h2>Ollama : léger et orienté développeurs</h2>
-<ul><li>Fonctionne en ligne de commande et expose une API locale, pratique pour brancher vos propres applications.</li><li>Catalogue de modèles installables en une commande.</li><li>Idéal pour automatiser, scripter ou héberger un assistant en arrière-plan.</li></ul>
-<h2>LM Studio : interface graphique</h2>
-<ul><li>Application avec fenêtre de discussion, recherche et téléchargement de modèles intégrés.</li><li>Montre clairement la mémoire utilisée et permet de régler les paramètres sans commande.</li><li>Idéal pour tester plusieurs modèles et comparer leurs réponses.</li></ul>
-<h2>Comment choisir</h2>
-<ul><li>Vous débutez ou voulez comparer des modèles : <strong>LM Studio</strong>.</li><li>Vous voulez intégrer l&#x27;IA à un projet ou un site : <strong>Ollama</strong>.</li><li>Rien ne vous empêche d&#x27;installer les deux : les modèles restent sur votre disque, c&#x27;est votre carte graphique qui limite la taille utilisable. Voir le guide sur la VRAM.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<article class="prose"><h1>Ollama ou LM Studio : lequel choisir ?</h1><p>Ollama et LM Studio répondent au même besoin (faire tourner des modèles localement), mais pas avec la même philosophie. Le vrai choix ne se fait pas “terminal vs interface” : il se fait selon votre flux de travail, vos objectifs et votre capacité à opérer le setup dans la durée.</p>
+<h2>Objectif du guide</h2>
+<p>Vous aider à décider rapidement :</p>
+<ul><li>quel outil démarrer en premier ;</li><li>quand utiliser les deux en complément ;</li><li>comment éviter les choix qui ralentissent vos projets.</li></ul>
+<h2>Méthode de comparaison experte</h2>
+<h2>1) Comparer le workflow réel, pas la promesse</h2>
+<h3>Ollama (API-first)</h3>
+<p>Points forts :</p>
+<ul><li>CLI simple ;</li><li>API locale facile à brancher à des scripts/apps ;</li><li>très adapté à l’automatisation.</li></ul>
+<p>Limites :</p>
+<ul><li>moins visuel pour comparer beaucoup de modèles ;</li><li>demande un minimum d’aisance technique.</li></ul>
+<h3>LM Studio (GUI-first)</h3>
+<p>Points forts :</p>
+<ul><li>navigation de modèles plus intuitive ;</li><li>interface de chat pratique pour tester ;</li><li>réglages accessibles sans commandes.</li></ul>
+<p>Limites :</p>
+<ul><li>moins naturel pour industrialiser des workflows scriptés ;</li><li>certains usages avancés nécessitent de revenir à une logique “ops”.</li></ul>
+<h2>2) Décider selon votre profil</h2>
+<p>Choix recommandé :</p>
+<ul><li><strong>Débutant / test utilisateur</strong> : commencez par <strong>LM Studio</strong>.</li><li><strong>Dev / intégration produit</strong> : commencez par <strong>Ollama</strong>.</li><li><strong>Équipe mixte</strong> : LM Studio pour l’exploration, Ollama pour la production locale.</li></ul>
+<h2>3) Évaluer sur un protocole commun</h2>
+<p>Testez les deux outils avec le même protocole :</p>
+<ul><li>mêmes 5 prompts de référence ;</li><li>même modèle et même quantification ;</li><li>même contexte (longueur) ;</li><li>mesure du temps de réponse perçu.</li></ul>
+<p>Sans protocole, la comparaison est biaisée.</p>
+<h2>4) Construire une stratégie hybride (souvent la meilleure)</h2>
+<p>Approche efficace :</p>
+<ul><li>LM Studio pour sélectionner et évaluer rapidement ;</li><li>Ollama pour exposer une API stable à vos scripts, apps ou automatisations.</li></ul>
+<p>Cette séparation “exploration vs exploitation” est utilisée dans beaucoup d’équipes qui font de l’IA locale au quotidien.</p>
+<h2>Checklist de décision</h2>
+<ul><li>[ ] Mon objectif principal est clair (test, usage perso, intégration, production)</li><li>[ ] Mon niveau technique est assumé (GUI, CLI, ou mixte)</li><li>[ ] J’ai défini un protocole de benchmark simple</li><li>[ ] J’ai validé la compatibilité avec ma VRAM</li><li>[ ] J’ai choisi un outil principal et un plan B</li></ul>
+<h2>Erreurs fréquentes</h2>
+<ul><li><strong>Changer d’outil tous les jours</strong> au lieu de stabiliser un flux.</li><li><strong>Comparer avec des modèles différents</strong> et conclure trop vite.</li><li><strong>Ignorer l’usage final</strong> (chat local vs intégration API).</li><li><strong>Confondre vitesse brute et productivité réelle</strong>.</li></ul>
+<h2>FAQ rapide</h2>
+<h3>Peut-on installer les deux ?</h3>
+<p>Oui, c’est souvent pertinent : LM Studio pour explorer, Ollama pour automatiser.</p>
+<h3>Quel outil est le plus rapide ?</h3>
+<p>Cela dépend surtout du modèle, de la quantification et du matériel, pas uniquement du runner.</p>
+<h3>Quel choix pour un site ou une app ?</h3>
+<p>Ollama est généralement plus direct pour l’intégration API locale.</p>
+<h3>Et pour apprendre l’IA locale sans coder ?</h3>
+<p>LM Studio est plus accessible pour débuter.</p>
+<h2>Conclusion</h2>
+<p>Le meilleur outil est celui qui s’intègre durablement à votre façon de travailler. Commencez simple, mesurez, puis standardisez un workflow. Dans la pratique, la stratégie hybride est souvent la plus robuste.</p><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>
@@ -45,7 +82,8 @@
 </div>
 <footer>
   <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
-  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a> · <a href="mailto:contact@binaryforge.fr">Contact</a></p>
+  <p><button id="cookie-manage" type="button" class="link-button">Gérer mes cookies</button></p>
   <p>© 2026 BinaryForge. Tous droits réservés.</p>
 </footer>
 <script src="../assets/app.js" defer></script>

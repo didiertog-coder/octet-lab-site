@@ -1,30 +1,103 @@
 ---
 title: Monter un PC pour l'IA locale : les composants qui comptent
-description: Où mettre son budget quand on veut faire tourner des modèles chez soi.
+description: Guide expert pour dimensionner un PC IA local équilibré selon vos modèles, votre budget et vos objectifs.
 category: Matériel
 ---
-Pour l'IA locale, l'ordre des priorités n'est pas celui d'un PC de jeu classique.
+Monter un PC pour l’IA locale ne suit pas la logique d’un PC gaming classique. L’objectif n’est pas de maximiser les FPS, mais d’obtenir un système stable, silencieux et capable d’exécuter vos modèles avec un bon débit.
 
-## 1. La carte graphique et sa VRAM
+## Objectif du guide
 
-C'est le composant décisif. La VRAM détermine la taille de modèle utilisable. Visez 12 Go au minimum pour être à l'aise, 16 à 24 Go pour des modèles plus ambitieux. Vérifiez la compatibilité du logiciel avec la marque de la carte (NVIDIA, AMD) avant d'acheter.
+Vous saurez :
 
-## 2. La mémoire vive (RAM)
+- répartir le budget intelligemment ;
+- éviter les goulets d’étranglement ;
+- construire une configuration évolutive sur 12 à 24 mois.
 
-32 Go est un bon point de départ. Elle sert de réserve quand un modèle dépasse la VRAM, au prix d'une forte baisse de vitesse.
+## Méthode experte de conception
 
-## 3. Le stockage
+## 1) Dimensionner d’abord la VRAM (priorité absolue)
 
-Les modèles pèsent de quelques Go à plusieurs dizaines de Go chacun. Prenez un SSD NVMe de 1 To ou plus.
+La VRAM détermine la taille des modèles utilisables.
 
-## 4. Le reste
+Repères :
 
-- **Alimentation** : dimensionnez-la selon la consommation de la carte, avec une marge.
-- **Refroidissement** : une IA qui tourne longtemps sollicite la carte en continu.
-- **Processeur** : un modèle récent d'entrée ou de milieu de gamme suffit dans la plupart des cas.
+- 8 Go : entrée de gamme IA locale ;
+- 12 Go : base polyvalente ;
+- 16–24 Go : usage avancé (modèles plus gros, contexte long, multitâche).
 
-## Avant d'acheter
+Règle de décision : comparez le **prix par Go de VRAM**, pas seulement le prix total.
 
-- Comparez le prix par Go de VRAM plutôt que le prix de la carte seule.
-- Vérifiez que le boîtier accueille la longueur de la carte.
-- Testez d'abord vos besoins avec l'estimateur de VRAM de la page d'accueil.
+## 2) Choisir la RAM et le stockage sans sous-dimensionner
+
+- **RAM** : 32 Go recommandés pour un usage confortable ;
+- **Stockage** : SSD NVMe 1 To minimum (modèles + cache + projets).
+
+Si vous manipulez plusieurs modèles et jeux de données, viser 2 To améliore nettement le confort.
+
+## 3) Assurer la stabilité électrique et thermique
+
+Une IA locale peut charger le GPU pendant longtemps.
+
+Indispensable :
+
+- alimentation de qualité, marge de puissance ;
+- boîtier bien ventilé ;
+- airflow propre (entrées/sorties d’air cohérentes).
+
+Un PC instable annule tous les gains de performance.
+
+## 4) Choisir CPU et plateforme selon votre usage
+
+Pour beaucoup de workloads LLM locaux, le GPU reste dominant.
+
+En pratique :
+
+- un CPU moderne milieu de gamme suffit souvent ;
+- privilégiez une carte mère avec marge d’évolution (RAM, SSD, PCIe).
+
+Vous achetez une plateforme, pas seulement un instantané de performance.
+
+## 5) Prévoir l’évolutivité dès le départ
+
+Avant achat, vérifiez :
+
+- longueur de carte compatible boîtier ;
+- connecteurs d’alimentation GPU ;
+- emplacements SSD libres ;
+- capacité de refroidissement future.
+
+Une config évolutive coûte moins cher qu’un remplacement complet.
+
+## Checklist avant commande
+
+- [ ] Modèles cibles définis (taille + contexte)
+- [ ] VRAM dimensionnée avec marge
+- [ ] RAM 32 Go minimum validée
+- [ ] SSD NVMe 1 To+ retenu
+- [ ] Alimentation/boîtier compatibles
+- [ ] Plan d’upgrade documenté
+
+## Erreurs fréquentes
+
+- **Surinvestir CPU** et sous-investir VRAM.
+- **Prendre une alimentation bas de gamme** sur une machine GPU sollicitée.
+- **Négliger la dissipation thermique** (throttling, bruit, usure).
+- **Acheter sans plan d’évolution**.
+
+## FAQ rapide
+
+### Faut-il absolument 24 Go de VRAM ?
+Non. 12 Go suffisent déjà pour beaucoup d’usages utiles.
+
+### 32 Go de RAM sont-ils obligatoires ?
+Pas obligatoires, mais très recommandés pour un usage fluide.
+
+### Un SSD SATA suffit-il ?
+Possible, mais NVMe est préférable pour chargements et confort global.
+
+### Mieux vaut une grosse carte seule ou deux petites ?
+Pour la plupart des utilisateurs, une bonne carte unique est plus simple à exploiter.
+
+## Conclusion
+
+Un bon PC IA locale est un système équilibré : VRAM priorisée, RAM suffisante, stockage rapide, thermique maîtrisée. Cette approche évite les achats impulsifs et donne une machine réellement productive au quotidien.

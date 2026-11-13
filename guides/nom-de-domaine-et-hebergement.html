@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Choisir un nom de domaine et un hébergement | OCTET LAB</title>
-<meta name="description" content="Les critères qui comptent vraiment pour lancer un site sans se tromper.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="description" content="Guide expert pour choisir un domaine et un hébergement fiables, évolutifs et adaptés à votre projet.">
+<meta name="google-adsense-account" content="ca-pub-5118036301325782">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
@@ -15,10 +16,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -26,15 +27,52 @@
     <a href="../index.html#actus">Actualités</a>
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
+    <a href="../prompts-utiles.html">Prompts utiles</a>
   </nav>
 </header>
-<article class="prose"><h1>Choisir un nom de domaine et un hébergement</h1><h2>Le nom de domaine</h2>
-<p>C&#x27;est votre adresse (<code>monsite.fr</code>), que vous louez à l&#x27;année auprès d&#x27;un registrar.</p>
-<ul><li>Court, facile à dire et à écrire, sans tirets ni chiffres.</li><li>Choisissez <code>.fr</code> pour un public français, <code>.com</code> pour un public international.</li><li>Vérifiez que le nom n&#x27;est pas une marque déposée (base de l&#x27;INPI).</li><li>Gardez la gestion du domaine dans un compte à vous, séparé de l&#x27;hébergement : vous pourrez changer d&#x27;hébergeur sans perdre l&#x27;adresse.</li><li>Comparez le prix du renouvellement, pas seulement celui de la première année.</li></ul>
-<h2>L&#x27;hébergement</h2>
-<ul><li><strong>Site de guides, blog, portfolio</strong> : un hébergement statique (GitHub Pages, Cloudflare Pages, Netlify).</li><li><strong>Site avec base de données ou WordPress</strong> : un hébergement mutualisé ou un VPS.</li><li><strong>Application avec comptes utilisateurs</strong> : un VPS ou une plateforme applicative.</li></ul>
-<h2>Points de contrôle</h2>
-<ul><li>HTTPS inclus et gratuit.</li><li>Sauvegardes disponibles si le site n&#x27;est pas statique.</li><li>Localisation des serveurs dans l&#x27;Union européenne si vous traitez des données personnelles.</li><li>Possibilité d&#x27;exporter votre site facilement.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<article class="prose"><h1>Choisir un nom de domaine et un hébergement</h1><p>Choisir un nom de domaine et un hébergeur n’est pas un détail technique : c’est une décision business. Un mauvais choix coûte du temps, de l’argent et parfois de la visibilité SEO. Ce guide vous donne une méthode de décision simple et robuste.</p>
+<h2>Objectif du guide</h2>
+<p>Vous saurez :</p>
+<ul><li>sélectionner un domaine durable ;</li><li>choisir un hébergement aligné avec votre usage réel ;</li><li>éviter les pièges commerciaux (prix d’appel, dépendance fournisseur) ;</li><li>préparer une base saine pour SEO, performance et conformité.</li></ul>
+<h2>Méthode experte en 4 étapes</h2>
+<h2>1) Choisir un nom de domaine pérenne</h2>
+<p>Le domaine doit être facile à mémoriser et à taper.</p>
+<p>Critères prioritaires :</p>
+<ul><li>court et prononçable ;</li><li>sans ambiguïté orthographique ;</li><li>sans dépendance à une mode passagère ;</li><li>disponible sur les réseaux si possible (cohérence de marque).</li></ul>
+<p>Extension :</p>
+<ul><li><code>.fr</code> si audience principale en France ;</li><li><code>.com</code> si ambition internationale ;</li><li>évitez les extensions exotiques si la confiance utilisateur est clé.</li></ul>
+<p>Vérifiez aussi les conflits de marque (INPI / EUIPO) avant achat.</p>
+<h2>2) Séparer propriété du domaine et hébergement</h2>
+<p>Règle professionnelle : le domaine doit être géré dans <strong>votre propre compte registrar</strong>, pas dans un compte tiers d’agence ou de freelance.</p>
+<p>Pourquoi :</p>
+<ul><li>vous gardez la propriété ;</li><li>vous pouvez migrer sans blocage ;</li><li>vous réduisez les risques opérationnels.</li></ul>
+<p>Activez dès le départ :</p>
+<ul><li>verrouillage du domaine ;</li><li>renouvellement automatique ;</li><li>double authentification.</li></ul>
+<h2>3) Choisir l’hébergement selon le niveau de complexité</h2>
+<p>Ne surdimensionnez pas trop tôt.</p>
+<p>Cas d’usage :</p>
+<ul><li><strong>Site statique / guides / landing page</strong> : GitHub Pages, Cloudflare Pages, Netlify.</li><li><strong>CMS ou site dynamique léger</strong> : mutualisé premium ou petit VPS.</li><li><strong>App métier / API / comptes utilisateurs</strong> : VPS managé, PaaS ou architecture conteneurisée.</li></ul>
+<p>Décidez selon vos contraintes :</p>
+<ul><li>trafic prévisionnel ;</li><li>besoin de base de données ;</li><li>fréquence des mises à jour ;</li><li>capacité à maintenir serveur et sécurité.</li></ul>
+<h2>4) Valider la qualité fournisseur avant engagement</h2>
+<p>Checklist de vérification :</p>
+<ul><li>prix de renouvellement réel (pas seulement promo) ;</li><li>certificat HTTPS automatique ;</li><li>sauvegardes et restauration ;</li><li>export/migration possibles ;</li><li>support réactif ;</li><li>data center compatible avec vos obligations RGPD.</li></ul>
+<p>Un hébergeur “pas cher” devient cher si la migration est difficile ou si le support est absent.</p>
+<h2>Checklist décisionnelle (prête à l’emploi)</h2>
+<ul><li>[ ] Domaine choisi selon audience et marque</li><li>[ ] Vérification juridique minimale faite</li><li>[ ] Domaine détenu dans mon compte personnel/pro</li><li>[ ] 2FA activée + renouvellement auto</li><li>[ ] Hébergement sélectionné selon besoin réel</li><li>[ ] Plan de migration possible sans blocage</li></ul>
+<h2>Erreurs fréquentes à éviter</h2>
+<ul><li><strong>Acheter sur coup de tête</strong> un domaine peu lisible.</li><li><strong>Rester prisonnier d’un bundle</strong> domaine + hébergement sans sortie claire.</li><li><strong>Ignorer le coût de renouvellement</strong> (surprise année 2).</li><li><strong>Prendre un VPS trop tôt</strong> sans compétences ops.</li><li><strong>Négliger les sauvegardes/restauration</strong>.</li></ul>
+<h2>FAQ rapide</h2>
+<h3>Faut-il acheter plusieurs extensions ?</h3>
+<p>Oui si la marque est stratégique. Au minimum, protégez l’extension principale pertinente.</p>
+<h3>Un hébergement statique suffit-il pour commencer ?</h3>
+<p>Dans la majorité des cas éditoriaux, oui. C’est simple, rapide et économique.</p>
+<h3>Quand passer à un VPS ?</h3>
+<p>Quand vous avez besoin de services serveurs spécifiques (DB, jobs, back-end) non couverts par un statique.</p>
+<h3>Quelle est la priorité absolue ?</h3>
+<p>Rester propriétaire de votre domaine et pouvoir migrer facilement.</p>
+<h2>Conclusion</h2>
+<p>Le bon choix n’est pas le plus “tech”, mais le plus cohérent avec votre projet. Domaine maîtrisé, hébergement proportionné, sortie possible : ce trio sécurise votre croissance et évite les migrations douloureuses.</p><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>
@@ -45,7 +83,8 @@
 </div>
 <footer>
   <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
-  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a> · <a href="mailto:contact@binaryforge.fr">Contact</a></p>
+  <p><button id="cookie-manage" type="button" class="link-button">Gérer mes cookies</button></p>
   <p>© 2026 BinaryForge. Tous droits réservés.</p>
 </footer>
 <script src="../assets/app.js" defer></script>

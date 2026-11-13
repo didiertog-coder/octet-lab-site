@@ -1,28 +1,106 @@
 ---
 title: RGPD pour un petit site : les bases à respecter
-description: Mentions légales, cookies, affiliation et publicité : ce qu'il faut prévoir avant de publier.
+description: Guide expert RGPD pour petit site : mentions, confidentialité, cookies, affiliation et routine de conformité.
 category: Mise en ligne
 ---
-Ce guide donne des repères généraux et ne remplace pas un conseil juridique. Pour le détail, appuyez-vous sur les fiches de la CNIL (cnil.fr).
+Ce guide donne des repères pratiques pour un petit site éditorial. Il ne remplace pas un avis juridique personnalisé. Pour les points officiels, appuyez-vous sur les publications de la CNIL.
 
-## Obligations de base
+## Objectif du guide
 
-- **Mentions légales** : identité de l'éditeur et de l'hébergeur, contact. Les particuliers non professionnels peuvent, sous conditions, rester anonymes auprès du public en communiquant leurs informations à l'hébergeur.
-- **Politique de confidentialité** : quelles données sont collectées, pourquoi, combien de temps, et comment exercer ses droits (accès, suppression).
+Vous aider à :
 
-## Cookies et traceurs
+- couvrir les obligations essentielles ;
+- réduire le risque de non-conformité ;
+- documenter une routine de conformité simple et réaliste.
 
-- Les traceurs non indispensables (publicité, certains outils d'affiliation) nécessitent le consentement préalable du visiteur.
-- Le refus doit être aussi simple que l'acceptation.
-- La CNIL admet, sous conditions strictes de configuration, des outils de mesure d'audience exemptés de consentement. Vérifiez que votre outil figure dans ses recommandations.
+## Méthode experte en 5 blocs
 
-## Affiliation et liens sponsorisés
+## 1) Identifier les traitements réels
 
-- Indiquez clairement qu'un lien est partenaire et peut rapporter une commission.
-- Ajoutez `rel="sponsored"` aux liens concernés.
+Avant d’écrire des pages légales, listez ce que vous collectez vraiment :
 
-## Réflexes utiles
+- logs serveur ;
+- mesure d’audience ;
+- formulaires éventuels ;
+- publicité/affiliation ;
+- traceurs tiers.
 
-- Préférez des polices hébergées sur votre propre site plutôt que chargées depuis un service tiers.
-- Ne collectez que ce dont vous avez besoin.
-- Déclarez vos revenus : le statut de micro-entrepreneur est le plus courant pour démarrer.
+Sans inventaire réel, la politique de confidentialité reste théorique.
+
+## 2) Publier des mentions légales complètes
+
+Vos mentions doivent inclure, selon votre statut :
+
+- identité de l’éditeur ;
+- hébergeur ;
+- moyen de contact ;
+- informations légales applicables.
+
+L’objectif est la transparence et la possibilité de contact effectif.
+
+## 3) Rédiger une politique de confidentialité exploitable
+
+Votre politique doit répondre clairement à :
+
+- quelles données ;
+- pourquoi (finalités) ;
+- base légale ;
+- durée de conservation ;
+- destinataires ;
+- droits des personnes et contact.
+
+Évitez le jargon juridique vide : privilégiez un texte lisible et exact.
+
+## 4) Gérer correctement cookies et consentement
+
+Règles opérationnelles :
+
+- traceurs non essentiels => consentement préalable ;
+- refus aussi simple que l’acceptation ;
+- possibilité de modifier son choix à tout moment.
+
+Si vous revendiquez une exemption de consentement sur certains outils de mesure, vérifiez précisément les conditions CNIL.
+
+## 5) Encadrer affiliation et publicité
+
+Si vous monétisez :
+
+- signaler clairement les liens partenaires ;
+- baliser `rel="sponsored"` ;
+- aligner pages légales et pratique réelle (pas d’écart entre texte et implémentation).
+
+La cohérence juridique/technique est un vrai signal de qualité.
+
+## Checklist conformité minimale
+
+- [ ] Mentions légales accessibles en footer
+- [ ] Politique de confidentialité à jour
+- [ ] Politique cookies explicite
+- [ ] Bandeau de consentement conforme
+- [ ] Contact RGPD fonctionnel
+- [ ] Transparence affiliation/publicité affichée
+
+## Erreurs fréquentes
+
+- **Copier-coller une politique générique** non adaptée au site.
+- **Déclarer moins (ou plus) que la réalité technique**.
+- **Rendre le refus cookies compliqué**.
+- **Oublier la mise à jour après ajout d’un script tiers**.
+
+## FAQ rapide
+
+### Un petit site est-il concerné par le RGPD ?
+Oui, dès qu’il traite des données personnelles.
+
+### Puis-je utiliser de l’affiliation sans risque ?
+Oui, avec transparence utilisateur et balisage adapté.
+
+### Dois-je afficher une bannière cookies ?
+Oui pour les traceurs non essentiels (pub, personnalisation, mesure non exemptée).
+
+### À quelle fréquence réviser mes pages légales ?
+Au minimum à chaque changement technique majeur, et idéalement une revue trimestrielle.
+
+## Conclusion
+
+La conformité RGPD d’un petit site tient surtout à une discipline simple : inventaire réel, transparence claire, consentement correctement implémenté, et mise à jour continue. Ce cadre réduit les risques et améliore la confiance des visiteurs comme des plateformes publicitaires.

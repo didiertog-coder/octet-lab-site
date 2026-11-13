@@ -30,10 +30,10 @@ La durée de conservation dépend du service utilisé et de sa configuration. En
 
 ## Gérer vos préférences
 
-Vous pouvez modifier vos préférences à tout moment en supprimant les cookies du navigateur puis en rechargeant la page.
+Vous pouvez modifier vos préférences à tout moment via le lien **« Gérer mes cookies »** présent en pied de page.
 
 Vous pouvez également configurer votre navigateur pour bloquer tout ou partie des cookies.
 
 ## Contact
 
-Pour toute question relative aux cookies : contact@votre-domaine.fr
+Pour toute question relative aux cookies : contact@binaryforge.fr

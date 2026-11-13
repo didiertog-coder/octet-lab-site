@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RGPD pour un petit site : les bases à respecter | OCTET LAB</title>
-<meta name="description" content="Mentions légales, cookies, affiliation et publicité : ce qu&#x27;il faut prévoir avant de publier.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="description" content="Guide expert RGPD pour petit site : mentions, confidentialité, cookies, affiliation et routine de conformité.">
+<meta name="google-adsense-account" content="ca-pub-5118036301325782">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
@@ -15,10 +16,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -26,17 +27,49 @@
     <a href="../index.html#actus">Actualités</a>
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
+    <a href="../prompts-utiles.html">Prompts utiles</a>
   </nav>
 </header>
-<article class="prose"><h1>RGPD pour un petit site : les bases à respecter</h1><p>Ce guide donne des repères généraux et ne remplace pas un conseil juridique. Pour le détail, appuyez-vous sur les fiches de la CNIL (cnil.fr).</p>
-<h2>Obligations de base</h2>
-<ul><li><strong>Mentions légales</strong> : identité de l&#x27;éditeur et de l&#x27;hébergeur, contact. Les particuliers non professionnels peuvent, sous conditions, rester anonymes auprès du public en communiquant leurs informations à l&#x27;hébergeur.</li><li><strong>Politique de confidentialité</strong> : quelles données sont collectées, pourquoi, combien de temps, et comment exercer ses droits (accès, suppression).</li></ul>
-<h2>Cookies et traceurs</h2>
-<ul><li>Les traceurs non indispensables (publicité, certains outils d&#x27;affiliation) nécessitent le consentement préalable du visiteur.</li><li>Le refus doit être aussi simple que l&#x27;acceptation.</li><li>La CNIL admet, sous conditions strictes de configuration, des outils de mesure d&#x27;audience exemptés de consentement. Vérifiez que votre outil figure dans ses recommandations.</li></ul>
-<h2>Affiliation et liens sponsorisés</h2>
-<ul><li>Indiquez clairement qu&#x27;un lien est partenaire et peut rapporter une commission.</li><li>Ajoutez <code>rel=&quot;sponsored&quot;</code> aux liens concernés.</li></ul>
-<h2>Réflexes utiles</h2>
-<ul><li>Préférez des polices hébergées sur votre propre site plutôt que chargées depuis un service tiers.</li><li>Ne collectez que ce dont vous avez besoin.</li><li>Déclarez vos revenus : le statut de micro-entrepreneur est le plus courant pour démarrer.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<article class="prose"><h1>RGPD pour un petit site : les bases à respecter</h1><p>Ce guide donne des repères pratiques pour un petit site éditorial. Il ne remplace pas un avis juridique personnalisé. Pour les points officiels, appuyez-vous sur les publications de la CNIL.</p>
+<h2>Objectif du guide</h2>
+<p>Vous aider à :</p>
+<ul><li>couvrir les obligations essentielles ;</li><li>réduire le risque de non-conformité ;</li><li>documenter une routine de conformité simple et réaliste.</li></ul>
+<h2>Méthode experte en 5 blocs</h2>
+<h2>1) Identifier les traitements réels</h2>
+<p>Avant d’écrire des pages légales, listez ce que vous collectez vraiment :</p>
+<ul><li>logs serveur ;</li><li>mesure d’audience ;</li><li>formulaires éventuels ;</li><li>publicité/affiliation ;</li><li>traceurs tiers.</li></ul>
+<p>Sans inventaire réel, la politique de confidentialité reste théorique.</p>
+<h2>2) Publier des mentions légales complètes</h2>
+<p>Vos mentions doivent inclure, selon votre statut :</p>
+<ul><li>identité de l’éditeur ;</li><li>hébergeur ;</li><li>moyen de contact ;</li><li>informations légales applicables.</li></ul>
+<p>L’objectif est la transparence et la possibilité de contact effectif.</p>
+<h2>3) Rédiger une politique de confidentialité exploitable</h2>
+<p>Votre politique doit répondre clairement à :</p>
+<ul><li>quelles données ;</li><li>pourquoi (finalités) ;</li><li>base légale ;</li><li>durée de conservation ;</li><li>destinataires ;</li><li>droits des personnes et contact.</li></ul>
+<p>Évitez le jargon juridique vide : privilégiez un texte lisible et exact.</p>
+<h2>4) Gérer correctement cookies et consentement</h2>
+<p>Règles opérationnelles :</p>
+<ul><li>traceurs non essentiels =&gt; consentement préalable ;</li><li>refus aussi simple que l’acceptation ;</li><li>possibilité de modifier son choix à tout moment.</li></ul>
+<p>Si vous revendiquez une exemption de consentement sur certains outils de mesure, vérifiez précisément les conditions CNIL.</p>
+<h2>5) Encadrer affiliation et publicité</h2>
+<p>Si vous monétisez :</p>
+<ul><li>signaler clairement les liens partenaires ;</li><li>baliser <code>rel=&quot;sponsored&quot;</code> ;</li><li>aligner pages légales et pratique réelle (pas d’écart entre texte et implémentation).</li></ul>
+<p>La cohérence juridique/technique est un vrai signal de qualité.</p>
+<h2>Checklist conformité minimale</h2>
+<ul><li>[ ] Mentions légales accessibles en footer</li><li>[ ] Politique de confidentialité à jour</li><li>[ ] Politique cookies explicite</li><li>[ ] Bandeau de consentement conforme</li><li>[ ] Contact RGPD fonctionnel</li><li>[ ] Transparence affiliation/publicité affichée</li></ul>
+<h2>Erreurs fréquentes</h2>
+<ul><li><strong>Copier-coller une politique générique</strong> non adaptée au site.</li><li><strong>Déclarer moins (ou plus) que la réalité technique</strong>.</li><li><strong>Rendre le refus cookies compliqué</strong>.</li><li><strong>Oublier la mise à jour après ajout d’un script tiers</strong>.</li></ul>
+<h2>FAQ rapide</h2>
+<h3>Un petit site est-il concerné par le RGPD ?</h3>
+<p>Oui, dès qu’il traite des données personnelles.</p>
+<h3>Puis-je utiliser de l’affiliation sans risque ?</h3>
+<p>Oui, avec transparence utilisateur et balisage adapté.</p>
+<h3>Dois-je afficher une bannière cookies ?</h3>
+<p>Oui pour les traceurs non essentiels (pub, personnalisation, mesure non exemptée).</p>
+<h3>À quelle fréquence réviser mes pages légales ?</h3>
+<p>Au minimum à chaque changement technique majeur, et idéalement une revue trimestrielle.</p>
+<h2>Conclusion</h2>
+<p>La conformité RGPD d’un petit site tient surtout à une discipline simple : inventaire réel, transparence claire, consentement correctement implémenté, et mise à jour continue. Ce cadre réduit les risques et améliore la confiance des visiteurs comme des plateformes publicitaires.</p><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>
@@ -47,7 +80,8 @@
 </div>
 <footer>
   <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
-  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a> · <a href="mailto:contact@binaryforge.fr">Contact</a></p>
+  <p><button id="cookie-manage" type="button" class="link-button">Gérer mes cookies</button></p>
   <p>© 2026 BinaryForge. Tous droits réservés.</p>
 </footer>
 <script src="../assets/app.js" defer></script>

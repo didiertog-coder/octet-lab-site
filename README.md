@@ -74,8 +74,11 @@ https://VOTRE_PSEUDO.github.io/octet-lab-site/
 | `config.json` | Nom du site, flux RSS, partenaires, analytics |
 | `guides/*.md` | Un fichier = un guide publié |
 | `pages/*.md` | Pages légales (mentions, RGPD, cookies, CGU) |
-| `assets/style.css` | Thème cyberpunk dark |
-| `assets/app.js` | Estimateur VRAM, cookies, filtre IA |
+| `config.json > prompt_library` | Bibliothèque des prompts affichés dans `prompts-utiles.html` |
+| `config.json > ai_resources` | Ressources IA externes affichées sur la page d’accueil |
+| `config.json > amazon_daily_products` | Sélection quotidienne de produits Amazon sur la home |
+| `assets/style.css` | Thème cyberpunk dark + composants V2 prompts |
+| `assets/app.js` | Estimateur VRAM, cookies, filtres IA, recherche/favoris/copie prompts |
 | `.github/workflows/daily.yml` | CI/CD : build + deploy quotidien |
 | `.gitignore` | Exclut `public/`, `.vs/`, `backup_*/`... |
 | `CNAME.example` | Instructions domaine personnalisé |
@@ -121,7 +124,10 @@ Commitez et poussez : le workflow regénère le site automatiquement.
 - `config.json` : nom du site, flux RSS, liens partenaires
 - `guides/` : un fichier `.md` = un guide (en-tête `title`, `description`, `category`)
 - `pages/` : pages légales
-- `assets/` : `style.css`, `app.js` (estimateur de VRAM)
+- `prompts-utiles.html` : bibliothèque de prompts IA classés par thème (générée)
+- `prompt-library.json` / `prompt-library.csv` : exports automatiques de la bibliothèque
+- Rubriques quotidiennes home : veille RSS + bons plans matériel + sélection Amazon du jour
+- `assets/` : `style.css`, `app.js` (estimateur de VRAM, recherche/favoris/copie prompts)
 - `public/` : site généré, prêt à être envoyé tel quel
 - `.github/workflows/daily.yml` : mise à jour quotidienne
 

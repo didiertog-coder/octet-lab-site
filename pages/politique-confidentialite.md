@@ -3,7 +3,7 @@ title: Politique de confidentialité
 ---
 ## 1) Responsable du traitement
 
-Le responsable du traitement est **BinaryForge** (contact : contact@votre-domaine.fr).
+Le responsable du traitement est **BinaryForge** (contact : contact@binaryforge.fr).
 
 ## 2) Données traitées
 
@@ -46,7 +46,7 @@ Des transferts hors UE peuvent exister selon les services activés.
 
 Conformément au RGPD, vous disposez des droits suivants : accès, rectification, effacement, limitation, opposition, portabilité.
 
-Pour les exercer : **contact@votre-domaine.fr**.
+Pour les exercer : **contact@binaryforge.fr**.
 
 En cas de difficulté non résolue, vous pouvez saisir la CNIL (www.cnil.fr).
 
@@ -56,4 +56,4 @@ Le site applique des mesures techniques et organisationnelles raisonnables : lim
 
 ## 9) Mise à jour
 
-Cette politique peut évoluer. Date de dernière mise à jour : [À COMPLÉTER].
+Cette politique peut évoluer. Date de dernière mise à jour : 13/11/2026.

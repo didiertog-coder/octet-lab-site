@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Quelle carte graphique pour une IA locale ? | OCTET LAB</title>
-<meta name="description" content="La règle simple pour estimer la VRAM nécessaire selon la taille du modèle.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="description" content="Guide expert pour dimensionner la VRAM, éviter les goulets d&#x27;étranglement et choisir une carte adaptée à vos usages IA.">
+<meta name="google-adsense-account" content="ca-pub-5118036301325782">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
@@ -15,10 +16,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body data-ga4="G-XXXXXXXXXX" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="0" data-adsense-client="ca-pub-XXXXXXXXXXXXXXXX" data-adsense-slot-home="1234567890">
+<body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge">&#128197; samedi 24 octobre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -26,17 +27,47 @@
     <a href="../index.html#actus">Actualités</a>
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
+    <a href="../prompts-utiles.html">Prompts utiles</a>
   </nav>
 </header>
-<article class="prose"><h1>Quelle carte graphique pour une IA locale ?</h1><p>Pour faire tourner un modèle de langage chez soi, la mémoire vidéo (VRAM) compte plus que la puissance brute : si le modèle ne tient pas dans la VRAM, il ralentit fortement.</p>
-<h2>La règle d&#x27;estimation</h2>
-<p>La VRAM nécessaire dépend de trois choses : la taille du modèle, sa quantification et la longueur du contexte.</p>
-<ul><li><strong>Taille</strong> : le nombre de milliards de paramètres (8B, 14B, 32B...).</li><li><strong>Quantification</strong> : en Q4, comptez environ 0,6 Go par milliard de paramètres. En Q8, environ 1,1 Go.</li><li><strong>Contexte</strong> : ajoutez 1 à 4 Go selon la longueur de conversation voulue.</li></ul>
-<h2>Repères pratiques en Q4</h2>
-<ul><li>Modèle 7-8B : environ 6 Go, soit une carte de 8 Go.</li><li>Modèle 14B : environ 10 Go, soit une carte de 12 Go.</li><li>Modèle 32B : environ 21 Go, soit une carte de 24 Go.</li></ul>
-<p>Ce sont des ordres de grandeur : utilisez l&#x27;estimateur en haut de la page d&#x27;accueil pour affiner.</p>
-<h2>À retenir</h2>
-<ul><li>À budget égal, privilégiez la carte avec le plus de VRAM.</li><li>La quantification Q4 est le meilleur compromis qualité/mémoire pour débuter.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<article class="prose"><h1>Quelle carte graphique pour une IA locale ?</h1><p>Pour l’IA locale, la question clé n’est pas “quelle carte est la plus puissante ?”, mais “quelle carte tient mes modèles avec un débit acceptable ?”. Dans la majorité des cas, la <strong>VRAM</strong> prime sur le reste.</p>
+<h2>Objectif du guide</h2>
+<p>Vous aider à :</p>
+<ul><li>estimer la VRAM nécessaire avant achat ;</li><li>comprendre les compromis quantification/qualité ;</li><li>éviter les erreurs de configuration coûteuses.</li></ul>
+<h2>Méthode experte de dimensionnement</h2>
+<h2>1) Partir des usages, pas du marketing</h2>
+<p>Posez-vous ces questions :</p>
+<ul><li>chat rapide en local ?</li><li>rédaction/assistants quotidiens ?</li><li>code + contexte long ?</li><li>RAG/documentation volumineuse ?</li></ul>
+<p>Plus le contexte et la complexité montent, plus la VRAM grimpe.</p>
+<h2>2) Estimer la VRAM minimale</h2>
+<p>Variables principales :</p>
+<ul><li>taille du modèle (7B, 14B, 32B…) ;</li><li>quantification (Q4, Q5, Q8, FP16) ;</li><li>longueur de contexte.</li></ul>
+<p>Repères simples :</p>
+<ul><li><strong>Q4</strong> : environ 0,6 Go par milliard de paramètres ;</li><li><strong>Q8</strong> : environ 1,1 Go par milliard ;</li><li>ajoutez 1 à 4 Go selon le contexte visé.</li></ul>
+<p>Exemples pratiques :</p>
+<ul><li>8B en Q4 : ~6 Go =&gt; carte 8 Go ;</li><li>14B en Q4 : ~10 Go =&gt; carte 12 Go ;</li><li>32B en Q4 : ~21 Go =&gt; carte 24 Go.</li></ul>
+<h2>3) Prévoir une marge de sécurité</h2>
+<p>Ne visez pas “juste suffisant”. Gardez 15 à 25 % de marge pour :</p>
+<ul><li>pics de mémoire ;</li><li>contexte plus long ;</li><li>multitâche local ;</li><li>évolution des modèles.</li></ul>
+<h2>4) Optimiser le ratio budget/valeur</h2>
+<p>Règle très fiable pour débuter :</p>
+<ul><li>à budget égal, privilégier <strong>plus de VRAM</strong> plutôt qu’un gain théorique de puissance brute.</li></ul>
+<p>Un modèle qui tient en VRAM est souvent plus utile qu’un GPU rapide mais limité en mémoire.</p>
+<h2>Checklist avant achat</h2>
+<ul><li>[ ] Modèles cibles identifiés (taille + quantification)</li><li>[ ] Contexte moyen et contexte max définis</li><li>[ ] Estimation VRAM calculée + marge</li><li>[ ] Alimentation et boîtier compatibles</li><li>[ ] Plan d’évolution à 12 mois</li></ul>
+<h2>Erreurs fréquentes</h2>
+<ul><li><strong>Acheter trop juste</strong> : impossible de tester des modèles plus grands ensuite.</li><li><strong>Comparer uniquement les FPS gaming</strong> : peu pertinent pour usage LLM local.</li><li><strong>Ignorer le contexte</strong> : 4k et 32k ne demandent pas la même mémoire.</li><li><strong>Négliger le bruit/chauffe</strong> : important en usage long.</li></ul>
+<h2>FAQ rapide</h2>
+<h3>8 Go suffisent-ils ?</h3>
+<p>Oui pour démarrer sur 7B/8B en Q4 et des contextes modérés.</p>
+<h3>12 Go, c’est le bon milieu ?</h3>
+<p>Souvent oui pour un usage polyvalent local, avec plus de marge.</p>
+<h3>24 Go, c’est utile ?</h3>
+<p>Très utile si vous ciblez 32B, du contexte long ou des workflows plus lourds.</p>
+<h3>La RAM système peut-elle compenser ?</h3>
+<p>Partiellement, mais avec forte pénalité de performances. La VRAM reste prioritaire.</p>
+<h2>Conclusion</h2>
+<p>Le choix d’une carte pour IA locale doit être piloté par vos modèles cibles et votre contexte d’usage. Une estimation réaliste + marge de sécurité évite les achats regrettés et vous donne une base durable.</p><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>
@@ -47,7 +78,8 @@
 </div>
 <footer>
   <p>Certains liens sont des liens partenaires : ils peuvent générer une commission, sans surcoût pour vous.</p>
-  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a></p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../politique-confidentialite.html">Confidentialité</a> · <a href="../politique-cookies.html">Cookies</a> · <a href="../cgu.html">CGU</a> · <a href="mailto:contact@binaryforge.fr">Contact</a></p>
+  <p><button id="cookie-manage" type="button" class="link-button">Gérer mes cookies</button></p>
   <p>© 2026 BinaryForge. Tous droits réservés.</p>
 </footer>
 <script src="../assets/app.js" defer></script>

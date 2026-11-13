@@ -27,11 +27,11 @@ L'affiliation consiste à recommander des produits ou services avec un lien tra�
 
 ### Intégrer vos liens
 
-Remplacez les placeholders dans `config.json` :
+Renseignez votre propre tag d’affiliation dans `config.json` :
 ```json
-"url": "https://www.amazon.fr/?tag=VOTRE_TAG-21"
+"url": "https://www.amazon.fr/?tag=monsite-21"
 ```
-Votre tag Amazon ressemble à `monsite-21`. Trouvez-le dans votre tableau de bord Partenaires Amazon.
+Votre tag Amazon a généralement ce format (`...-21`) et se récupère dans votre tableau de bord Partenaires Amazon.
 
 ## 2. Google AdSense : revenu passif display
 
@@ -41,7 +41,7 @@ AdSense affiche des publicités automatiques sur votre site. Vous êtes rémuné
 
 1. Créez un compte sur [adsense.google.com](https://adsense.google.com).
 2. Soumettez votre site pour examen (quelques jours à 2 semaines).
-3. Une fois approuvé, récupérez votre `ca-pub-XXXXXXXXXXXXXXXX` et les IDs de slots.
+3. Une fois approuvé, récupérez votre identifiant éditeur AdSense (`ca-pub-...`) ainsi que les IDs de slots.
 4. Dans `config.json`, mettez à jour :
 ```json
 "adsense": {
