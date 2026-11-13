@@ -77,6 +77,7 @@ https://VOTRE_PSEUDO.github.io/octet-lab-site/
 | `config.json > prompt_library` | Bibliothèque des prompts affichés dans `prompts-utiles.html` |
 | `config.json > ai_resources` | Ressources IA externes affichées sur la page d’accueil |
 | `config.json > amazon_daily_products` | Sélection quotidienne de produits Amazon sur la home |
+| `config.json > amazon_affiliate_tag` | Tag affilié Amazon appliqué à tous les liens Amazon générés |
 | `assets/style.css` | Thème cyberpunk dark + composants V2 prompts |
 | `assets/app.js` | Estimateur VRAM, cookies, filtres IA, recherche/favoris/copie prompts |
 | `.github/workflows/daily.yml` | CI/CD : build + deploy quotidien |

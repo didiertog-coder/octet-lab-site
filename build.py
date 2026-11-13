@@ -12,6 +12,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 # ── Constantes globales ───────────────────────────────────────────────────────
 ROOT = Path(__file__).parent
@@ -301,6 +302,49 @@ def cfg(path, default=""):
     return ref
 
 
+def resolve_amazon_affiliate_tag():
+    """Retourne le tag Amazon configuré explicitement ou présent dans le lien partenaire Amazon."""
+    explicit_tag = str(CFG.get("amazon_affiliate_tag", "")).strip()
+    if explicit_tag:
+        return explicit_tag
+
+    for partner in CFG.get("partners", []):
+        url = str(partner.get("url", "")).strip()
+        if not url:
+            continue
+
+        host = urlsplit(url).netloc.lower()
+        if "amazon." not in host:
+            continue
+
+        for key, value in parse_qsl(urlsplit(url).query, keep_blank_values=True):
+            if key.lower() == "tag" and value.strip():
+                return value.strip()
+
+    return ""
+
+
+def add_amazon_affiliate_tag(url, tag):
+    """Ajoute le tag d'affiliation aux URLs Amazon si absent."""
+    if not tag:
+        return url
+
+    clean_url = str(url or "").strip()
+    if not clean_url:
+        return clean_url
+
+    split = urlsplit(clean_url)
+    if "amazon." not in split.netloc.lower():
+        return clean_url
+
+    query = parse_qsl(split.query, keep_blank_values=True)
+    if any(key.lower() == "tag" and value.strip() for key, value in query):
+        return clean_url
+
+    query.append(("tag", tag))
+    return urlunsplit((split.scheme, split.netloc, split.path, urlencode(query), split.fragment))
+
+
 # ── Génération du layout HTML commun ─────────────────────────────────────────
 
 def layout(title, desc, body, depth=0):
@@ -428,8 +472,10 @@ def index_body(guides, news):
         for m in CFG.get("model_spotlight", [])[:4]
     )
 
+    amazon_tag = resolve_amazon_affiliate_tag()
+
     part = "".join(
-        f'<a class="card" href="{esc(p["url"])}" target="_blank" rel="sponsored noopener noreferrer">'
+        f'<a class="card" href="{esc(add_amazon_affiliate_tag(p["url"], amazon_tag))}" target="_blank" rel="sponsored noopener noreferrer">'
         f'<h3>{esc(p["name"])}</h3>'
         f'<p>{esc(p["desc"])}</p>'
         f'<span class="tag">Lien partenaire</span>'
@@ -490,16 +536,6 @@ def index_body(guides, news):
     )
 
     daily_products = CFG.get("amazon_daily_products", [])
-    amazon_tag = str(CFG.get("amazon_affiliate_tag", "")).strip()
-
-    def add_amazon_tag(url):
-        if not amazon_tag:
-            return url
-        low = url.lower()
-        if "amazon." not in low or "tag=" in low:
-            return url
-        sep = "&" if "?" in url else "?"
-        return f"{url}{sep}tag={amazon_tag}"
 
     products_cards = ""
     if daily_products:
@@ -510,7 +546,7 @@ def index_body(guides, news):
             picks.append(daily_products[(day_seed + i) % len(daily_products)])
 
         products_cards = "".join(
-            f'<a class="card" href="{esc(add_amazon_tag(p.get("url", "#")))}" target="_blank" rel="sponsored noopener noreferrer">'
+            f'<a class="card" href="{esc(add_amazon_affiliate_tag(p.get("url", "#"), amazon_tag))}" target="_blank" rel="sponsored noopener noreferrer">'
             f'<span class="tag">Amazon · sélection du jour</span>'
             f'<h3>{esc(p.get("name", "Produit Amazon"))}</h3>'
             f'<p>{esc(p.get("desc", ""))}</p>'
