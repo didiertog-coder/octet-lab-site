@@ -421,6 +421,42 @@
       "inputs": "Objectif, périmètre, délais, équipe, contraintes.",
       "quality_checklist": "Lots clairs, dépendances, jalons, risques, critères de succès.",
       "prompt": "Construis un plan d’exécution pour ce projet: {projet}. Contexte: {contexte}. Délai: {deadline}. Équipe: {equipe}. Donne: découpage en lots, dépendances, jalons, risques majeurs + mitigation, et critères de réussite." 
+    },
+    {
+      "theme": "SEO",
+      "title": "Audit SEO actionnable 90 jours",
+      "goal": "Prioriser les optimisations SEO avec un plan d’exécution mesurable.",
+      "when_to_use": "Avant une refonte SEO ou après une baisse de trafic organique.",
+      "inputs": "Pages cibles, mots-clés, Search Console, contraintes techniques.",
+      "quality_checklist": "Quick wins, backlog priorisé, impact estimé, KPI de suivi.",
+      "prompt": "Agis comme un consultant SEO senior. Sur la base de ces données: {donnees_seo}, construis un plan SEO sur 90 jours. Fournis: 1) audit on-page/technique/contenu, 2) opportunités de maillage interne, 3) backlog priorisé (impact x effort), 4) calendrier hebdomadaire, 5) KPI à suivre dans Search Console/GA4." 
+    },
+    {
+      "theme": "Data & BI",
+      "title": "Narratif exécutif pour KPI",
+      "goal": "Transformer des KPI bruts en message clair pour dirigeants.",
+      "when_to_use": "Lors d’un reporting mensuel ou comité de pilotage.",
+      "inputs": "KPI, objectifs, évolution vs période précédente.",
+      "quality_checklist": "Contexte, causes, risques, décisions recommandées.",
+      "prompt": "À partir de ces KPI: {kpi}, rédige un narratif exécutif en 1 page. Structure imposée: situation actuelle, écarts vs objectifs, causes probables, risques à 30 jours, décisions recommandées (3 actions max) avec impact attendu." 
+    },
+    {
+      "theme": "Automatisation",
+      "title": "Spécification workflow no-code / IA",
+      "goal": "Formaliser un workflow automatisé robuste avant implémentation.",
+      "when_to_use": "Avant de construire un scénario n8n/Make/Zapier ou un agent interne.",
+      "inputs": "Processus actuel, outils, déclencheurs, sorties attendues.",
+      "quality_checklist": "Entrées/sorties, gestion d’erreurs, logs, fallback manuel.",
+      "prompt": "Conçois la spécification d’un workflow automatisé pour ce processus: {processus}. Outils disponibles: {outils}. Donne: étapes détaillées, déclencheurs, transformations de données, contrôles qualité, gestion d’erreurs, alertes, métriques d’exploitation et procédure de reprise." 
+    },
+    {
+      "theme": "Sécurité",
+      "title": "Analyse de risques cybersécurité PME",
+      "goal": "Évaluer les risques et prioriser des mesures réalistes.",
+      "when_to_use": "Pour un audit interne annuel ou pré-certification.",
+      "inputs": "Actifs critiques, menaces, incidents passés, budget.",
+      "quality_checklist": "Risque brut/net, probabilité, impact, plan de mitigation.",
+      "prompt": "Réalise une analyse de risques cybersécurité pour cette organisation: {contexte}. Actifs: {actifs}. Menaces: {menaces}. Contraintes: {contraintes}. Fournis une matrice de risques (probabilité/impact), les 10 mesures prioritaires, un plan 30-60-90 jours et les indicateurs de conformité à suivre." 
     }
   ],
   "model_spotlight": [

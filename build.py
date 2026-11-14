@@ -302,6 +302,86 @@ def cfg(path, default=""):
     return ref
 
 
+_GUIDE_STOPWORDS = {
+    "avec", "dans", "pour", "sans", "votre", "vous", "guide", "local",
+    "site", "petit", "comment", "entre", "plus", "moins", "tous", "tout",
+    "vers", "chez", "etre", "cette", "faire", "base", "mise", "jour",
+    "the", "and", "from", "that", "this"
+}
+
+
+def guide_tokens(meta):
+    """Retourne un set de tokens utiles pour relier les guides entre eux."""
+    raw = " ".join([
+        str(meta.get("title", "")),
+        str(meta.get("description", "")),
+        str(meta.get("category", "")),
+    ]).lower()
+    words = re.findall(r"[a-z0-9àâçéèêëîïôûùüÿñæœ-]+", raw)
+    tokens = set()
+    for word in words:
+        token = word.strip("-")
+        if len(token) < 4 or token in _GUIDE_STOPWORDS:
+            continue
+        tokens.add(token)
+    return tokens
+
+
+def build_related_guides(guides, limit=3):
+    """Calcule des recommandations internes par similarité de catégorie et de thèmes."""
+    by_slug = {}
+    token_cache = {g["slug"]: guide_tokens(g) for g in guides}
+
+    for guide in guides:
+        g_slug = guide["slug"]
+        g_cat = str(guide.get("category", "")).strip().lower()
+        g_tokens = token_cache.get(g_slug, set())
+        ranked = []
+
+        for other in guides:
+            o_slug = other["slug"]
+            if o_slug == g_slug:
+                continue
+
+            score = 0
+            o_cat = str(other.get("category", "")).strip().lower()
+            if g_cat and o_cat and g_cat == o_cat:
+                score += 4
+
+            overlap = len(g_tokens & token_cache.get(o_slug, set()))
+            score += overlap
+            if score <= 0:
+                continue
+
+            ranked.append((score, other.get("title", ""), other))
+
+        ranked.sort(key=lambda x: (-x[0], x[1]))
+        by_slug[g_slug] = [entry[2] for entry in ranked[:limit]]
+
+    return by_slug
+
+
+def default_guide_faq(meta):
+    """FAQ générique de base quand aucune FAQ dédiée n'est configurée."""
+    title = str(meta.get("title", "ce guide")).strip()
+    category = str(meta.get("category", "")).strip() or "ce sujet"
+
+    return [
+        {
+            "question": f"À qui s’adresse le guide « {title} » ?",
+            "answer": "Ce guide s’adresse aux profils débutants à intermédiaires qui veulent appliquer une méthode claire sans jargon inutile.",
+        },
+        {
+            "question": f"Par quoi commencer pour progresser sur {category} ?",
+            "answer": "Commencez par appliquer les étapes dans l’ordre, validez chaque checkpoint, puis passez à une optimisation mesurable.",
+        },
+        {
+            "question": "Comment éviter les erreurs courantes ?",
+            "answer": "Préparez une checklist, testez sur un périmètre réduit et documentez les changements avant de généraliser en production.",
+        },
+    ]
+
+
 def resolve_amazon_affiliate_tag():
     """Retourne le tag Amazon configuré explicitement ou présent dans le lien partenaire Amazon."""
     explicit_tag = str(CFG.get("amazon_affiliate_tag", "")).strip()
@@ -901,17 +981,95 @@ def main():
     shutil.copytree(ROOT / "assets", OUT / "assets")
 
     # Guides
+    guide_docs = []
     guides = []
     for p in sorted((ROOT / "guides").glob("*.md")):
         meta, body = load(p)
         guides.append(meta)
+        guide_docs.append({"meta": meta, "body": body})
+
+    related_map = build_related_guides(guides)
+    configured_faq = CFG.get("guide_faq", {})
+    configured_faq = configured_faq if isinstance(configured_faq, dict) else {}
+
+    for doc in guide_docs:
+        meta = doc["meta"]
+        body = doc["body"]
+
+        related = related_map.get(meta["slug"], [])
+        related_html = ""
+        if related:
+            related_items = "".join(
+                f'<li><a href="{esc(r["slug"])}.html">{esc(r.get("title", "Guide"))}</a>'
+                f'<small>{esc(r.get("category", ""))}</small></li>'
+                for r in related
+            )
+            related_html = (
+                '<section class="guide-related">'
+                '<h2>Guides liés</h2>'
+                '<p>Pour aller plus loin sans quitter le site :</p>'
+                f'<ul>{related_items}</ul>'
+                '</section>'
+            )
+
+        raw_faq = configured_faq.get(meta["slug"])
+        faq_candidates = raw_faq if isinstance(raw_faq, list) and raw_faq else default_guide_faq(meta)
+        faq_items = []
+        for qa in faq_candidates:
+            if not isinstance(qa, dict):
+                continue
+            question = str(qa.get("question", "")).strip()
+            answer = str(qa.get("answer", "")).strip()
+            if question and answer:
+                faq_items.append({"question": question, "answer": answer})
+
+        if not faq_items:
+            faq_items = default_guide_faq(meta)
+
+        faq_rows = "".join(
+            f'<details><summary>{esc(item["question"])}</summary><p>{esc(item["answer"])}</p></details>'
+            for item in faq_items
+        )
+        faq_section = (
+            '<section class="guide-faq">'
+            '<h2>FAQ</h2>'
+            '<p>Questions fréquentes pour appliquer ce guide correctement.</p>'
+            f'{faq_rows}'
+            '</section>'
+        )
+
+        faq_schema = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": item["question"],
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": item["answer"],
+                    },
+                }
+                for item in faq_items
+            ],
+        }
+        faq_schema_html = (
+            '<script type="application/ld+json">'
+            + json.dumps(faq_schema, ensure_ascii=False).replace("</", "<\\/")
+            + '</script>'
+        )
+
         page = (
             f'<article class="prose">'
             f'<h1>{esc(meta["title"])}</h1>'
             f'{body}'
+            f'{related_html}'
+            f'{faq_section}'
+            f'{faq_schema_html}'
             f'<p><a href="../index.html">← Retour aux guides</a></p>'
             f'</article>'
         )
+
         (OUT / "guides" / f"{meta['slug']}.html").write_text(
             layout(
                 meta["title"] + " | " + CFG["site_name"],

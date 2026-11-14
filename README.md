@@ -111,9 +111,12 @@ Commitez et poussez : le workflow regénère le site automatiquement.
 Le générateur ajoute automatiquement :
 - balises `canonical`, `robots`, Open Graph et Twitter Card,
 - données structurées JSON-LD (`WebSite`, `WebPage`, `TechArticle` selon la page),
+- maillage contextuel entre guides (section « Guides liés »),
+- bloc FAQ sur chaque guide + schéma `FAQPage` (schema.org),
 - sitemap enrichi (`lastmod`, `changefreq`, `priority`) et `robots.txt` mis à jour.
 
 Un compteur **local** de visites (navigateur de l'utilisateur) est aussi affiché dans la barre de menu.
+La bibliothèque de prompts a été enrichie avec des prompts professionnels (SEO, BI, automatisation, sécurité).
 
 ## Monétisation
 
