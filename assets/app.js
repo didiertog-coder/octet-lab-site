@@ -9,6 +9,20 @@
   el.textContent = `📅 ${JOURS[now.getDay()]} ${now.getDate()} ${MOIS[now.getMonth() + 1]} ${now.getFullYear()}`;
 })();
 
+function initVisitCounter() {
+  const counter = document.getElementById('visit-counter');
+  if (!counter) return;
+
+  const key = 'octetlab_visit_count';
+  const raw = localStorage.getItem(key);
+  const current = Number.parseInt(raw || '0', 10);
+  const safeCurrent = Number.isFinite(current) && current >= 0 ? current : 0;
+  const next = safeCurrent + 1;
+
+  localStorage.setItem(key, String(next));
+  counter.textContent = `Visites : ${next}`;
+}
+
 const f = document.getElementById('vram');
 if (f) {
   const out = document.getElementById('vram-out'), e = f.elements;
@@ -280,6 +294,7 @@ function initPromptLibrary() {
   });
 }
 
+initVisitCounter();
 initCookieBanner();
 initAiThemeFilter();
 initPromptLibrary();

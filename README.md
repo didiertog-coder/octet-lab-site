@@ -106,6 +106,15 @@ Commitez et poussez : le workflow regénère le site automatiquement.
 
 ---
 
+## SEO & indexation
+
+Le générateur ajoute automatiquement :
+- balises `canonical`, `robots`, Open Graph et Twitter Card,
+- données structurées JSON-LD (`WebSite`, `WebPage`, `TechArticle` selon la page),
+- sitemap enrichi (`lastmod`, `changefreq`, `priority`) et `robots.txt` mis à jour.
+
+Un compteur **local** de visites (navigateur de l'utilisateur) est aussi affiché dans la barre de menu.
+
 ## Monétisation
 
 - Remplacez les URL `partners` dans `config.json` par vos liens d'affiliation réels.

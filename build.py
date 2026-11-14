@@ -347,12 +347,70 @@ def add_amazon_affiliate_tag(url, tag):
 
 # ── Génération du layout HTML commun ─────────────────────────────────────────
 
-def layout(title, desc, body, depth=0):
+def build_absolute_url(page_path):
+    """Construit une URL absolue propre à partir de base_url et d'un chemin relatif."""
+    clean_path = str(page_path or "index.html").lstrip("/")
+    base = CFG["base_url"].rstrip("/")
+    return f"{base}/{clean_path}"
+
+
+def layout(title, desc, body, depth=0, page_path="index.html"):
     """Retourne le HTML complet d'une page (head + nav + body + footer)."""
     r    = "../" * depth
     year = datetime.now().year
     now  = datetime.now()
     date_fr = f"{_JOURS[now.weekday()]} {now.day} {_MOIS[now.month]} {now.year}"
+
+    canonical_url = build_absolute_url(page_path)
+    is_home = page_path == "index.html"
+    is_guide = str(page_path).startswith("guides/")
+    og_type = "article" if is_guide else "website"
+
+    base_org = {
+        "@type": "Organization",
+        "name": CFG.get("owner_name", CFG.get("site_name", "BinaryForge")),
+        "url": CFG["base_url"],
+    }
+
+    if is_home:
+        structured_data = {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": CFG["site_name"],
+            "url": CFG["base_url"],
+            "description": desc,
+            "inLanguage": "fr-FR",
+            "publisher": base_org,
+        }
+    elif is_guide:
+        structured_data = {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": title,
+            "description": desc,
+            "inLanguage": "fr-FR",
+            "url": canonical_url,
+            "mainEntityOfPage": canonical_url,
+            "author": base_org,
+            "publisher": base_org,
+            "dateModified": datetime.now(timezone.utc).date().isoformat(),
+        }
+    else:
+        structured_data = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": title,
+            "description": desc,
+            "url": canonical_url,
+            "inLanguage": "fr-FR",
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": CFG["site_name"],
+                "url": CFG["base_url"],
+            },
+        }
+
+    json_ld = json.dumps(structured_data, ensure_ascii=False).replace("</", "<\\/")
 
     legal = (
         f'<a href="{r}mentions-legales.html">Mentions légales</a> · '
@@ -383,12 +441,24 @@ def layout(title, desc, body, depth=0):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
-<meta name="description" content="{esc(desc)}">{adsense_meta}
+<meta name="description" content="{esc(desc)}">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="{esc(canonical_url)}">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:type" content="{og_type}">
+<meta property="og:site_name" content="{esc(CFG['site_name'])}">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(desc)}">
+<meta property="og:url" content="{esc(canonical_url)}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{esc(title)}">
+<meta name="twitter:description" content="{esc(desc)}">{adsense_meta}
 <meta http-equiv="Content-Security-Policy" content="{_CSP}">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
 <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()">
+<script type="application/ld+json">{json_ld}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
@@ -406,6 +476,7 @@ def layout(title, desc, body, depth=0):
     <a href="{r}index.html#materiel">Matériel</a>
     <a href="{r}ia-thematiques.html">IA thématiques</a>
     <a href="{r}prompts-utiles.html">Prompts utiles</a>
+    <span class="visit-counter" id="visit-counter" aria-live="polite" title="Compteur local (ce navigateur)">Visites : --</span>
   </nav>
 </header>
 {body}
@@ -842,7 +913,13 @@ def main():
             f'</article>'
         )
         (OUT / "guides" / f"{meta['slug']}.html").write_text(
-            layout(meta["title"] + " | " + CFG["site_name"], meta.get("description", ""), page, depth=1),
+            layout(
+                meta["title"] + " | " + CFG["site_name"],
+                meta.get("description", ""),
+                page,
+                depth=1,
+                page_path=f"guides/{meta['slug']}.html",
+            ),
             "utf-8",
         )
 
@@ -850,43 +927,79 @@ def main():
     for p in (ROOT / "pages").glob("*.md"):
         meta, body = load(p)
         (OUT / f"{meta['slug']}.html").write_text(
-            layout(meta["title"], meta["title"], f'<article class="prose"><h1>{esc(meta["title"])}</h1>{body}</article>'),
+            layout(
+                meta["title"],
+                meta["title"],
+                f'<article class="prose"><h1>{esc(meta["title"])}</h1>{body}</article>',
+                page_path=f"{meta['slug']}.html",
+            ),
             "utf-8",
         )
 
     # Pages principales
     news = fetch_news()
     (OUT / "index.html").write_text(
-        layout(CFG["site_name"] + " : " + CFG["tagline"], CFG["tagline"], index_body(guides, news)),
+        layout(
+            CFG["site_name"] + " : " + CFG["tagline"],
+            CFG["tagline"],
+            index_body(guides, news),
+            page_path="index.html",
+        ),
         "utf-8",
     )
     (OUT / "ia-thematiques.html").write_text(
-        layout("IA par thématiques | " + CFG["site_name"], "Catalogue d\u2019IA triable par thématique, finalité et prix.", ai_tools_body()),
+        layout(
+            "IA par thématiques | " + CFG["site_name"],
+            "Catalogue d\u2019IA triable par thématique, finalité et prix.",
+            ai_tools_body(),
+            page_path="ia-thematiques.html",
+        ),
         "utf-8",
     )
     (OUT / "prompts-utiles.html").write_text(
-        layout("Prompts utiles | " + CFG["site_name"], "Bibliothèque de prompts IA utiles classés par thèmes et objectifs.", prompts_body()),
+        layout(
+            "Prompts utiles | " + CFG["site_name"],
+            "Bibliothèque de prompts IA utiles classés par thèmes et objectifs.",
+            prompts_body(),
+            page_path="prompts-utiles.html",
+        ),
         "utf-8",
     )
     write_prompt_exports()
 
     # Sitemap
-    urls = (
-        ["index.html", "ia-thematiques.html", "prompts-utiles.html"]
-        + [f"guides/{g['slug']}.html" for g in guides]
-        + [f"{p.stem}.html" for p in (ROOT / "pages").glob("*.md")]
+    today = datetime.now(timezone.utc).date().isoformat()
+    sitemap_items = [
+        {"path": "index.html", "changefreq": "daily", "priority": "1.0"},
+        {"path": "ia-thematiques.html", "changefreq": "weekly", "priority": "0.8"},
+        {"path": "prompts-utiles.html", "changefreq": "weekly", "priority": "0.8"},
+    ]
+    sitemap_items.extend(
+        {"path": f"guides/{g['slug']}.html", "changefreq": "monthly", "priority": "0.72"}
+        for g in guides
     )
+    sitemap_items.extend(
+        {"path": f"{p.stem}.html", "changefreq": "yearly", "priority": "0.35"}
+        for p in (ROOT / "pages").glob("*.md")
+    )
+
     sitemap = (
         '<?xml version="1.0" encoding="UTF-8"?>'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-        + "".join(f"<url><loc>{CFG['base_url']}/{u}</loc></url>" for u in urls)
+        + "".join(
+            f"<url><loc>{build_absolute_url(item['path'])}</loc>"
+            f"<lastmod>{today}</lastmod><changefreq>{item['changefreq']}</changefreq>"
+            f"<priority>{item['priority']}</priority></url>"
+            for item in sitemap_items
+        )
         + "</urlset>"
     )
     (OUT / "sitemap.xml").write_text(sitemap, "utf-8")
 
     # robots.txt
+    host = CFG["base_url"].replace("https://", "").replace("http://", "").strip("/")
     (OUT / "robots.txt").write_text(
-        f"User-agent: *\nAllow: /\nSitemap: {CFG['base_url']}/sitemap.xml\n",
+        f"User-agent: *\nAllow: /\nSitemap: {CFG['base_url']}/sitemap.xml\nHost: {host}\n",
         "utf-8",
     )
 
