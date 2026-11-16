@@ -13,14 +13,45 @@ function initVisitCounter() {
   const counter = document.getElementById('visit-counter');
   if (!counter) return;
 
-  const key = 'octetlab_visit_count';
-  const raw = localStorage.getItem(key);
-  const current = Number.parseInt(raw || '0', 10);
-  const safeCurrent = Number.isFinite(current) && current >= 0 ? current : 0;
-  const next = safeCurrent + 1;
+  const totalKey = 'octetlab_visit_total';
+  const dailyHistoryKey = 'octetlab_visit_daily_history';
+  const legacyKey = 'octetlab_visit_count';
 
-  localStorage.setItem(key, String(next));
-  counter.textContent = `Visites : ${next}`;
+  const toPositiveInt = (value) => {
+    const parsed = Number.parseInt(String(value || '0'), 10);
+    return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
+  };
+
+  let total = toPositiveInt(localStorage.getItem(totalKey));
+  if (!total) {
+    const legacyValue = toPositiveInt(localStorage.getItem(legacyKey));
+    if (legacyValue > 0) {
+      total = legacyValue;
+      localStorage.removeItem(legacyKey);
+    }
+  }
+
+  let dailyHistory = {};
+  try {
+    const rawHistory = localStorage.getItem(dailyHistoryKey);
+    const parsedHistory = rawHistory ? JSON.parse(rawHistory) : {};
+    if (parsedHistory && typeof parsedHistory === 'object' && !Array.isArray(parsedHistory)) {
+      dailyHistory = parsedHistory;
+    }
+  } catch (_error) {
+    dailyHistory = {};
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const todayCount = toPositiveInt(dailyHistory[today]) + 1;
+  dailyHistory[today] = todayCount;
+  total += 1;
+
+  localStorage.setItem(totalKey, String(total));
+  localStorage.setItem(dailyHistoryKey, JSON.stringify(dailyHistory));
+
+  counter.textContent = `Visites: jour ${todayCount} · total ${total}`;
+  counter.title = 'Compteur local: visites du jour et total cumule sur ce navigateur';
 }
 
 const f = document.getElementById('vram');
