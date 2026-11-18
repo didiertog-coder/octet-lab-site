@@ -7,6 +7,7 @@ import json
 import re
 import shutil
 import time
+import unicodedata
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -434,6 +435,47 @@ def build_absolute_url(page_path):
     return f"{base}/{clean_path}"
 
 
+def slugify(value):
+    """Convertit un titre en slug URL ASCII stable."""
+    normalized = unicodedata.normalize("NFKD", str(value or ""))
+    ascii_text = normalized.encode("ascii", "ignore").decode("ascii").lower()
+    slug = re.sub(r"[^a-z0-9]+", "-", ascii_text).strip("-")
+    return slug or "prompt"
+
+
+def prompt_slug(prompt):
+    return str(prompt.get("slug", "")).strip() or slugify(prompt.get("title", ""))
+
+
+def prompt_tags(prompt):
+    tags = list(prompt.get("tags", [])) if isinstance(prompt.get("tags", []), list) else []
+    tags.extend([
+        prompt.get("theme", "Autre"),
+        prompt.get("difficulty", "Intermédiaire"),
+    ])
+    models = prompt.get("models", ["GPT", "Claude", "Copilot", "Gemini"])
+    if isinstance(models, list):
+        tags.extend(models)
+    return list(dict.fromkeys(str(tag).strip() for tag in tags if str(tag).strip()))
+
+
+def prompt_collections(prompt):
+    tags_text = " ".join(prompt_tags(prompt)).lower()
+    theme = str(prompt.get("theme", "")).lower()
+    collections = ["all"]
+
+    if any(k in theme for k in ("développement", "automatisation", "analyse", "sécurité", "data")):
+        collections.append("developers")
+    if any(k in tags_text for k in ("marketing", "rédaction", "réseaux", "image", "seo")):
+        collections.append("creators")
+    if any(k in tags_text for k in ("marketing", "vente", "support", "productivité", "gestion", "data", "sécurité", "seo")):
+        collections.append("pme")
+    if any(k in tags_text for k in ("seo", "marketing", "réseaux")):
+        collections.append("seo")
+
+    return list(dict.fromkeys(collections))
+
+
 def layout(title, desc, body, depth=0, page_path="index.html"):
     """Retourne le HTML complet d'une page (head + nav + body + footer)."""
     r    = "../" * depth
@@ -848,8 +890,8 @@ def ai_tools_body():
 </section>"""
 
 
-def prompts_body():
-    """Génère le corps HTML de prompts-utiles.html."""
+def prompts_body_legacy():
+    """Ancien rendu de prompts, conservé temporairement pour référence."""
     prompts = sorted(
         CFG.get("prompt_library", []),
         key=lambda x: (x.get("theme", "Autre"), x.get("title", "")),
@@ -917,6 +959,167 @@ def prompts_body():
 </section>"""
 
 
+def prompts_body():
+    """Génère le hub indexable de prompts avec cartes, collections et méthodologie."""
+    prompts = sorted(CFG.get("prompt_library", []), key=lambda x: (x.get("theme", "Autre"), x.get("title", "")))
+    themes = sorted({p.get("theme", "Autre") for p in prompts})
+    options = '<option value="all">Tous les thèmes</option>' + "".join(
+        f'<option value="{esc(t)}">{esc(t)}</option>' for t in themes
+    )
+
+    cards = []
+    for i, prompt in enumerate(prompts, start=1):
+        slug = prompt_slug(prompt)
+        tags = prompt_tags(prompt)
+        difficulty = str(prompt.get("difficulty", "Intermédiaire"))
+        time_saved = str(prompt.get("time_saved", "25 min"))
+        quality = str(prompt.get("quality_score", "4,7"))
+        search_blob = " ".join([
+            prompt.get("title", ""), prompt.get("theme", ""), prompt.get("goal", ""),
+            prompt.get("inputs", ""), prompt.get("prompt", ""), " ".join(tags),
+        ]).lower()
+        tag_html = "".join(f'<span class="prompt-tag">{esc(tag)}</span>' for tag in tags[:9])
+        cards.append(
+            f'<article class="card prompt-card" data-id="prompt-{i}" data-prompt-stats="{esc(slug)}" '
+            f'data-theme="{esc(prompt.get("theme", "Autre"))}" data-collections="{esc(" ".join(prompt_collections(prompt)))}" '
+            f'data-search="{esc(search_blob)}">'
+            f'<div class="prompt-card-head"><div class="prompt-meta-row"><span class="tag">{esc(prompt.get("theme", "Autre"))}</span>'
+            f'<span class="level-badge">{esc(difficulty)}</span></div>'
+            f'<button type="button" class="fav-btn" data-fav-id="prompt-{i}" aria-pressed="false" aria-label="Ajouter aux favoris">★</button></div>'
+            f'<h3><a href="prompts/{esc(slug)}.html">{esc(prompt.get("title", "Prompt IA"))}</a></h3>'
+            f'<p><strong>Objectif :</strong> {esc(prompt.get("goal", ""))}</p><div class="prompt-tags">{tag_html}</div>'
+            f'<div class="prompt-proof"><span>Gain estimé : {esc(time_saved)}</span><span>Score éditorial : {esc(quality)}/5</span>'
+            f'<span data-prompt-uses="{esc(slug)}">0 copie locale</span></div>'
+            f'<p><strong>Quand l’utiliser :</strong> {esc(prompt.get("when_to_use", ""))}</p>'
+            f'<p><strong>Entrées :</strong> {esc(prompt.get("inputs", ""))}</p>'
+            f'<div class="prompt-code-block"><div class="prompt-code-head"><strong>Prompt prêt à copier</strong><span>Texte brut</span></div>'
+            f'<pre id="prompt-{i}"><code>{esc(prompt.get("prompt", ""))}</code></pre></div>'
+            f'<div class="prompt-actions"><button type="button" class="copy-btn" data-copy-prompt="prompt-{i}" data-copy-key="{esc(slug)}">Copier</button>'
+            f'<button type="button" class="copy-btn" data-edit-prompt="prompt-{i}">Modifier</button>'
+            f'<button type="button" class="copy-btn" data-test-prompt="prompt-{i}" data-provider="chatgpt">Tester ChatGPT</button>'
+            f'<button type="button" class="copy-btn" data-test-prompt="prompt-{i}" data-provider="claude">Tester Claude</button>'
+            f'<button type="button" class="copy-btn" data-test-prompt="prompt-{i}" data-provider="copilot">Tester Copilot</button>'
+            f'<a class="copy-btn detail-link" href="prompts/{esc(slug)}.html">Fiche complète</a></div></article>'
+        )
+
+    collection_buttons = "".join(
+        f'<button type="button" class="collection-btn" data-prompt-collection="{key}">{label}</button>'
+        for key, label in (
+            ("all", "Tous les prompts"), ("pme", "Top prompts PME"), ("developers", "Top développeurs"),
+            ("creators", "Top créateurs"), ("seo", "Top SEO"),
+        )
+    )
+
+    return f"""
+<section class="full prompt-hub">
+  <article class="prose prose-wide">
+    <div class="page-head">
+      <div><span class="eyebrow">Bibliothèque expert OCTET LAB</span><h1>Prompts IA professionnels, testables et adaptables</h1></div>
+      <a class="btn-back" href="index.html">← Retour à la page principale</a>
+    </div>
+    <p class="lead">Des prompts complets et immédiatement copables pour produire, analyser, coder, vendre et automatiser avec plusieurs assistants IA.</p>
+
+    <div class="prompt-conversion">
+      <div><span class="tag">Nouveau chaque semaine</span><h2>Recevez les prochains prompts professionnels</h2><p>Inscrivez-vous par e-mail : aucune donnée n’est publiée ni revendue. L’envoi reste manuel pour préserver un rythme éditorial exigeant.</p></div>
+      <a class="primary-cta" href="mailto:contact@binaryforge.fr?subject=Inscription%20prompts%20OCTET%20LAB&amp;body=Bonjour%2C%20je%20souhaite%20recevoir%20le%20nouveau%20prompt%20hebdomadaire.">Recevoir le prompt de la semaine</a>
+    </div>
+
+    <nav class="prompt-collections" aria-label="Collections de prompts">{collection_buttons}</nav>
+    <div class="prompt-toolbar">
+      <div class="tool-actions">
+        <label for="prompt-theme-filter">Thème</label><select id="prompt-theme-filter" aria-label="Filtrer les prompts par thème">{options}</select>
+        <label for="prompt-search">Recherche</label><input id="prompt-search" type="search" placeholder="SEO, bug, B2B, SaaS, Copilot..." aria-label="Rechercher dans les prompts">
+        <label class="check-inline"><input id="prompt-favorites-only" type="checkbox"> Favoris uniquement</label>
+      </div>
+      <div class="prompt-toolbar-actions">
+        <button type="button" id="prompt-random" class="copy-btn">Prompt aléatoire</button><button type="button" id="prompt-reset" class="copy-btn">Réinitialiser</button>
+        <a class="copy-btn export-link" href="prompt-library.json" download>Télécharger JSON</a><a class="copy-btn export-link" href="prompt-library.csv" download>Télécharger CSV</a>
+      </div><p id="prompt-results-count" class="prompt-results">0 prompt</p>
+    </div>
+
+    <div id="prompt-library-grid" class="grid prompt-grid">{''.join(cards)}</div>
+
+    <section class="prompt-guide-index">
+      <h2>Guide complet des prompts IA professionnels</h2>
+      <p>Un bon prompt n’est pas une formule magique : c’est une spécification de travail. Plus l’objectif est précis, plus le modèle peut produire une réponse exploitable. OCTET LAB structure chaque prompt autour d’un rôle, d’un contexte, de données, d’une forme de sortie et de critères de contrôle. Cette méthode réduit les corrections et permet de comparer plusieurs assistants sur une base identique.</p>
+      <h3>1. Commencer par une finalité mesurable</h3><p>Décrivez le livrable attendu : plan de publication, diagnostic reproductible, synthèse décisionnelle ou tableau de risques. « Analyse ceci » reste trop ouvert. Une bonne consigne précise le résultat, son format, son niveau de détail et la décision qu’il doit faciliter.</p>
+      <h3>2. Fournir un contexte utile, sans bruit</h3><p>Ajoutez uniquement l’audience, les contraintes, le budget, la deadline, les outils et le ton. Anonymisez les données sensibles. Séparez clairement les instructions des données à analyser afin de limiter les ambiguïtés.</p>
+      <h3>3. Choisir un format de sortie testable</h3><p>Demandez une checklist, un tableau, une structure JSON, des étapes numérotées ou des sections imposées. Ce format facilite la vérification et l’automatisation. Faites également distinguer les faits, les hypothèses et les éléments manquants.</p>
+      <h3>4. Utiliser des critères de qualité explicites</h3><p>Nos prompts précisent la cohérence, l’actionnabilité, la vérifiabilité, la sécurité et l’adaptation au lecteur. Un résultat long n’est pas forcément meilleur : le bon résultat permet d’exécuter une tâche ou de prendre une décision avec moins d’aller-retours.</p>
+      <h3>5. Itérer par essais contrôlés</h3><p>Testez avec un exemple simple, comparez la sortie attendue puis modifiez une seule variable. Conservez une version de référence. Pour un usage récurrent, transformez le prompt en gabarit avec des variables entre accolades.</p>
+      <h3>6. Adapter le prompt au modèle</h3><p>GPT, Claude, Gemini, Copilot et les modèles locaux réagissent différemment. Testez la consigne courte, les exemples et les exigences de sortie sur un même cas d’essai, sans changer plusieurs paramètres à la fois.</p>
+      <h3>7. Réduire les hallucinations</h3><p>Demandez au modèle d’indiquer ce qu’il ne sait pas, de citer les données fournies et de séparer recommandations et certitudes. Pour les sujets sensibles, vérifiez les sources externes et faites réaliser une revue métier.</p>
+      <h3>8. Construire une bibliothèque interne</h3><p>Classez les prompts par équipe, objectif, niveau et modèle testé. Ajoutez un propriétaire, une date de révision et des exemples. Cette gouvernance transforme une collection personnelle en actif opérationnel partagé.</p>
+    </section>
+
+    <section class="prompt-methodology" id="methodologie">
+      <div><span class="eyebrow">Méthodologie OCTET LAB</span><h2>Comment les prompts sont sélectionnés</h2></div>
+      <div class="method-grid">
+        <article><h3>Utilité</h3><p>Chaque prompt résout une tâche fréquente et produit un livrable concret.</p></article>
+        <article><h3>Réutilisabilité</h3><p>Les variables sont visibles, adaptables et utilisables par plusieurs profils.</p></article>
+        <article><h3>Contrôle</h3><p>Le format, les critères de qualité et les limites attendues sont précisés.</p></article>
+        <article><h3>Transparence</h3><p>Les scores sont éditoriaux indicatifs ; les usages affichés sont des compteurs locaux du navigateur.</p></article>
+      </div>
+      <p class="help-inline">Compatibilité indicative : GPT, Claude, Copilot, Gemini et modèles locaux. Vérifiez toujours le résultat avant usage professionnel.</p>
+    </section>
+  </article>
+</section>"""
+
+
+def prompt_detail_body(prompt, related):
+    """Génère une page SEO indexable complète pour un prompt."""
+    title = str(prompt.get("title", "Prompt IA"))
+    slug = prompt_slug(prompt)
+    difficulty = str(prompt.get("difficulty", "Intermédiaire"))
+    time_saved = str(prompt.get("time_saved", "25 min"))
+    quality = str(prompt.get("quality_score", "4,7"))
+    tags = prompt_tags(prompt)
+    tag_html = "".join(f'<span class="prompt-tag">{esc(tag)}</span>' for tag in tags)
+    example = str(prompt.get("example", "Remplacez les variables entre accolades par votre contexte, relancez une première fois, puis demandez une version plus concise ou orientée vers votre public."))
+    variants = prompt.get("variants", [])
+    if not isinstance(variants, list) or not variants:
+        variants = [
+            "Version concise : imposez 5 à 8 lignes et une seule recommandation prioritaire.",
+            "Version expert : exigez hypothèses, risques, sources à vérifier et critères d’acceptation.",
+            "Version équipe : structurez la réponse pour une validation manager puis une exécution opérationnelle.",
+        ]
+    variants_html = "".join(f'<li>{esc(variant)}</li>' for variant in variants)
+    faq = [
+        (f"Comment utiliser le prompt « {title} » ?", f"Copiez le prompt, remplacez les variables entre accolades et contrôlez la réponse avec : {prompt.get('quality_checklist', 'objectif, structure et précision')}."),
+        ("Avec quels assistants IA l’utiliser ?", "Il peut servir de base avec GPT, Claude, Copilot, Gemini ou un modèle local. Utilisez un exemple identique pour comparer les sorties."),
+        ("Puis-je modifier ce prompt ?", "Oui. Le bouton Modifier rend le texte éditable dans le navigateur. Rien n’est transmis avant l’ouverture explicite d’un assistant."),
+    ]
+    faq_html = "".join(f'<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>' for q, a in faq)
+    faq_schema = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq
+    ]}
+    creative_schema = {
+        "@context": "https://schema.org", "@type": "CreativeWork", "name": title,
+        "description": prompt.get("goal", ""), "url": build_absolute_url(f"prompts/{slug}.html"),
+        "inLanguage": "fr-FR", "author": {"@type": "Organization", "name": CFG.get("owner_name", "BinaryForge")},
+    }
+    related_html = "".join(
+        f'<a class="card" href="{esc(prompt_slug(item))}.html"><span class="tag">{esc(item.get("theme", ""))}</span>'
+        f'<h3>{esc(item.get("title", "Prompt"))}</h3><p>{esc(item.get("goal", ""))}</p></a>'
+        for item in related
+    ) or '<p>Aucun prompt lié configuré pour le moment.</p>'
+
+    return f"""
+<section class="full prompt-detail-page"><article class="prose prompt-detail" data-prompt-stats="{esc(slug)}">
+  <nav class="breadcrumb" aria-label="Fil d’Ariane"><a href="../prompts-utiles.html">Prompts utiles</a> / <span>{esc(title)}</span></nav>
+  <span class="eyebrow">{esc(prompt.get("theme", "IA professionnelle"))}</span><h1>{esc(title)}</h1><p class="lead">{esc(prompt.get("goal", ""))}</p>
+  <div class="prompt-tags">{tag_html}</div>
+  <div class="prompt-proof prompt-proof-large"><span><strong>{esc(difficulty)}</strong>Niveau</span><span><strong>{esc(time_saved)}</strong>Gain estimé</span><span><strong>{esc(quality)}/5</strong>Score éditorial</span><span><strong data-prompt-views="{esc(slug)}">0</strong>Vues locales</span><span><strong data-prompt-uses="{esc(slug)}">0</strong>Copies locales</span></div>
+  <h2>Prompt prêt à l’emploi</h2><div class="prompt-code-block prompt-code-block-large"><div class="prompt-code-head"><strong>Texte brut modifiable</strong><span>Variables entre accolades</span></div><pre id="prompt-detail-{esc(slug)}"><code>{esc(prompt.get("prompt", ""))}</code></pre></div>
+  <div class="prompt-actions"><button type="button" class="copy-btn" data-copy-prompt="prompt-detail-{esc(slug)}" data-copy-key="{esc(slug)}">Copier le prompt</button><button type="button" class="copy-btn" data-edit-prompt="prompt-detail-{esc(slug)}">Modifier</button><button type="button" class="copy-btn" data-test-prompt="prompt-detail-{esc(slug)}" data-provider="chatgpt">Tester dans ChatGPT</button><button type="button" class="copy-btn" data-test-prompt="prompt-detail-{esc(slug)}" data-provider="claude">Tester dans Claude</button><button type="button" class="copy-btn" data-test-prompt="prompt-detail-{esc(slug)}" data-provider="copilot">Tester dans Copilot</button></div>
+  <h2>Quand et comment l’utiliser</h2><p><strong>Moment adapté :</strong> {esc(prompt.get("when_to_use", ""))}</p><p><strong>Données à fournir :</strong> {esc(prompt.get("inputs", ""))}</p><h3>Exemple d’utilisation</h3><p>{esc(example)}</p><h3>Critères de qualité</h3><p>{esc(prompt.get("quality_checklist", ""))}</p>
+  <h2>Variantes recommandées</h2><ul>{variants_html}</ul><section class="guide-faq"><h2>FAQ du prompt</h2>{faq_html}</section>
+  <section class="prompt-detail-related"><h2>Prompts liés</h2><div class="grid">{related_html}</div></section>
+  <script type="application/ld+json">{json.dumps(creative_schema, ensure_ascii=False).replace("</", "<\\/")}</script>
+  <script type="application/ld+json">{json.dumps(faq_schema, ensure_ascii=False).replace("</", "<\\/")}</script>
+</article></section>"""
+
+
 def csv_escape(value):
     s = str(value or "")
     if any(c in s for c in [",", '"', "\n", "\r"]):
@@ -931,10 +1134,19 @@ def write_prompt_exports():
         "utf-8",
     )
 
-    headers = ["theme", "title", "goal", "when_to_use", "inputs", "quality_checklist", "prompt"]
+    headers = [
+        "theme", "title", "goal", "when_to_use", "inputs", "quality_checklist",
+        "difficulty", "time_saved", "quality_score", "tags", "prompt"
+    ]
     lines = [",".join(headers)]
     for p in prompts:
-        lines.append(",".join(csv_escape(p.get(h, "")) for h in headers))
+        values = []
+        for h in headers:
+            value = p.get(h, "")
+            if isinstance(value, list):
+                value = " | ".join(str(item) for item in value)
+            values.append(csv_escape(value))
+        lines.append(",".join(values))
     (OUT / "prompt-library.csv").write_text("\n".join(lines) + "\n", "utf-8")
 
 
@@ -978,6 +1190,7 @@ def main():
     """Construit le site complet dans public/."""
     shutil.rmtree(OUT, ignore_errors=True)
     (OUT / "guides").mkdir(parents=True)
+    (OUT / "prompts").mkdir(parents=True)
     shutil.copytree(ROOT / "assets", OUT / "assets")
 
     # Guides
@@ -1114,15 +1327,31 @@ def main():
         ),
         "utf-8",
     )
+    prompts = CFG.get("prompt_library", [])
     (OUT / "prompts-utiles.html").write_text(
         layout(
-            "Prompts utiles | " + CFG["site_name"],
-            "Bibliothèque de prompts IA utiles classés par thèmes et objectifs.",
+            "Prompts IA professionnels : bibliothèque complète | " + CFG["site_name"],
+            "Prompts IA complets à copier, modifier et tester : SEO, développement, marketing, productivité et sécurité.",
             prompts_body(),
             page_path="prompts-utiles.html",
         ),
         "utf-8",
     )
+    for prompt in prompts:
+        slug = prompt_slug(prompt)
+        same_theme = [item for item in prompts if item is not prompt and item.get("theme") == prompt.get("theme")]
+        fallback = [item for item in prompts if item is not prompt]
+        related = (same_theme + fallback)[:3]
+        (OUT / "prompts" / f"{slug}.html").write_text(
+            layout(
+                f"{prompt.get('title', 'Prompt IA')} : prompt complet | {CFG['site_name']}",
+                str(prompt.get("goal", "Prompt IA professionnel prêt à copier et à adapter.")),
+                prompt_detail_body(prompt, related),
+                depth=1,
+                page_path=f"prompts/{slug}.html",
+            ),
+            "utf-8",
+        )
     write_prompt_exports()
 
     # Sitemap
@@ -1135,6 +1364,10 @@ def main():
     sitemap_items.extend(
         {"path": f"guides/{g['slug']}.html", "changefreq": "monthly", "priority": "0.72"}
         for g in guides
+    )
+    sitemap_items.extend(
+        {"path": f"prompts/{prompt_slug(prompt)}.html", "changefreq": "monthly", "priority": "0.76"}
+        for prompt in prompts
     )
     sitemap_items.extend(
         {"path": f"{p.stem}.html", "changefreq": "yearly", "priority": "0.35"}

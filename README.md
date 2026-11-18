@@ -115,8 +115,16 @@ Le générateur ajoute automatiquement :
 - bloc FAQ sur chaque guide + schéma `FAQPage` (schema.org),
 - sitemap enrichi (`lastmod`, `changefreq`, `priority`) et `robots.txt` mis à jour.
 
+Le hub de prompts inclut :
+- 20 prompts professionnels avec le texte complet visible immédiatement,
+- une page indexable dédiée par prompt (`prompts/<slug>.html`),
+- collections, tags, difficulté, gain estimé et score éditorial indicatif,
+- boutons Copier, Modifier et tester dans ChatGPT / Claude / Copilot,
+- FAQ et schémas `CreativeWork` + `FAQPage` sur les fiches détaillées,
+- compteurs locaux de vues et copies (aucun chiffre global inventé),
+- CTA d’inscription e-mail, documentation méthodologique et guide SEO indexable.
+
 Un compteur **local** de visites (navigateur de l'utilisateur) est aussi affiché dans la barre de menu.
-La bibliothèque de prompts a été enrichie avec des prompts professionnels (SEO, BI, automatisation, sécurité).
 
 ## Monétisation
 

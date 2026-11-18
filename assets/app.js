@@ -199,7 +199,42 @@ function initPromptLibrary() {
   const results = document.getElementById('prompt-results-count');
   const randomBtn = document.getElementById('prompt-random');
   const resetBtn = document.getElementById('prompt-reset');
+  const collectionButtons = Array.from(document.querySelectorAll('[data-prompt-collection]'));
   const favKey = 'octetlab_prompt_favorites';
+  const statsKey = 'octetlab_prompt_stats';
+  let activeCollection = 'all';
+
+  const loadStats = () => {
+    try {
+      const raw = localStorage.getItem(statsKey);
+      const parsed = raw ? JSON.parse(raw) : {};
+      return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+    } catch (_error) {
+      return {};
+    }
+  };
+
+  const stats = loadStats();
+  const saveStats = () => localStorage.setItem(statsKey, JSON.stringify(stats));
+  const renderStats = () => {
+    document.querySelectorAll('[data-prompt-uses]').forEach(el => {
+      const key = el.getAttribute('data-prompt-uses') || '';
+      const copies = Number(stats[key] && stats[key].copies) || 0;
+      el.textContent = el.tagName === 'STRONG' ? String(copies) : `${copies} copie${copies > 1 ? 's' : ''} locale${copies > 1 ? 's' : ''}`;
+    });
+    document.querySelectorAll('[data-prompt-views]').forEach(el => {
+      const key = el.getAttribute('data-prompt-views') || '';
+      el.textContent = String(Number(stats[key] && stats[key].views) || 0);
+    });
+  };
+
+  document.querySelectorAll('.prompt-detail[data-prompt-stats]').forEach(el => {
+    const key = el.getAttribute('data-prompt-stats') || '';
+    stats[key] = stats[key] || {};
+    stats[key].views = (Number(stats[key].views) || 0) + 1;
+    saveStats();
+  });
+  renderStats();
 
   const loadFavorites = () => {
     try {
@@ -250,8 +285,10 @@ function initPromptLibrary() {
         const themeOk = wantedTheme === 'all' || theme === wantedTheme;
         const searchOk = !q || searchable.includes(q);
         const favOk = !onlyFav || favorites.has(id);
+        const collections = (card.dataset.collections || 'all').split(/\s+/);
+        const collectionOk = activeCollection === 'all' || collections.includes(activeCollection);
 
-        const visible = themeOk && searchOk && favOk;
+        const visible = themeOk && searchOk && favOk && collectionOk;
         card.style.display = visible ? '' : 'none';
         if (visible) visibleCount += 1;
       });
@@ -278,6 +315,13 @@ function initPromptLibrary() {
     if (select) select.addEventListener('change', apply);
     if (search) search.addEventListener('input', apply);
     if (favoritesOnly) favoritesOnly.addEventListener('change', apply);
+    collectionButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCollection = btn.getAttribute('data-prompt-collection') || 'all';
+        collectionButtons.forEach(item => item.classList.toggle('is-active', item === btn));
+        apply();
+      });
+    });
 
     if (randomBtn) {
       randomBtn.addEventListener('click', () => {
@@ -295,6 +339,8 @@ function initPromptLibrary() {
         if (select) select.value = 'all';
         if (search) search.value = '';
         if (favoritesOnly) favoritesOnly.checked = false;
+        activeCollection = 'all';
+        collectionButtons.forEach((item, index) => item.classList.toggle('is-active', index === 0));
         apply();
       });
     }
@@ -314,6 +360,13 @@ function initPromptLibrary() {
       try {
         await navigator.clipboard.writeText(text);
         const initial = btn.textContent;
+        const statsId = btn.getAttribute('data-copy-key') || '';
+        if (statsId) {
+          stats[statsId] = stats[statsId] || {};
+          stats[statsId].copies = (Number(stats[statsId].copies) || 0) + 1;
+          saveStats();
+          renderStats();
+        }
         btn.textContent = 'Copié';
         setTimeout(() => {
           btn.textContent = initial || 'Copier le prompt';
@@ -321,6 +374,37 @@ function initPromptLibrary() {
       } catch (_error) {
         btn.textContent = 'Copie non supportée';
       }
+    });
+  });
+
+  document.querySelectorAll('[data-edit-prompt]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-edit-prompt');
+      const target = targetId ? document.getElementById(targetId) : null;
+      const code = target ? target.querySelector('code') || target : null;
+      if (!code) return;
+      const editing = code.getAttribute('contenteditable') === 'true';
+      code.setAttribute('contenteditable', editing ? 'false' : 'true');
+      code.classList.toggle('is-editable', !editing);
+      btn.textContent = editing ? 'Modifier' : 'Terminer';
+      if (!editing) code.focus();
+    });
+  });
+
+  const providerUrls = {
+    chatgpt: 'https://chatgpt.com/?q=',
+    claude: 'https://claude.ai/new?q=',
+    copilot: 'https://copilot.microsoft.com/?q=',
+  };
+  document.querySelectorAll('[data-test-prompt]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-test-prompt');
+      const target = targetId ? document.getElementById(targetId) : null;
+      const provider = btn.getAttribute('data-provider') || 'chatgpt';
+      const text = target ? target.textContent || '' : '';
+      const base = providerUrls[provider];
+      if (!base || !text) return;
+      window.open(`${base}${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
     });
   });
 }
