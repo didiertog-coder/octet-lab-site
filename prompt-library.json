@@ -106,5 +106,121 @@
     "inputs": "Objectif, périmètre, délais, équipe, contraintes.",
     "quality_checklist": "Lots clairs, dépendances, jalons, risques, critères de succès.",
     "prompt": "Construis un plan d’exécution pour ce projet: {projet}. Contexte: {contexte}. Délai: {deadline}. Équipe: {equipe}. Donne: découpage en lots, dépendances, jalons, risques majeurs + mitigation, et critères de réussite."
+  },
+  {
+    "theme": "SEO",
+    "title": "Audit SEO actionnable 90 jours",
+    "goal": "Prioriser les optimisations SEO avec un plan d’exécution mesurable.",
+    "when_to_use": "Avant une refonte SEO ou après une baisse de trafic organique.",
+    "inputs": "Pages cibles, mots-clés, Search Console, contraintes techniques.",
+    "quality_checklist": "Quick wins, backlog priorisé, impact estimé, KPI de suivi.",
+    "prompt": "Agis comme un consultant SEO senior. Sur la base de ces données: {donnees_seo}, construis un plan SEO sur 90 jours. Fournis: 1) audit on-page/technique/contenu, 2) opportunités de maillage interne, 3) backlog priorisé (impact x effort), 4) calendrier hebdomadaire, 5) KPI à suivre dans Search Console/GA4."
+  },
+  {
+    "theme": "Data & BI",
+    "title": "Narratif exécutif pour KPI",
+    "goal": "Transformer des KPI bruts en message clair pour dirigeants.",
+    "when_to_use": "Lors d’un reporting mensuel ou comité de pilotage.",
+    "inputs": "KPI, objectifs, évolution vs période précédente.",
+    "quality_checklist": "Contexte, causes, risques, décisions recommandées.",
+    "prompt": "À partir de ces KPI: {kpi}, rédige un narratif exécutif en 1 page. Structure imposée: situation actuelle, écarts vs objectifs, causes probables, risques à 30 jours, décisions recommandées (3 actions max) avec impact attendu."
+  },
+  {
+    "theme": "Automatisation",
+    "title": "Spécification workflow no-code / IA",
+    "goal": "Formaliser un workflow automatisé robuste avant implémentation.",
+    "when_to_use": "Avant de construire un scénario n8n/Make/Zapier ou un agent interne.",
+    "inputs": "Processus actuel, outils, déclencheurs, sorties attendues.",
+    "quality_checklist": "Entrées/sorties, gestion d’erreurs, logs, fallback manuel.",
+    "prompt": "Conçois la spécification d’un workflow automatisé pour ce processus: {processus}. Outils disponibles: {outils}. Donne: étapes détaillées, déclencheurs, transformations de données, contrôles qualité, gestion d’erreurs, alertes, métriques d’exploitation et procédure de reprise."
+  },
+  {
+    "theme": "Sécurité",
+    "title": "Analyse de risques cybersécurité PME",
+    "goal": "Évaluer les risques et prioriser des mesures réalistes.",
+    "when_to_use": "Pour un audit interne annuel ou pré-certification.",
+    "inputs": "Actifs critiques, menaces, incidents passés, budget.",
+    "quality_checklist": "Risque brut/net, probabilité, impact, plan de mitigation.",
+    "prompt": "Réalise une analyse de risques cybersécurité pour cette organisation: {contexte}. Actifs: {actifs}. Menaces: {menaces}. Contraintes: {contraintes}. Fournis une matrice de risques (probabilité/impact), les 10 mesures prioritaires, un plan 30-60-90 jours et les indicateurs de conformité à suivre.",
+    "difficulty": "Expert",
+    "time_saved": "90 min",
+    "quality_score": "4,9",
+    "tags": [
+      "PME",
+      "Conformité",
+      "B2B"
+    ]
+  },
+  {
+    "theme": "Développement",
+    "title": "Architecture décisionnelle ADR",
+    "goal": "Documenter une décision technique complexe avec ses compromis.",
+    "when_to_use": "Avant d’adopter une architecture, une base de données ou une dépendance structurante.",
+    "inputs": "Contexte, options, contraintes, critères de décision.",
+    "quality_checklist": "Options comparables, compromis explicites, conséquence réversible, décision justifiée.",
+    "prompt": "Rédige un ADR professionnel pour cette décision: {decision}. Contexte: {contexte}. Contraintes: {contraintes}. Options: {options}. Produis: statut, contexte, critères, comparaison des options, décision, conséquences positives/négatives, risques, plan de réversibilité et points à revalider.",
+    "difficulty": "Expert",
+    "time_saved": "60 min",
+    "quality_score": "4,9",
+    "tags": [
+      "Architecture",
+      "SaaS",
+      "Lead dev",
+      "Copilot"
+    ]
+  },
+  {
+    "theme": "E-commerce",
+    "title": "Fiche produit orientée conversion",
+    "goal": "Créer une fiche produit claire, persuasive et fiable sans promesse trompeuse.",
+    "when_to_use": "Pour publier un produit sur une boutique ou marketplace.",
+    "inputs": "Produit, caractéristiques vérifiées, public, objections, preuve disponible.",
+    "quality_checklist": "Bénéfices prouvés, scannabilité, objections traitées, FAQ, absence d’affirmations non vérifiées.",
+    "prompt": "Rédige une fiche produit pour {produit}. Public: {audience}. Caractéristiques vérifiées: {caracteristiques}. Preuves: {preuves}. Objections: {objections}. Fournis: titre SEO, accroche, bénéfices, spécifications, conseils d’utilisation, FAQ, CTA. Signale toute affirmation nécessitant une source ou une validation.",
+    "difficulty": "Intermédiaire",
+    "time_saved": "45 min",
+    "quality_score": "4,8",
+    "tags": [
+      "E-commerce",
+      "Conversion",
+      "SEO",
+      "Claude"
+    ]
+  },
+  {
+    "theme": "Produit",
+    "title": "Découverte produit et hypothèses",
+    "goal": "Transformer un problème utilisateur en plan de découverte exploitable.",
+    "when_to_use": "Avant de lancer le développement d’une fonctionnalité.",
+    "inputs": "Signal utilisateur, segment, hypothèses, métrique métier.",
+    "quality_checklist": "Problème validable, hypothèses testables, expérience minimale, métriques, risques.",
+    "prompt": "Agis comme un product manager senior. À partir de ce signal utilisateur: {signal}, segment {segment}, prépare un plan de découverte. Donne: problème reformulé, JTBD, hypothèses classées, interviews proposées, prototype minimal, métriques de succès, risques et décision go/no-go à prendre après les tests.",
+    "difficulty": "Intermédiaire",
+    "time_saved": "60 min",
+    "quality_score": "4,8",
+    "tags": [
+      "SaaS",
+      "PM",
+      "B2B",
+      "GPT"
+    ]
+  },
+  {
+    "theme": "Juridique",
+    "title": "Pré-analyse RGPD d’un projet",
+    "goal": "Identifier les données personnelles et les points de vigilance avant validation juridique.",
+    "when_to_use": "Au cadrage d’un service qui collecte ou traite des données personnelles.",
+    "inputs": "Fonctionnalités, données collectées, acteurs, durées, pays d’hébergement.",
+    "quality_checklist": "Finalité, base légale à confirmer, minimisation, conservation, sous-traitants, droits utilisateurs.",
+    "prompt": "Prépare une pré-analyse RGPD de ce projet: {projet}. Fonctionnalités: {fonctionnalites}. Données: {donnees}. Acteurs/sous-traitants: {acteurs}. Hébergement: {hebergement}. Produis une checklist de minimisation, finalités, bases légales à confirmer, durées de conservation, mesures de sécurité, transferts et questions à soumettre au DPO/juriste. Ne donne pas d’avis juridique définitif.",
+    "difficulty": "Expert",
+    "time_saved": "75 min",
+    "quality_score": "4,8",
+    "tags": [
+      "RGPD",
+      "Conformité",
+      "SaaS",
+      "PME"
+    ]
   }
 ]
