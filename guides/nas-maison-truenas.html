@@ -5,12 +5,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Construire un NAS maison avec TrueNAS Scale | OCTET LAB</title>
 <meta name="description" content="Stockage centralisé, RAID logiciel, partages réseau et sauvegardes : montez votre propre serveur de fichiers.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="https://binaryforge.fr/guides/nas-maison-truenas.html">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="OCTET LAB">
+<meta property="og:title" content="Construire un NAS maison avec TrueNAS Scale | OCTET LAB">
+<meta property="og:description" content="Stockage centralisé, RAID logiciel, partages réseau et sauvegardes : montez votre propre serveur de fichiers.">
+<meta property="og:url" content="https://binaryforge.fr/guides/nas-maison-truenas.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Construire un NAS maison avec TrueNAS Scale | OCTET LAB">
+<meta name="twitter:description" content="Stockage centralisé, RAID logiciel, partages réseau et sauvegardes : montez votre propre serveur de fichiers.">
 <meta name="google-adsense-account" content="ca-pub-5118036301325782">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
 <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Construire un NAS maison avec TrueNAS Scale | OCTET LAB", "description": "Stockage centralisé, RAID logiciel, partages réseau et sauvegardes : montez votre propre serveur de fichiers.", "inLanguage": "fr-FR", "url": "https://binaryforge.fr/guides/nas-maison-truenas.html", "mainEntityOfPage": "https://binaryforge.fr/guides/nas-maison-truenas.html", "author": {"@type": "Organization", "name": "BinaryForge", "url": "https://binaryforge.fr"}, "publisher": {"@type": "Organization", "name": "BinaryForge", "url": "https://binaryforge.fr"}, "dateModified": "2026-11-20"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
@@ -19,7 +31,7 @@
 <body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 20 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -28,6 +40,7 @@
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
     <a href="../prompts-utiles.html">Prompts utiles</a>
+    <span class="visit-counter" id="visit-counter" aria-live="polite" title="Compteur local (ce navigateur)">Visites : --</span>
   </nav>
 </header>
 <article class="prose"><h1>Construire un NAS maison avec TrueNAS Scale</h1><p>Un NAS (Network Attached Storage) maison offre bien plus qu&#x27;un NAS commercial au même prix : accès root complet, apps Docker, pas d&#x27;abonnement, et une durée de vie indépendante des décisions d&#x27;un éditeur. TrueNAS Scale, basé sur Debian, est l&#x27;option la plus aboutie pour les débutants avancés.</p>
@@ -51,7 +64,7 @@
 <h2>Sauvegardes avec ZFS Replication</h2>
 <p>Programmez des snapshots automatiques (ex. : toutes les heures, rétention 7 jours) et répliquez vers un second NAS ou un VPS via <code>Data Protection &gt; Replication Tasks</code>. Le transfert différentiel n&#x27;envoie que les blocs modifiés.</p>
 <h2>Sécuriser l&#x27;accès</h2>
-<ul><li>Ne pas exposer l&#x27;interface web directement sur Internet : utilisez un VPN (WireGuard intégré dans TrueNAS Scale).</li><li>Activez l&#x27;authentification à deux facteurs pour le compte admin.</li><li>Chiffrez les datasets sensibles (<code>Encryption</code> lors de la création du dataset).</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<ul><li>Ne pas exposer l&#x27;interface web directement sur Internet : utilisez un VPN (WireGuard intégré dans TrueNAS Scale).</li><li>Activez l&#x27;authentification à deux facteurs pour le compte admin.</li><li>Chiffrez les datasets sensibles (<code>Encryption</code> lors de la création du dataset).</li></ul><section class="guide-related"><h2>Guides liés</h2><p>Pour aller plus loin sans quitter le site :</p><ul><li><a href="optimiser-performances-pc.html">Optimiser les performances de son PC sans dépenser un euro</a><small>Matériel</small></li><li><a href="monter-un-pc-pour-ia-locale.html">Monter un PC pour l&#x27;IA locale : les composants qui comptent</a><small>Matériel</small></li><li><a href="ollama-ou-lm-studio.html">Ollama ou LM Studio : lequel choisir ?</a><small>IA locale</small></li></ul></section><section class="guide-faq"><h2>FAQ</h2><p>Questions fréquentes pour appliquer ce guide correctement.</p><details><summary>À qui s’adresse le guide « Construire un NAS maison avec TrueNAS Scale » ?</summary><p>Ce guide s’adresse aux profils débutants à intermédiaires qui veulent appliquer une méthode claire sans jargon inutile.</p></details><details><summary>Par quoi commencer pour progresser sur Matériel ?</summary><p>Commencez par appliquer les étapes dans l’ordre, validez chaque checkpoint, puis passez à une optimisation mesurable.</p></details><details><summary>Comment éviter les erreurs courantes ?</summary><p>Préparez une checklist, testez sur un périmètre réduit et documentez les changements avant de généraliser en production.</p></details></section><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "À qui s’adresse le guide « Construire un NAS maison avec TrueNAS Scale » ?", "acceptedAnswer": {"@type": "Answer", "text": "Ce guide s’adresse aux profils débutants à intermédiaires qui veulent appliquer une méthode claire sans jargon inutile."}}, {"@type": "Question", "name": "Par quoi commencer pour progresser sur Matériel ?", "acceptedAnswer": {"@type": "Answer", "text": "Commencez par appliquer les étapes dans l’ordre, validez chaque checkpoint, puis passez à une optimisation mesurable."}}, {"@type": "Question", "name": "Comment éviter les erreurs courantes ?", "acceptedAnswer": {"@type": "Answer", "text": "Préparez une checklist, testez sur un périmètre réduit et documentez les changements avant de généraliser en production."}}]}</script><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>

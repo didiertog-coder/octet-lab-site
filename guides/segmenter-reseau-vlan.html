@@ -5,12 +5,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Réseau local sécurisé : segmenter son réseau avec un VLAN | OCTET LAB</title>
 <meta name="description" content="Isolez vos appareils IoT, votre NAS et vos PC avec des VLANs sur un routeur ou switch manageable.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="https://binaryforge.fr/guides/segmenter-reseau-vlan.html">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="OCTET LAB">
+<meta property="og:title" content="Réseau local sécurisé : segmenter son réseau avec un VLAN | OCTET LAB">
+<meta property="og:description" content="Isolez vos appareils IoT, votre NAS et vos PC avec des VLANs sur un routeur ou switch manageable.">
+<meta property="og:url" content="https://binaryforge.fr/guides/segmenter-reseau-vlan.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Réseau local sécurisé : segmenter son réseau avec un VLAN | OCTET LAB">
+<meta name="twitter:description" content="Isolez vos appareils IoT, votre NAS et vos PC avec des VLANs sur un routeur ou switch manageable.">
 <meta name="google-adsense-account" content="ca-pub-5118036301325782">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://plausible.io https://cdn.umami.is; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io https://cdn.umami.is https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
 <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Réseau local sécurisé : segmenter son réseau avec un VLAN | OCTET LAB", "description": "Isolez vos appareils IoT, votre NAS et vos PC avec des VLANs sur un routeur ou switch manageable.", "inLanguage": "fr-FR", "url": "https://binaryforge.fr/guides/segmenter-reseau-vlan.html", "mainEntityOfPage": "https://binaryforge.fr/guides/segmenter-reseau-vlan.html", "author": {"@type": "Organization", "name": "BinaryForge", "url": "https://binaryforge.fr"}, "publisher": {"@type": "Organization", "name": "BinaryForge", "url": "https://binaryforge.fr"}, "dateModified": "2026-11-20"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
@@ -19,7 +31,7 @@
 <body data-ga4="" data-plausible-domain="" data-umami-script="" data-umami-id="" data-adsense-enabled="1" data-adsense-client="ca-pub-5118036301325782" data-adsense-slot-home="">
 <header class="bar">
   <div class="bar-left">
-    <span class="date-badge" id="live-date">&#128197; vendredi 13 novembre 2026</span>
+    <span class="date-badge" id="live-date">&#128197; vendredi 20 novembre 2026</span>
     <a class="logo" href="../index.html">OCTET LAB</a>
   </div>
   <nav>
@@ -28,6 +40,7 @@
     <a href="../index.html#materiel">Matériel</a>
     <a href="../ia-thematiques.html">IA thématiques</a>
     <a href="../prompts-utiles.html">Prompts utiles</a>
+    <span class="visit-counter" id="visit-counter" aria-live="polite" title="Compteur local (ce navigateur)">Visites : --</span>
   </nav>
 </header>
 <article class="prose"><h1>Réseau local sécurisé : segmenter son réseau avec un VLAN</h1><p>Mélanger caméras connectées, télévisions intelligentes, PC de travail et serveur personnel sur le même réseau local est un risque réel. Un appareil IoT compromis peut observer ou attaquer le reste. Les VLANs créent des cloisonnements logiques sans câblage supplémentaire.</p>
@@ -48,7 +61,7 @@
 <h2>Vérifier l&#x27;isolation</h2>
 <p>Depuis un appareil IoT, essayez de pinguer un PC du VLAN Maison : la requête doit échouer. Utilisez <code>nmap -sn 192.168.10.0/24</code> depuis le VLAN IoT pour confirmer qu&#x27;aucun hôte du réseau principal n&#x27;est visible.</p>
 <h2>Bonnes pratiques</h2>
-<ul><li>Changez les credentials par défaut de tous les équipements réseau.</li><li>Activez les mises à jour automatiques du firmware du routeur si disponibles.</li><li>Journalisez les connexions inter-VLAN pour détecter les anomalies.</li><li>Désactivez UPnP, surtout sur le segment IoT.</li></ul><p><a href="../index.html">← Retour aux guides</a></p></article>
+<ul><li>Changez les credentials par défaut de tous les équipements réseau.</li><li>Activez les mises à jour automatiques du firmware du routeur si disponibles.</li><li>Journalisez les connexions inter-VLAN pour détecter les anomalies.</li><li>Désactivez UPnP, surtout sur le segment IoT.</li></ul><section class="guide-related"><h2>Guides liés</h2><p>Pour aller plus loin sans quitter le site :</p><ul><li><a href="nas-maison-truenas.html">Construire un NAS maison avec TrueNAS Scale</a><small>Matériel</small></li><li><a href="docker-pour-developpeurs.html">Docker pour les développeurs solo : conteneuriser ses projets en 30 minutes</a><small>Développement</small></li></ul></section><section class="guide-faq"><h2>FAQ</h2><p>Questions fréquentes pour appliquer ce guide correctement.</p><details><summary>À qui s’adresse le guide « Réseau local sécurisé : segmenter son réseau avec un VLAN » ?</summary><p>Ce guide s’adresse aux profils débutants à intermédiaires qui veulent appliquer une méthode claire sans jargon inutile.</p></details><details><summary>Par quoi commencer pour progresser sur Réseau &amp; Sécurité ?</summary><p>Commencez par appliquer les étapes dans l’ordre, validez chaque checkpoint, puis passez à une optimisation mesurable.</p></details><details><summary>Comment éviter les erreurs courantes ?</summary><p>Préparez une checklist, testez sur un périmètre réduit et documentez les changements avant de généraliser en production.</p></details></section><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "À qui s’adresse le guide « Réseau local sécurisé : segmenter son réseau avec un VLAN » ?", "acceptedAnswer": {"@type": "Answer", "text": "Ce guide s’adresse aux profils débutants à intermédiaires qui veulent appliquer une méthode claire sans jargon inutile."}}, {"@type": "Question", "name": "Par quoi commencer pour progresser sur Réseau & Sécurité ?", "acceptedAnswer": {"@type": "Answer", "text": "Commencez par appliquer les étapes dans l’ordre, validez chaque checkpoint, puis passez à une optimisation mesurable."}}, {"@type": "Question", "name": "Comment éviter les erreurs courantes ?", "acceptedAnswer": {"@type": "Answer", "text": "Préparez une checklist, testez sur un périmètre réduit et documentez les changements avant de généraliser en production."}}]}</script><p><a href="../index.html">← Retour aux guides</a></p></article>
 <div id="cookie-banner" class="cookie-banner" hidden>
   <p>Nous utilisons des cookies de mesure d’audience et publicitaires pour améliorer le site.
      <a href="../politique-cookies.html">En savoir plus</a>.</p>
