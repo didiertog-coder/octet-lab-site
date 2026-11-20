@@ -16,42 +16,81 @@ function initVisitCounter() {
   const totalKey = 'octetlab_visit_total';
   const dailyHistoryKey = 'octetlab_visit_daily_history';
   const legacyKey = 'octetlab_visit_count';
+  const sessionKey = 'octetlab_visit_session_date';
+  const versionKey = 'octetlab_visit_counter_version';
 
   const toPositiveInt = (value) => {
     const parsed = Number.parseInt(String(value || '0'), 10);
     return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
   };
 
-  let total = toPositiveInt(localStorage.getItem(totalKey));
-  if (!total) {
-    const legacyValue = toPositiveInt(localStorage.getItem(legacyKey));
-    if (legacyValue > 0) {
-      total = legacyValue;
-      localStorage.removeItem(legacyKey);
-    }
-  }
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
+  let total = 0;
   let dailyHistory = {};
+  let sessionDate = '';
+
   try {
+    total = toPositiveInt(localStorage.getItem(totalKey));
+
     const rawHistory = localStorage.getItem(dailyHistoryKey);
     const parsedHistory = rawHistory ? JSON.parse(rawHistory) : {};
     if (parsedHistory && typeof parsedHistory === 'object' && !Array.isArray(parsedHistory)) {
       dailyHistory = parsedHistory;
     }
+
+    sessionDate = sessionStorage.getItem(sessionKey) || '';
+
+    if (localStorage.getItem(versionKey) !== '2') {
+      const legacyValue = toPositiveInt(localStorage.getItem(legacyKey));
+      if (!total && legacyValue > 0) total = legacyValue;
+
+      dailyHistory = {};
+      total = toPositiveInt(total);
+      sessionStorage.removeItem(sessionKey);
+      localStorage.removeItem(legacyKey);
+      localStorage.setItem(versionKey, '2');
+      sessionDate = '';
+    }
   } catch (_error) {
+    total = 0;
     dailyHistory = {};
+    sessionDate = '';
   }
 
-  const today = new Date().toISOString().slice(0, 10);
-  const todayCount = toPositiveInt(dailyHistory[today]) + 1;
-  dailyHistory[today] = todayCount;
-  total += 1;
+  if (sessionDate !== today) {
+    try {
+      sessionStorage.setItem(sessionKey, today);
+    } catch (_error) {
+      // localStorage remains the only persisted source if sessionStorage is blocked.
+    }
 
-  localStorage.setItem(totalKey, String(total));
-  localStorage.setItem(dailyHistoryKey, JSON.stringify(dailyHistory));
+    total += 1;
+    dailyHistory[today] = toPositiveInt(dailyHistory[today]) + 1;
 
-  counter.textContent = `Visites: jour ${todayCount} · total ${total}`;
-  counter.title = 'Compteur local: visites du jour et total cumule sur ce navigateur';
+    const retainedHistory = {};
+    Object.keys(dailyHistory)
+      .sort()
+      .slice(-366)
+      .forEach(date => {
+        const count = toPositiveInt(dailyHistory[date]);
+        if (count > 0) retainedHistory[date] = count;
+      });
+
+    dailyHistory = retainedHistory;
+
+    try {
+      localStorage.setItem(totalKey, String(total));
+      localStorage.setItem(dailyHistoryKey, JSON.stringify(dailyHistory));
+    } catch (_error) {
+      // The counter stays visible with the current page session if storage is blocked.
+    }
+  }
+
+  const todayCount = toPositiveInt(dailyHistory[today]);
+  counter.textContent = `Visites locales: jour ${todayCount} · total ${total}`;
+  counter.title = 'Compteur local de ce navigateur uniquement. Les visites ne sont pas comptées à chaque changement de page.';
 }
 
 const f = document.getElementById('vram');

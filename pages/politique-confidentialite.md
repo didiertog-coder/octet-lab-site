@@ -11,6 +11,7 @@ Selon les fonctionnalités activées, le site peut traiter :
 - Données de mesure d’audience (pages vues, durée de session, source de trafic, appareil, zone géographique approximative).
 - Données techniques (adresse IP tronquée/anonymisée selon l’outil, user-agent, journaux d’accès de l’hébergeur).
 - Données liées aux revenus publicitaires/affiliation (clics, conversions agrégées fournies par les plateformes partenaires).
+- Compteur local affiché dans le menu : uniquement le nombre de visites du navigateur, conservé avec `localStorage` et identifiant de session avec `sessionStorage`. Ces données restent sur l’appareil de l’utilisateur et ne sont pas envoyées à un serveur analytique par OCTET LAB.
 
 Aucune donnée sensible n’est intentionnellement collectée.
 

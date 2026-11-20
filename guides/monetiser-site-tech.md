@@ -29,13 +29,14 @@ L'affiliation consiste à recommander des produits ou services avec un lien tra�
 
 Renseignez votre propre tag d’affiliation dans `config.json` :
 ```json
-"url": "https://www.amazon.fr/?tag=monsite-21"
+"url": "https://www.amazon.fr/?tag=VOTRE-TAG-21"
 ```
+Remplacez uniquement la valeur `VOTRE-TAG-21` par votre identifiant Amazon Partenaires actif. Ne publiez pas de lien avec un identifiant d’essai ou fictif.
 Votre tag Amazon a généralement ce format (`...-21`) et se récupère dans votre tableau de bord Partenaires Amazon.
 
 ## 2. Google AdSense : revenu passif display
 
-AdSense affiche des publicités automatiques sur votre site. Vous êtes rémunéré au clic (CPC) et aux impressions (CPM).
+AdSense affiche des publicités automatiques sur votre site. Vous êtes rémunéré selon les règles applicables aux clics valides (CPC) et aux impressions (CPM). Conservez un site original, navigable, transparent sur les publicités et conforme aux politiques AdSense avant demande de monétisation.
 
 ### Activer AdSense sur OCTET LAB
 

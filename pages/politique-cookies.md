@@ -9,9 +9,9 @@ Un cookie est un petit fichier déposé sur votre terminal lors de la visite d�
 
 Selon la configuration activée, le site peut utiliser :
 
-- **Cookies strictement nécessaires** : fonctionnement technique et sécurité.
-- **Cookies de mesure d’audience** : analyse de fréquentation (ex. GA4, Plausible, Umami).
-- **Cookies publicitaires** : diffusion et mesure de performance des annonces (ex. AdSense).
+- **Stockage strictement nécessaire** : fonctionnement technique, préférences de favoris, consentement cookie et compteur local du menu.
+- **Cookies de mesure d’audience** : analyse de fréquentation (ex. GA4, Plausible, Umami), uniquement après consentement.
+- **Cookies publicitaires** : diffusion et mesure de performance des annonces (ex. AdSense), uniquement après consentement.
 
 ## Consentement
 
